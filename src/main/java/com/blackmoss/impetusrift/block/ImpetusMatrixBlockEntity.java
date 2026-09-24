@@ -10,6 +10,7 @@ import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.leclowndu93150.thaumaturge.api.infusion.IInfusionStabiliser;
 import com.leclowndu93150.thaumaturge.api.items.IGogglesDisplayExtended;
 import com.leclowndu93150.thaumaturge.content.infusion.InfusionStabilitySurvey;
+import com.leclowndu93150.thaumaturge.content.infusion.InstabilityEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -19,6 +20,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -136,27 +138,21 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private void updateStability() {
         if (level == null || !checkLocation()) return;
 
-        // 计算稳定性增益（来自5×5×5范围内的稳定器方块）
         stabilityGain = calculateStabilityGain();
 
-        // 计算稳定性损失（与能量比例成正比）
-        // 规范：0.01稳定度=1%能量上限，所以每周期损失 = 能量比例 * 1.0
         float loss = getStabilityLossPerCycle();
         stability -= level.getRandom().nextFloat() * loss;
         stability += stabilityGain;
         stability = Math.clamp(stability, MIN_STABILITY, MAX_STABILITY);
 
-        // 不稳定效果
         if (stability < 0.0F && level.getRandom().nextInt(1500) <= Math.abs(stability)) {
             if (level.getRandom().nextInt(5) == 0) {
-                // 20%概率：弹出能量单元
                 ejectEnergyUnit();
             } else {
-                // 80%概率：释放能量（紫色闪电电弧效果）
                 long discharge = (long) (energyStorage.getMaxEnergyStored() * level.getRandom().nextFloat() * 0.02F);
                 energyStorage.extractEnergy(discharge, false);
-                // TODO: 生成紫色闪电电弧粒子效果
             }
+            InstabilityEvents.trigger((ServerLevel) level, worldPosition, List.of());
             setChanged();
             syncToClient();
         }
