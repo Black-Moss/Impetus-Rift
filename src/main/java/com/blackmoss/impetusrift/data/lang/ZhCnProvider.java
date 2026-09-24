@@ -57,16 +57,12 @@ public class ZhCnProvider extends LanguageProvider {
     }
 
     private void jade() {
+        add("config.jade.plugin_impetusrift.input_nodes", "元动节点");
         add("jade.impetusrift.input_nodes", "输入节点：%1$s / %2$s");
         add("jade.impetusrift.output_nodes", "输出节点：%1$s / %2$s");
-        add("jade.impetusrift.energy", "元动能量 %1$s / %2$s");
-        add("jade.impetusrift.disabled", "已禁用（红石关闭）");
-        add("jade.impetusrift.draining", "汲取中");
-        add("jade.impetusrift.rift_size", "裂隙大小 %1$s");
-        add("jade.impetusrift.stability", "稳定度 %1$s");
-        add("jade.impetusrift.collapsing", "裂隙正在坍缩");
-        add("jade.impetusrift.no_rift", "未绑定裂隙");
-        add("jade.impetusrift.nearby_rifts", "附近 %1$s 个裂隙");
+        add("jade.impetusrift.energy", "元动能量：%1$s / %2$s");
+        add("jade.impetusrift.rift_size", "裂隙大小：%1$s");
+        add("jade.impetusrift.stability", "稳定度：%1$s");
     }
 
     // 元动谐振器

@@ -52,33 +52,15 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
     }
 
     private static void appendDrainerDiagnostic(ITooltip tooltip, CompoundTag data) {
-        boolean enabled = data.getBooleanOr(ImpetusNodeDataProvider.KEY_ENABLED, true);
-        int riftCount = data.getIntOr(ImpetusNodeDataProvider.KEY_RIFT_COUNT, 0);
         boolean hasRift = data.getBooleanOr(ImpetusNodeDataProvider.KEY_HAS_RIFT, false);
-
-        if (!enabled) {
-            tooltip.add(Component.translatable(PREFIX + "disabled"));
-            return;
-        }
 
         if (hasRift) {
             int size = data.getIntOr(ImpetusNodeDataProvider.KEY_RIFT_SIZE, 0);
             float stability = data.getFloatOr(ImpetusNodeDataProvider.KEY_RIFT_STABILITY, 0.0F);
-            boolean collapse = data.getBooleanOr(ImpetusNodeDataProvider.KEY_RIFT_COLLAPSE, false);
 
-            tooltip.add(Component.translatable(PREFIX + "draining")
-                    .append(Component.literal("  "))
-                    .append(Component.translatable(PREFIX + "rift_size", size))
+            tooltip.add(Component.translatable(PREFIX + "rift_size", size)
                     .append(Component.literal("  "))
                     .append(Component.translatable(PREFIX + "stability", String.format("%.1f", stability))));
-
-            if (collapse) {
-                tooltip.add(Component.translatable(PREFIX + "collapsing"));
-            }
-        } else {
-            tooltip.add(Component.translatable(PREFIX + "no_rift")
-                    .append(Component.literal("  "))
-                    .append(Component.translatable(PREFIX + "nearby_rifts", riftCount)));
         }
     }
 }

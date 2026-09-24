@@ -22,12 +22,9 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
     public static final String KEY_MAX_INPUTS = "maxInputs";
     public static final String KEY_OUTPUT_COUNT = "outputCount";
     public static final String KEY_MAX_OUTPUTS = "maxOutputs";
-    public static final String KEY_ENABLED = "enabled";
-    public static final String KEY_RIFT_COUNT = "riftCount";
     public static final String KEY_HAS_RIFT = "hasRift";
     public static final String KEY_RIFT_SIZE = "riftSize";
     public static final String KEY_RIFT_STABILITY = "riftStability";
-    public static final String KEY_RIFT_COLLAPSE = "riftCollapse";
 
     @Override
     public @NonNull Identifier getUid() {
@@ -55,8 +52,6 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
         }
 
         if (be instanceof ImpetusDrainerBlockEntity drainer) {
-            tag.putBoolean(KEY_ENABLED, drainer.isEnabled());
-            tag.putInt(KEY_RIFT_COUNT, drainer.getNearbyRiftCount());
             boolean hasRift = drainer.hasBoundRift();
             tag.putBoolean(KEY_HAS_RIFT, hasRift);
 
@@ -64,7 +59,6 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
             if (hasRift && rift != null) {
                 tag.putInt(KEY_RIFT_SIZE, rift.getRiftSize());
                 tag.putFloat(KEY_RIFT_STABILITY, rift.getRiftStability());
-                tag.putBoolean(KEY_RIFT_COLLAPSE, rift.getCollapse());
             }
         }
     }

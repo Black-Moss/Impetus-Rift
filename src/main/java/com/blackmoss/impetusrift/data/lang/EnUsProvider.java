@@ -57,16 +57,12 @@ public class EnUsProvider extends LanguageProvider {
     }
 
     private void jade() {
+        add("config.jade.plugin_impetusrift.input_nodes", "Input Nodes");
         add("jade.impetusrift.input_nodes", "Input Nodes: %1$s/%2$s");
         add("jade.impetusrift.output_nodes", "Output Nodes: %1$s/%2$s");
-        add("jade.impetusrift.energy", "Impetus Energy %1$s/%2$s");
-        add("jade.impetusrift.disabled", "Disabled (Redstone)");
-        add("jade.impetusrift.draining", "Draining");
-        add("jade.impetusrift.rift_size", "Rift Size %1$s");
-        add("jade.impetusrift.stability", "Stability %1$s");
-        add("jade.impetusrift.collapsing", "Rift Collapsing");
-        add("jade.impetusrift.no_rift", "No Rift Bound");
-        add("jade.impetusrift.nearby_rifts", "Nearby Rifts: %1$s");
+        add("jade.impetusrift.energy", "Impetus Energy: %1$s/%2$s");
+        add("jade.impetusrift.rift_size", "Rift Size: %1$s");
+        add("jade.impetusrift.stability", "Stability: %1$s");
     }
 
     // 元动谐振器

@@ -37,46 +37,42 @@ public class ImpetusLinkerItem extends Item {
 
     private static @Nullable MutableComponent diagnoseConnectionFailure(Level level, BlockPos sourcePos, BlockPos targetPos) {
         if (sourcePos.distManhattan(targetPos) > ImpetusConnection.MAX_DISTANCE) {
-            return Component.translatable("item.impulserift.impetus_linker.too_far",
+            return Component.translatable("item.impetusrift.impetus_linker.too_far",
                     ImpetusConnection.MAX_DISTANCE);
         }
 
         // 视线检查：不能穿透不透明方块
         if (!hasLineOfSight(level, sourcePos, targetPos)) {
-            return Component.translatable("item.impulserift.impetus_linker.blocked");
+            return Component.translatable("item.impetusrift.impetus_linker.blocked");
         }
 
         IImpetusNode sourceNode = getNodeAt(level, sourcePos);
         IImpetusNode targetNode = getNodeAt(level, targetPos);
 
-        if (sourceNode == null) return Component.translatable("item.impulserift.impetus_linker.no_source");
-        if (targetNode == null) return Component.translatable("item.impulserift.impetus_linker.no_target");
+        if (sourceNode == null) return Component.translatable("item.impetusrift.impetus_linker.no_source");
+        if (targetNode == null) return Component.translatable("item.impetusrift.impetus_linker.no_target");
 
         if (!sourceNode.canOutput()) {
-            return Component.translatable("item.impulserift.impetus_linker.cannot_output",
+            return Component.translatable("item.impetusrift.impetus_linker.cannot_output",
                     sourceNode.getNodeLabel());
         }
         if (sourceNode.getConnectedOutputCount() >= sourceNode.getMaxOutputs()) {
-            return Component.translatable("item.impulserift.impetus_linker.output_full",
+            return Component.translatable("item.impetusrift.impetus_linker.output_full",
                     sourceNode.getConnectedOutputCount(), sourceNode.getMaxOutputs());
         }
 
         if (!targetNode.canInput()) {
-            return Component.translatable("item.impulserift.impetus_linker.cannot_input",
+            return Component.translatable("item.impetusrift.impetus_linker.cannot_input",
                     targetNode.getNodeLabel());
         }
         if (targetNode.getConnectedInputCount() >= targetNode.getMaxInputs()) {
-            return Component.translatable("item.impulserift.impetus_linker.input_full",
+            return Component.translatable("item.impetusrift.impetus_linker.input_full",
                     targetNode.getConnectedInputCount(), targetNode.getMaxInputs());
         }
 
         return null;
     }
 
-    /**
-     * 检查两个方块中心之间是否有不透明方块阻挡。
-     * 使用简单的步进检查，从源到目标逐格检查。
-     */
     private static boolean hasLineOfSight(Level level, BlockPos from, BlockPos to) {
         // 使用 Bresenham 风格的步进检查
         int dx = to.getX() - from.getX();
@@ -175,7 +171,7 @@ public class ImpetusLinkerItem extends Item {
 
         if (alreadyConnected) {
             manager.removeConnection(boundSource, clickedPos);
-            player.sendSystemMessage(colored("item.impulserift.impetus_linker.disconnected",
+            player.sendSystemMessage(colored("item.impetusrift.impetus_linker.disconnected",
                     ChatFormatting.YELLOW, formatPos(boundSource), formatPos(clickedPos)));
         } else {
             MutableComponent failReason = diagnoseConnectionFailure(level, boundSource, clickedPos);
@@ -184,10 +180,10 @@ public class ImpetusLinkerItem extends Item {
             } else {
                 boolean success = manager.addConnection(boundSource, clickedPos, level);
                 if (success) {
-                    player.sendSystemMessage(colored("item.impulserift.impetus_linker.connected",
+                    player.sendSystemMessage(colored("item.impetusrift.impetus_linker.connected",
                             ChatFormatting.GREEN, formatPos(boundSource), formatPos(clickedPos)));
                 } else {
-                    player.sendSystemMessage(colored("item.impulserift.impetus_linker.failed",
+                    player.sendSystemMessage(colored("item.impetusrift.impetus_linker.failed",
                             ChatFormatting.RED));
                 }
             }

@@ -3,10 +3,13 @@ package com.blackmoss.impetusrift.block;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.ImpetusEnergyStorage;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
-import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.blackmoss.impetusrift.energy.network.ImpetusConnection;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
+import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.blackmoss.impetusrift.registry.IRBlockEntities;
+import com.leclowndu93150.thaumaturge.api.infusion.IInfusionStabiliser;
+import com.leclowndu93150.thaumaturge.api.items.IGogglesDisplayExtended;
+import com.leclowndu93150.thaumaturge.content.infusion.InfusionStabilitySurvey;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -14,8 +17,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
@@ -23,15 +29,20 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.NonNull;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNode {
+public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNode, IGogglesDisplayExtended {
     private static final long BASE_CAPACITY = 0L;
     private static final long MAX_TRANSFER = 200L;
     private static final float MIN_STABILITY = -100.0F;
     private static final float MAX_STABILITY = 25.0F;
     private static final int STABILITY_DECAY_INTERVAL = 20;
+    private static final int STABILITY_SCAN_RADIUS = 2;
+    private static final double STABILISER_DIMINISHING = 0.75;
 
     private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BASE_CAPACITY, MAX_TRANSFER, MAX_TRANSFER);
     public float clientStartUp = 0.0F;
@@ -75,9 +86,7 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private void tick() {
         if (level == null) return;
 
-        // 客户端：平滑过渡 clientStartUp
         if (level.isClientSide()) {
-            // 服务端通过 NBT 同步 active 状态，客户端直接用 checkLocation
             boolean shouldBeActive = checkLocation();
             if (shouldBeActive) {
                 clientStartUp = Math.min(1.0F, clientStartUp + 0.02F);
@@ -96,9 +105,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
         }
     }
 
-    /**
-     * 从上下基座读取已安装的能量单元数，更新容量
-     */
     private void updateInstalledUnits() {
         if (level == null) return;
         int total = 0;
@@ -122,9 +128,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
         }
     }
 
-    /**
-     * 当基座的能量单元变化时调用
-     */
     public void onCapacityChanged() {
         if (level == null || level.isClientSide()) return;
         updateInstalledUnits();
@@ -159,34 +162,32 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
         }
     }
 
-    /**
-     * 计算稳定性增益（扫描5×5×5范围内的稳定器方块）
-     */
     private float calculateStabilityGain() {
         if (level == null) return 0.0F;
 
-        float gain = 0.0F;
-        // 扫描5×5×5范围
-        for (int dx = -2; dx <= 2; dx++) {
-            for (int dy = -2; dy <= 2; dy++) {
-                for (int dz = -2; dz <= 2; dz++) {
-                    BlockPos checkPos = worldPosition.offset(dx, dy, dz);
-                    BlockState checkState = level.getBlockState(checkPos);
-                    // 检查是否是稳定器方块（如 candles、水晶等）
-                    // 暂时用简单的方块检测，后续可以扩展
-                    if (isStabilizerBlock(checkState)) {
-                        gain += 0.02F; // 每个稳定器提供0.02增益
+        float total = 0.0F;
+        Map<Block, Integer> countedByType = new HashMap<>();
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        for (int dx = -STABILITY_SCAN_RADIUS; dx <= STABILITY_SCAN_RADIUS; dx++) {
+            for (int dz = -STABILITY_SCAN_RADIUS; dz <= STABILITY_SCAN_RADIUS; dz++) {
+                for (int dy = -STABILITY_SCAN_RADIUS; dy <= STABILITY_SCAN_RADIUS; dy++) {
+                    if (dx == 0 && dy == 0 && dz == 0) continue;
+                    cursor.set(worldPosition.getX() + dx, worldPosition.getY() + dy, worldPosition.getZ() + dz);
+                    if (!InfusionStabilitySurvey.isStabiliser(level, cursor)) continue;
+
+                    Block block = level.getBlockState(cursor).getBlock();
+                    float amount = block instanceof IInfusionStabiliser stabiliser
+                            ? stabiliser.getStabilizationAmount(level, cursor)
+                            : IInfusionStabiliser.DEFAULT_STABILIZATION;
+                    int counted = countedByType.merge(block, 1, Integer::sum) - 1;
+                    if (counted > 0) {
+                        amount *= (float) Math.pow(STABILISER_DIMINISHING, counted);
                     }
+                    total += amount;
                 }
             }
         }
-        return Math.min(gain, 0.5F); // 最大增益0.5
-    }
-
-    private boolean isStabilizerBlock(BlockState state) {
-        // 检查是否是蜡烛、水晶等稳定器方块
-        // 暂时返回false，后续可以添加具体方块检测
-        return false;
+        return total;
     }
 
     private float getStabilityLossPerCycle() {
@@ -198,7 +199,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private void ejectEnergyUnit() {
         if (level == null) return;
 
-        // 尝试从下方基座弹出
         BlockPos belowPos = worldPosition.below();
         if (level.getBlockEntity(belowPos) instanceof ImpetusAltarBaseBlockEntity belowBase) {
             if (belowBase.ejectRandomUnit(level, belowPos)) {
@@ -206,7 +206,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
             }
         }
 
-        // 尝试从上方基座弹出
         BlockPos abovePos = worldPosition.above();
         if (level.getBlockEntity(abovePos) instanceof ImpetusAltarBaseBlockEntity aboveBase) {
             aboveBase.ejectRandomUnit(level, abovePos);
@@ -278,6 +277,35 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     @Override
     public float getStability() {
         return stability;
+    }
+
+    // ===== 护目镜显示（稳定度）=====
+    // 稳定度通过 Thaumaturge 护目镜层（IGogglesDisplayExtended）显示；Jade 只显示元动节点数据。
+    private static final DecimalFormat STABILITY_FORMAT = new DecimalFormat("#######.##");
+
+    @Override
+    public Component[] getIGogglesText() {
+        // 直接复用 Thaumaturge 注入稳定度的语言键（gui.thaumaturge.infusion.stability.*），避免重复定义
+        Component tier = Component.translatable(stabilityTierKey()).withStyle(ChatFormatting.BOLD);
+        Component gain = Component.literal(STABILITY_FORMAT.format(stabilityGain) + " ")
+                .append(Component.translatable("gui.thaumaturge.infusion.stability.gain"))
+                .withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC);
+        float loss = getStabilityLossPerCycle();
+        if (loss <= 0.0F) {
+            return new Component[]{tier, gain};
+        }
+        Component lossText = Component.translatable("gui.thaumaturge.infusion.stability.range")
+                .append(Component.literal(STABILITY_FORMAT.format(loss) + " ")
+                        .append(Component.translatable("gui.thaumaturge.infusion.stability.loss").withStyle(ChatFormatting.ITALIC)))
+                .withStyle(ChatFormatting.RED);
+        return new Component[]{tier, gain, lossText};
+    }
+
+    private String stabilityTierKey() {
+        if (stability > 12.5F) return "gui.thaumaturge.infusion.stability.very_stable";
+        if (stability >= 0.0F) return "gui.thaumaturge.infusion.stability.stable";
+        if (stability > -25.0F) return "gui.thaumaturge.infusion.stability.unstable";
+        return "gui.thaumaturge.infusion.stability.very_unstable";
     }
 
     @Override

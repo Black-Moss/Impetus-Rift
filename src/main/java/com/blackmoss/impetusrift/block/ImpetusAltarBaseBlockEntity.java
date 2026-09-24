@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -147,14 +148,25 @@ public class ImpetusAltarBaseBlockEntity extends BlockEntity {
         for (int i = 0; i < 4; i++) {
             if (installedUnits[i]) {
                 installedUnits[i] = false;
+                Direction face = indexToDirection(i);
                 setChanged();
                 syncToClient();
                 notifyMatrix();
-                // TODO: 在对应方向弹出物品实体
+                spawnEjectedUnit(face, level, pos);
                 return true;
             }
         }
         return false;
+    }
+
+    private void spawnEjectedUnit(Direction face, Level level, BlockPos pos) {
+        ItemStack stack = new ItemStack(getItemForUnit());
+        double x = pos.getX() + 0.5 + face.getStepX() * 0.6;
+        double y = pos.getY() + 0.5 + face.getStepY() * 0.6;
+        double z = pos.getZ() + 0.5 + face.getStepZ() * 0.6;
+        ItemEntity entity = new ItemEntity(level, x, y, z, stack);
+        entity.setDeltaMovement(face.getStepX() * 0.12, 0.15, face.getStepZ() * 0.12);
+        level.addFreshEntity(entity);
     }
 
     private Item getItemForUnit() {
