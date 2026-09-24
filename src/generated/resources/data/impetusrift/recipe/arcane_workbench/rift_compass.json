@@ -1,0 +1,20 @@
+{
+  "type": "thaumaturge:arcane_workbench_shapeless",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "ingredients": [
+    "thaumaturge:salis_mundus",
+    "thaumaturge:crystal_vitium",
+    "impetusrift:impetus_gem"
+  ],
+  "research": {
+    "entry": "impetusrift:rift_locator"
+  },
+  "result": {
+    "id": "impetusrift:rift_compass"
+  },
+  "vis": 50
+}

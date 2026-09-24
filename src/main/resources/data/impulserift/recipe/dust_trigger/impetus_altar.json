@@ -1,0 +1,7 @@
+{
+  "type": "thaumaturge:dust_trigger_multiblock",
+  "blueprint": "impetusrift:impetus_altar",
+  "result": {
+    "id": "impetusrift:impetus_matrix"
+  }
+}

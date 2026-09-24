@@ -1,0 +1,8 @@
+# Blender MTL File: 'rift_mover_output.blend'
+# Material Count: 1
+
+newmtl Material
+Kd 1.000000 1.000000 1.000000
+d 1.000000
+map_Ka #texture0
+map_Kd #texture0

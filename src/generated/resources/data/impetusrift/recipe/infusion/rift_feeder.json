@@ -1,0 +1,27 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 30,
+      "aspect": "thaumaturge:vitium"
+    },
+    {
+      "amount": 20,
+      "aspect": "thaumaturge:alienis"
+    }
+  ],
+  "catalyst": "thaumaturge:jar_brain",
+  "components": [
+    "thaumaturge:crystal_vitium",
+    "thaumaturge:salis_mundus",
+    "thaumaturge:crystal_vitium",
+    "thaumaturge:salis_mundus"
+  ],
+  "instability": 5,
+  "research": {
+    "entry": "impetusrift:rift_feeder"
+  },
+  "result": {
+    "id": "impetusrift:rift_feeder"
+  }
+}

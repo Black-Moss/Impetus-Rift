@@ -1,0 +1,54 @@
+{
+  "keys": {
+    "D": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:pedestal_eldritch"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "impetusrift:impetus_altar_base",
+          "Properties": {
+            "facing": "down"
+          }
+        }
+      }
+    },
+    "U": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:pedestal_eldritch"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "impetusrift:impetus_altar_base",
+          "Properties": {
+            "facing": "up"
+          }
+        }
+      }
+    },
+    "I": {
+      "source": {
+        "type": "block",
+        "block": "impetusrift:impetus_matrix"
+      }
+    }
+  },
+  "pattern": [
+    [
+      "D"
+    ],
+    [
+      "I"
+    ],
+    [
+      "U"
+    ]
+  ],
+  "x_size": 1,
+  "y_size": 3,
+  "z_size": 1
+}

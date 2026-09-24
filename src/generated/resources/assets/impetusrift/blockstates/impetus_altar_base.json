@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "impetusrift:block/impetus_altar_base",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "impetusrift:block/impetus_altar_base"
+    }
+  }
+}

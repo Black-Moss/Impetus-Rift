@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "impetusrift:item/rift_compass_01"
+  }
+}

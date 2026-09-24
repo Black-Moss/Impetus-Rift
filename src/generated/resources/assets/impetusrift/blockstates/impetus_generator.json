@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "impetusrift:block/impetus_generator",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "impetusrift:block/impetus_generator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "impetusrift:block/impetus_generator"
+    },
+    "facing=south": {
+      "model": "impetusrift:block/impetus_generator",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "impetusrift:block/impetus_generator",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "impetusrift:block/impetus_generator",
+      "y": 270
+    }
+  }
+}

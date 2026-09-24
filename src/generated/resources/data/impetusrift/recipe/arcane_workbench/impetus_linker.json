@@ -1,0 +1,23 @@
+{
+  "type": "thaumaturge:arcane_workbench_shapeless",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ignis"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    }
+  ],
+  "ingredients": [
+    "thaumaturge:salis_mundus",
+    "thaumaturge:crystal_vitium",
+    "impetusrift:impetus_gem"
+  ],
+  "research": {
+    "entry": "impetusrift:impetus_linker"
+  },
+  "result": {
+    "id": "impetusrift:impetus_linker"
+  },
+  "vis": 40
+}
