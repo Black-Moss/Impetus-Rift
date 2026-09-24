@@ -1,9 +1,9 @@
 {
   "loader": "neoforge:obj",
-  "model": "impulserift:models/block/rift_mover_output.obj",
+  "model": "impetusrift:models/block/rift_mover_output.obj",
   "textures": {
-    "texture0": "impulserift:block/rift_mover_output",
-    "particle": "impulserift:block/rift_mover_output"
+    "texture0": "impetusrift:block/rift_mover_output",
+    "particle": "impetusrift:block/rift_mover_output"
   },
   "flip_v": true,
   "display": {

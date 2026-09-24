@@ -160,7 +160,3 @@ idea {
         downloadJavadoc = true
     }
 }
-
-tasks.named('jar', Jar).configure {
-    archiveFileName = "${mod_name}-${mod_version}-NeoForge-${minecraft_version}.jar"
-}

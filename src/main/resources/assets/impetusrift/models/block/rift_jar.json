@@ -4,10 +4,10 @@
   "credit": "Made with Blockbench",
   "ambientocclusion": false,
   "textures": {
-    "particle": "impulserift:block/rift_jar_side",
-    "side": "impulserift:block/rift_jar_side",
-    "bottom": "impulserift:block/rift_jar_bottom",
-    "top": "impulserift:block/rift_jar_top"
+    "particle": "impetusrift:block/rift_jar_side",
+    "side": "impetusrift:block/rift_jar_side",
+    "bottom": "impetusrift:block/rift_jar_bottom",
+    "top": "impetusrift:block/rift_jar_top"
   },
   "elements": [
     {

@@ -2,8 +2,8 @@
   "format_version": "1.21.11",
   "credit": "Made with Blockbench",
   "textures": {
-    "2": "impulserift:block/impetus_drainer",
-    "particle": "impulserift:block/impetus_drainer"
+    "2": "impetusrift:block/impetus_drainer",
+    "particle": "impetusrift:block/impetus_drainer"
   },
   "elements": [
     {

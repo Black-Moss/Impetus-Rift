@@ -5,7 +5,6 @@ import com.blackmoss.impetusrift.block.ImpetusAltarBaseBlock;
 import com.blackmoss.impetusrift.client.model.RiftCompassAngleProperty;
 import com.blackmoss.impetusrift.registry.IRBlocks;
 import com.blackmoss.impetusrift.registry.IRItems;
-
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -75,7 +74,6 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
-    // 带 FACING 的方块：blockstate 按朝向旋转（用原版 ROTATION_FACING）
     private static void generateFacingBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
         Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());

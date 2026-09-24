@@ -3,8 +3,8 @@
   "format_version": "1.21.11",
   "credit": "Made with Blockbench",
   "textures": {
-    "3": "impulserift:block/rift_feeder_off",
-    "particle": "impulserift:block/rift_feeder_off"
+    "3": "impetusrift:block/rift_feeder_off",
+    "particle": "impetusrift:block/rift_feeder_off"
   },
   "elements": [
     {

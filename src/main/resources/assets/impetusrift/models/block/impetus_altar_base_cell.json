@@ -2,8 +2,8 @@
   "format_version": "1.21.11",
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "impulserift:block/impetus_altar_base_cell",
-    "particle": "impulserift:block/impetus_altar_base_cell"
+    "0": "impetusrift:block/impetus_altar_base_cell",
+    "particle": "impetusrift:block/impetus_altar_base_cell"
   },
   "elements": [
     {

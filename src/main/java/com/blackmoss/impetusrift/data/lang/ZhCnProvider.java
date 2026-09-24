@@ -14,7 +14,7 @@ public class ZhCnProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add("itemGroup.impulserift", "元动裂隙");
+        add("itemGroup.impetusrift", "元动裂隙");
 
         addBlock(IRBlocks.IMPETUS_DRAINER, "元动汲取仪");
         addBlock(IRBlocks.IMPETUS_DIFFUSER, "元动弥散仪");
@@ -57,31 +57,31 @@ public class ZhCnProvider extends LanguageProvider {
     }
 
     private void jade() {
-        add("jade.impulserift.input_nodes", "输入节点：%1$s / %2$s");
-        add("jade.impulserift.output_nodes", "输出节点：%1$s / %2$s");
-        add("jade.impulserift.energy", "元动能量 %1$s / %2$s");
-        add("jade.impulserift.disabled", "已禁用（红石关闭）");
-        add("jade.impulserift.draining", "汲取中");
-        add("jade.impulserift.rift_size", "裂隙大小 %1$s");
-        add("jade.impulserift.stability", "稳定度 %1$s");
-        add("jade.impulserift.collapsing", "裂隙正在坍缩");
-        add("jade.impulserift.no_rift", "未绑定裂隙");
-        add("jade.impulserift.nearby_rifts", "附近 %1$s 个裂隙");
+        add("jade.impetusrift.input_nodes", "输入节点：%1$s / %2$s");
+        add("jade.impetusrift.output_nodes", "输出节点：%1$s / %2$s");
+        add("jade.impetusrift.energy", "元动能量 %1$s / %2$s");
+        add("jade.impetusrift.disabled", "已禁用（红石关闭）");
+        add("jade.impetusrift.draining", "汲取中");
+        add("jade.impetusrift.rift_size", "裂隙大小 %1$s");
+        add("jade.impetusrift.stability", "稳定度 %1$s");
+        add("jade.impetusrift.collapsing", "裂隙正在坍缩");
+        add("jade.impetusrift.no_rift", "未绑定裂隙");
+        add("jade.impetusrift.nearby_rifts", "附近 %1$s 个裂隙");
     }
 
     // 元动谐振器
     private void impetusLinker() {
-        add("item.impulserift.impetus_linker.too_far", "距离超出限制（最大 %1$s 格）");
-        add("item.impulserift.impetus_linker.blocked", "连接被不透明方块阻挡");
-        add("item.impulserift.impetus_linker.no_source", "源节点不存在");
-        add("item.impulserift.impetus_linker.no_target", "目标节点不存在");
-        add("item.impulserift.impetus_linker.cannot_output", "源节点（%1$s）不能输出");
-        add("item.impulserift.impetus_linker.output_full", "源节点输出端口已满（%1$s/%2$s）");
-        add("item.impulserift.impetus_linker.cannot_input", "目标节点（%1$s）不能输入");
-        add("item.impulserift.impetus_linker.input_full", "目标节点输入端口已满（%1$s/%2$s）");
-        add("item.impulserift.impetus_linker.disconnected", "已断开连接：%1$s ✕ %2$s");
-        add("item.impulserift.impetus_linker.connected", "已建立连接：%1$s → %2$s");
-        add("item.impulserift.impetus_linker.failed", "连接失败（未知原因）");
-        add("impulserift.node.unknown", "未知节点");
+        add("item.impetusrift.impetus_linker.too_far", "距离超出限制（最大 %1$s 格）");
+        add("item.impetusrift.impetus_linker.blocked", "连接被不透明方块阻挡");
+        add("item.impetusrift.impetus_linker.no_source", "源节点不存在");
+        add("item.impetusrift.impetus_linker.no_target", "目标节点不存在");
+        add("item.impetusrift.impetus_linker.cannot_output", "源节点（%1$s）不能输出");
+        add("item.impetusrift.impetus_linker.output_full", "源节点输出端口已满（%1$s/%2$s）");
+        add("item.impetusrift.impetus_linker.cannot_input", "目标节点（%1$s）不能输入");
+        add("item.impetusrift.impetus_linker.input_full", "目标节点输入端口已满（%1$s/%2$s）");
+        add("item.impetusrift.impetus_linker.disconnected", "已断开连接：%1$s ✕ %2$s");
+        add("item.impetusrift.impetus_linker.connected", "已建立连接：%1$s → %2$s");
+        add("item.impetusrift.impetus_linker.failed", "连接失败（未知原因）");
+        add("item.impetusrift.node.unknown", "未知节点");
     }
 }

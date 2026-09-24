@@ -4,8 +4,8 @@
   "credit": "Made with Blockbench",
   "textures": {
     "1": "thaumaturge:block/vcrystal",
-    "2": "impulserift:block/impetus_drainer",
-    "particle": "impulserift:block/impetus_drainer"
+    "2": "impetusrift:block/impetus_drainer",
+    "particle": "impetusrift:block/impetus_drainer"
   },
   "elements": [
     {

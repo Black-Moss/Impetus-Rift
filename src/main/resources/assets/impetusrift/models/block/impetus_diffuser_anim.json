@@ -2,8 +2,8 @@
   "format_version": "1.21.11",
   "credit": "Made with Blockbench",
   "textures": {
-    "2": "impulserift:block/impetus_diffuser",
-    "particle": "impulserift:block/impetus_diffuser"
+    "2": "impetusrift:block/impetus_diffuser",
+    "particle": "impetusrift:block/impetus_diffuser"
   },
   "elements": [
     {

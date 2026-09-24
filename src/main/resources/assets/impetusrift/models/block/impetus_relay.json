@@ -2,10 +2,10 @@
   "format_version": "26.3",
   "credit": "Made with Blockbench",
   "textures": {
-    "2": "impulserift:block/impetus_relay",
+    "2": "impetusrift:block/impetus_relay",
     "3": "thaumaturge:block/vcrystal",
     "4": "thaumaturge:block/base_metal",
-    "particle": "impulserift:block/impetus_relay"
+    "particle": "impetusrift:block/impetus_relay"
   },
   "elements": [
     {

@@ -1,9 +1,9 @@
 {
   "loader": "neoforge:obj",
-  "model": "impulserift:models/block/impetus_generator.obj",
+  "model": "impetusrift:models/block/impetus_generator.obj",
   "textures": {
-    "texture0": "impulserift:block/impetus_generator",
-    "particle": "impulserift:block/impetus_generator"
+    "texture0": "impetusrift:block/impetus_generator",
+    "particle": "impetusrift:block/impetus_generator"
   },
   "flip_v": true,
   "display": {

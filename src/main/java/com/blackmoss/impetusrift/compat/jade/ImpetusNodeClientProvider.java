@@ -14,7 +14,7 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
 
     INSTANCE;
 
-    private static final String PREFIX = "jade.impulserift.";
+    private static final String PREFIX = "jade.impetusrift.";
 
     @Override
     public @NonNull Identifier getUid() {

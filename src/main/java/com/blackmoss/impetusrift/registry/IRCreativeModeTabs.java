@@ -10,9 +10,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class IRCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ImpetusRift.MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> IMPULSE_RIFT = CREATIVE_MODE_TABS.register(ImpetusRift.MODID,
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> IMPETUS_RIFT = CREATIVE_MODE_TABS.register(ImpetusRift.MODID,
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.impulserift"))
+                    .title(Component.translatable("itemGroup.impetusrift"))
                     .icon(() -> IRItems.RIFT_JAR.get().getDefaultInstance())
                     .displayItems((_, output) -> {
                         output.accept(IRItems.IMPETUS_DRAINER.get());
