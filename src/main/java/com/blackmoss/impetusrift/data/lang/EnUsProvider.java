@@ -57,7 +57,7 @@ public class EnUsProvider extends LanguageProvider {
     }
 
     private void jade() {
-        add("config.jade.plugin_impetusrift.input_nodes", "Input Nodes");
+        add("config.jade.plugin_impetusrift.input_node", "Input Nodes");
         add("jade.impetusrift.input_nodes", "Input Nodes: %1$s/%2$s");
         add("jade.impetusrift.output_nodes", "Output Nodes: %1$s/%2$s");
         add("jade.impetusrift.energy", "Impetus Energy: %1$s/%2$s");

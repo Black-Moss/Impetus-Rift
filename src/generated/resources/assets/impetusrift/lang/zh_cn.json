@@ -13,7 +13,7 @@
   "block.impetusrift.rift_monitor": "裂隙监测仪",
   "block.impetusrift.rift_mover_input": "裂隙封装仪",
   "block.impetusrift.rift_mover_output": "裂隙释放仪",
-  "config.jade.plugin_impetusrift.input_nodes": "元动节点",
+  "config.jade.plugin_impetusrift.impetus_node": "元动节点",
   "item.impetusrift.impetus_cell": "元动能量单元",
   "item.impetusrift.impetus_gem": "元动宝石",
   "item.impetusrift.impetus_linker": "元动链接器",

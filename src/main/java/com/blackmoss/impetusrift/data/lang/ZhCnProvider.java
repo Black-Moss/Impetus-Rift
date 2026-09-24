@@ -57,7 +57,7 @@ public class ZhCnProvider extends LanguageProvider {
     }
 
     private void jade() {
-        add("config.jade.plugin_impetusrift.input_nodes", "元动节点");
+        add("config.jade.plugin_impetusrift.impetus_node", "元动节点");
         add("jade.impetusrift.input_nodes", "输入节点：%1$s / %2$s");
         add("jade.impetusrift.output_nodes", "输出节点：%1$s / %2$s");
         add("jade.impetusrift.energy", "元动能量：%1$s / %2$s");
