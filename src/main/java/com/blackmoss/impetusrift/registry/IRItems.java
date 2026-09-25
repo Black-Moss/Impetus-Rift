@@ -4,8 +4,6 @@ import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.item.ImpetusCellItem;
 import com.blackmoss.impetusrift.item.ImpetusLinkerItem;
 import com.blackmoss.impetusrift.item.ImpetusTravellerBootsItem;
-import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;

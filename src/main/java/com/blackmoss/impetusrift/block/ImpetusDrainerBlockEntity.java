@@ -46,7 +46,6 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
     private int ticks;
     private List<BlockPos> connectedTargets = new ArrayList<>();
     private @Nullable EntityFluxRift boundRift;
-    private @Nullable Vec3 lastRiftPos;
     private long lastEnergyGameTime = -1L;
 
     public ImpetusDrainerBlockEntity(BlockPos pos, BlockState state) {
@@ -278,7 +277,6 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
                     CollisionContext.empty()));
 
             if (result.getType() == HitResult.Type.MISS) {
-                lastRiftPos = worldPoint;
                 return true;
             }
         }
@@ -288,7 +286,6 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
 
     private void unbindRift() {
         boundRift = null;
-        lastRiftPos = null;
         active = false;
     }
 
