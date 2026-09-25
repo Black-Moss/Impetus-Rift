@@ -35,7 +35,8 @@ public class ZhCnProvider extends LanguageProvider {
         addItem(IRItems.IMPETUS_GEM, "元动宝石");
         addItem(IRItems.RIFT_SEED_FLUX, "咒波裂隙种子");
         addItem(IRItems.RIFT_COMPASS, "裂隙指南针");
-        addItem(IRItems.IMPETUS_LINKER, "元动链接器");
+        addItem(IRItems.IMPETUS_LINKER, "元动谐振器");
+        addItem(IRItems.IMPETUS_TRAVELLER_BOOTS, "裂隙旅行者之靴");
 
         addResearch("impetus_drainer", "元动汲取仪",
                 "元动汲取仪是一种可以从附近源中汲取元动能量的装置。",
@@ -46,6 +47,7 @@ public class ZhCnProvider extends LanguageProvider {
                 "这个装置可以用来自动将物品送入裂隙进行处理或存储。");
 
         jade();
+        tooltip();
         impetusLinker();
     }
 
@@ -65,6 +67,12 @@ public class ZhCnProvider extends LanguageProvider {
         add("jade.impetusrift.stability", "稳定度：%1$s");
     }
 
+    private void tooltip()
+    {
+        add("tooltip.impetusrift.node.unknown", "未知节点");
+        add("tooltip.impetusrift.impetus_energy", "元动能量：%s / %s");
+    }
+
     // 元动谐振器
     private void impetusLinker() {
         add("item.impetusrift.impetus_linker.too_far", "距离超出限制（最大 %1$s 格）");
@@ -78,6 +86,5 @@ public class ZhCnProvider extends LanguageProvider {
         add("item.impetusrift.impetus_linker.disconnected", "已断开连接：%1$s ✕ %2$s");
         add("item.impetusrift.impetus_linker.connected", "已建立连接：%1$s → %2$s");
         add("item.impetusrift.impetus_linker.failed", "连接失败（未知原因）");
-        add("item.impetusrift.node.unknown", "未知节点");
     }
 }

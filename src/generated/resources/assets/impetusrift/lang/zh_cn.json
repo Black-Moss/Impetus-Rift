@@ -16,7 +16,7 @@
   "config.jade.plugin_impetusrift.impetus_node": "元动节点",
   "item.impetusrift.impetus_cell": "元动能量单元",
   "item.impetusrift.impetus_gem": "元动宝石",
-  "item.impetusrift.impetus_linker": "元动链接器",
+  "item.impetusrift.impetus_linker": "元动谐振器",
   "item.impetusrift.impetus_linker.blocked": "连接被不透明方块阻挡",
   "item.impetusrift.impetus_linker.cannot_input": "目标节点（%1$s）不能输入",
   "item.impetusrift.impetus_linker.cannot_output": "源节点（%1$s）不能输出",
@@ -28,7 +28,7 @@
   "item.impetusrift.impetus_linker.no_target": "目标节点不存在",
   "item.impetusrift.impetus_linker.output_full": "源节点输出端口已满（%1$s/%2$s）",
   "item.impetusrift.impetus_linker.too_far": "距离超出限制（最大 %1$s 格）",
-  "item.impetusrift.node.unknown": "未知节点",
+  "item.impetusrift.impetus_traveller_boots": "裂隙旅行者之靴",
   "item.impetusrift.rift_compass": "裂隙指南针",
   "item.impetusrift.rift_seed_flux": "咒波裂隙种子",
   "itemGroup.impetusrift": "元动裂隙",
@@ -42,5 +42,7 @@
   "research.impetusrift.impetus_drainer.title": "元动汲取仪",
   "research.impetusrift.rift_feeder.stage_0": "裂隙释放仪是一种可以将物品送入裂隙的装置。",
   "research.impetusrift.rift_feeder.stage_1": "这个装置可以用来自动将物品送入裂隙进行处理或存储。",
-  "research.impetusrift.rift_feeder.title": "裂隙释放仪"
+  "research.impetusrift.rift_feeder.title": "裂隙释放仪",
+  "tooltip.impetusrift.impetus_energy": "元动能量：%s / %s",
+  "tooltip.impetusrift.node.unknown": "未知节点"
 }

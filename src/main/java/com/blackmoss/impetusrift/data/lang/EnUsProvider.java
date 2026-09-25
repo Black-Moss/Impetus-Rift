@@ -37,6 +37,8 @@ public class EnUsProvider extends LanguageProvider {
         addItem(IRItems.RIFT_COMPASS, "Rift Compass");
         addItem(IRItems.IMPETUS_LINKER, "Impetus Linker");
 
+        addItem(IRItems.IMPETUS_TRAVELLER_BOOTS, "Impetus Traveller Boots   ");
+
         addResearch("impetus_drainer", "Impetus Drainer",
                 "The Impetus Drainer is a device that can drain Impetus energy from nearby sources.",
                 "This device can be used to collect Impetus energy for use in other machines. It requires a nearby Impetus source to function.");
@@ -46,6 +48,7 @@ public class EnUsProvider extends LanguageProvider {
                 "This device can be used to automatically feed items into a rift for processing or storage.");
 
         jade();
+        tooltip();
         impetusLinker();
     }
 
@@ -65,6 +68,12 @@ public class EnUsProvider extends LanguageProvider {
         add("jade.impetusrift.stability", "Stability: %1$s");
     }
 
+    private void tooltip()
+    {
+        add("tooltip.impetusrift.node.unknown", "Unknown Node");
+        add("tooltip.impetusrift.impetus_energy", "Impetus Energy: %s / %s");
+    }
+
     // 元动谐振器
     private void impetusLinker() {
         add("item.impetusrift.impetus_linker.too_far", "Too far (max %1$s blocks)");
@@ -78,6 +87,5 @@ public class EnUsProvider extends LanguageProvider {
         add("item.impetusrift.impetus_linker.disconnected", "Disconnected: %1$s ✕ %2$s");
         add("item.impetusrift.impetus_linker.connected", "Connected: %1$s → %2$s");
         add("item.impetusrift.impetus_linker.failed", "Connection failed (unknown reason)");
-        add("item.impetusrift.node.unknown", "Unknown Node");
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ExtraCodecs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -23,4 +24,10 @@ public final class IRDataComponents {
                     builder -> builder
                             .persistent(BlockPos.CODEC)
                             .networkSynchronized(ByteBufCodecs.fromCodec(BlockPos.CODEC)));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> IMPETUS_ENERGY =
+            DATA_COMPONENTS.registerComponentType("impetus_energy",
+                    builder -> builder
+                            .persistent(ExtraCodecs.NON_NEGATIVE_INT)
+                            .networkSynchronized(ByteBufCodecs.VAR_INT));
 }

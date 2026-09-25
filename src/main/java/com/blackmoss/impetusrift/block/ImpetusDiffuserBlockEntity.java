@@ -1,7 +1,8 @@
 package com.blackmoss.impetusrift.block;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.energy.IImpetusEnergyStorage;
+import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
+import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
 import com.blackmoss.impetusrift.energy.ImpetusEnergyStorage;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
@@ -33,7 +34,8 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
     private static final int SCAN_INTERVAL = 20;
     private static final double SCAN_RADIUS = 7.0;
 
-    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BUFFER_CAPACITY, BUFFER_CAPACITY, 0);
+    // maxExtract 必须 >0，否则 extractEnergy 恒返回 0，充能时不会扣除自身能量
+    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BUFFER_CAPACITY, BUFFER_CAPACITY, BUFFER_CAPACITY);
     private boolean active = false;
     private int ticks;
 
@@ -54,7 +56,7 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
         if (level == null || level.isClientSide()) return;
         ticks++;
         if (ticks % SCAN_INTERVAL == 0) {
-            boolean charged = chargeNearbyPlayers();
+            boolean charged = chargeNearbyItems();
             setActive(charged);
         }
     }
@@ -112,7 +114,8 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
         setChanged();
     }
 
-    private boolean chargeNearbyPlayers() {
+    // 向周围玩家身上（背包 / 装备栏 / 副手）的可充能物品注入元动能源
+    private boolean chargeNearbyItems() {
         if (level == null || energyStorage.getEnergyStored() <= 0) return false;
 
         AABB area = new AABB(
@@ -128,18 +131,23 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
 
         for (Player player : players) {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                if (energyStorage.getEnergyStored() <= 0) break;
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.isEmpty()) continue;
-                if (stack.getItem() instanceof IImpetusEnergyStorage itemStorage) {
-                    long toCharge = Math.min(CHARGE_PER_ITEM, energyStorage.getEnergyStored());
-                    if (toCharge > 0) {
-                        long charged = itemStorage.receiveEnergy(toCharge, false);
-                        if (charged > 0) {
-                            energyStorage.extractEnergy(charged, false);
-                            anyCharged = true;
-                        }
-                    }
-                }
+                // 物品侧元动能源：IImpetusRechargeable + ImpetusChargeHelper（IMPETUS_ENERGY 数据组件）
+                if (!(stack.getItem() instanceof IImpetusRechargeable rechargeable)) continue;
+
+                int current = ImpetusChargeHelper.getCharge(stack);
+                long max = rechargeable.getMaxCharge(stack, player);
+                int room = (int) Math.max(0L, max - current);
+                if (room <= 0) continue;
+
+                int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min((long) room, energyStorage.getEnergyStored()));
+                if (toCharge <= 0) continue;
+
+                ImpetusChargeHelper.setCharge(stack, current + toCharge);
+                energyStorage.extractEnergy(toCharge, false);
+                anyCharged = true;
             }
         }
         return anyCharged;

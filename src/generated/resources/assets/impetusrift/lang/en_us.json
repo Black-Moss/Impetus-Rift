@@ -28,7 +28,7 @@
   "item.impetusrift.impetus_linker.no_target": "Target node does not exist",
   "item.impetusrift.impetus_linker.output_full": "Source output ports full (%1$s/%2$s)",
   "item.impetusrift.impetus_linker.too_far": "Too far (max %1$s blocks)",
-  "item.impetusrift.node.unknown": "Unknown Node",
+  "item.impetusrift.impetus_traveller_boots": "Impetus Traveller Boots   ",
   "item.impetusrift.rift_compass": "Rift Compass",
   "item.impetusrift.rift_seed_flux": "Rift Seed Flux",
   "itemGroup.impetusrift": "Impetus Rift",
@@ -42,5 +42,7 @@
   "research.impetusrift.impetus_drainer.title": "Impetus Drainer",
   "research.impetusrift.rift_feeder.stage_0": "The Rift Feeder is a device that can feed items into a rift.",
   "research.impetusrift.rift_feeder.stage_1": "This device can be used to automatically feed items into a rift for processing or storage.",
-  "research.impetusrift.rift_feeder.title": "Rift Feeder"
+  "research.impetusrift.rift_feeder.title": "Rift Feeder",
+  "tooltip.impetusrift.impetus_energy": "Impetus Energy: %s / %s",
+  "tooltip.impetusrift.node.unknown": "Unknown Node"
 }

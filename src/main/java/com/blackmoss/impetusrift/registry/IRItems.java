@@ -3,8 +3,13 @@ package com.blackmoss.impetusrift.registry;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.item.ImpetusCellItem;
 import com.blackmoss.impetusrift.item.ImpetusLinkerItem;
+import com.blackmoss.impetusrift.item.ImpetusTravellerBootsItem;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -47,6 +52,15 @@ public final class IRItems {
     public static final DeferredItem<ImpetusCellItem> IMPETUS_CELL = ITEMS.registerItem(
             "impetus_cell", ImpetusCellItem::new, props -> props
                     .stacksTo(64));
+
+    // 裂隙旅行者之靴
+    public static final DeferredItem<ImpetusTravellerBootsItem> IMPETUS_TRAVELLER_BOOTS = ITEMS.registerItem(
+            "impetus_traveller_boots", ImpetusTravellerBootsItem::new, props -> props
+                    .humanoidArmor(IRMaterials.ARMOR_IMPETUS_TRAVELLER, ArmorType.BOOTS)
+                    .durability(700)
+                    .rarity(Rarity.EPIC)
+                    .attributes(IRMaterials.ARMOR_IMPETUS_TRAVELLER.createAttributes(ArmorType.BOOTS)));
+
 
     private IRItems() {
     }

@@ -37,5 +37,7 @@ public class IRCreativeModeTabs {
 
                         output.accept(IRItems.RIFT_COMPASS.get());
                         output.accept(IRItems.IMPETUS_LINKER.get());
+
+                        output.accept(IRItems.IMPETUS_TRAVELLER_BOOTS.get());
                     }).build());
 }
