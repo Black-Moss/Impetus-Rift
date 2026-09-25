@@ -10,7 +10,11 @@
         "state": {
           "Name": "impetusrift:impetus_altar_base",
           "Properties": {
-            "facing": "down"
+            "facing": "down",
+            "cell_north": "false",
+            "cell_south": "false",
+            "cell_west": "false",
+            "cell_east": "false"
           }
         }
       }
@@ -25,7 +29,11 @@
         "state": {
           "Name": "impetusrift:impetus_altar_base",
           "Properties": {
-            "facing": "up"
+            "facing": "up",
+            "cell_north": "false",
+            "cell_south": "false",
+            "cell_west": "false",
+            "cell_east": "false"
           }
         }
       }

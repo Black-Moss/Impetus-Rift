@@ -210,21 +210,21 @@ public class ModModelProvider extends ModelProvider {
                 new ConditionBuilder().term(ImpetusAltarBaseBlock.FACING, Direction.DOWN).build(),
                 buildVariant(baseModel, BlockModelGenerators.X_ROT_180));
 
-        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_NORTH, BlockModelGenerators.NOP);
-        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_SOUTH, BlockModelGenerators.Y_ROT_180);
-        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_WEST, BlockModelGenerators.Y_ROT_270);
-        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_EAST, BlockModelGenerators.Y_ROT_90);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_NORTH, BlockModelGenerators.NOP, BlockModelGenerators.Y_ROT_180);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_SOUTH, BlockModelGenerators.Y_ROT_180, BlockModelGenerators.NOP);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_WEST, BlockModelGenerators.Y_ROT_270, BlockModelGenerators.Y_ROT_90);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_EAST, BlockModelGenerators.Y_ROT_90, BlockModelGenerators.Y_ROT_270);
 
         blockModels.blockStateOutput.accept(multipart);
     }
 
-    private static void addCellPart(@NonNull MultiPartGenerator multipart, @NonNull Identifier cellModel, @NonNull BooleanProperty cell, @NonNull VariantMutator yRot) {
+    private static void addCellPart(@NonNull MultiPartGenerator multipart, @NonNull Identifier cellModel, @NonNull BooleanProperty cell, @NonNull VariantMutator upYRot, @NonNull VariantMutator downYRot) {
         multipart.with(
                 new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.UP).build(),
-                buildVariant(cellModel, yRot));
+                buildVariant(cellModel, upYRot));
         multipart.with(
                 new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.DOWN).build(),
-                buildVariant(cellModel, yRot, BlockModelGenerators.X_ROT_180));
+                buildVariant(cellModel, downYRot, BlockModelGenerators.X_ROT_180));
     }
 
     private static MultiVariant buildVariant(@NonNull Identifier model, @NonNull VariantMutator... mutators) {

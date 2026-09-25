@@ -29,7 +29,8 @@
     {
       "apply": {
         "model": "impetusrift:block/impetus_altar_base_cell",
-        "x": 180
+        "x": 180,
+        "y": 180
       },
       "when": {
         "cell_north": "true",
@@ -49,8 +50,7 @@
     {
       "apply": {
         "model": "impetusrift:block/impetus_altar_base_cell",
-        "x": 180,
-        "y": 180
+        "x": 180
       },
       "when": {
         "cell_south": "true",
@@ -71,7 +71,7 @@
       "apply": {
         "model": "impetusrift:block/impetus_altar_base_cell",
         "x": 180,
-        "y": 270
+        "y": 90
       },
       "when": {
         "cell_west": "true",
@@ -92,7 +92,7 @@
       "apply": {
         "model": "impetusrift:block/impetus_altar_base_cell",
         "x": 180,
-        "y": 90
+        "y": 270
       },
       "when": {
         "cell_east": "true",
