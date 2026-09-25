@@ -46,7 +46,7 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private static final int STABILITY_SCAN_RADIUS = 2;
     private static final double STABILISER_DIMINISHING = 0.75;
     private static final DecimalFormat STABILITY_FORMAT = new DecimalFormat("#######.##");
-    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BASE_CAPACITY, MAX_TRANSFER, MAX_TRANSFER);
+    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BASE_CAPACITY, MAX_TRANSFER);
     public float clientStartUp = 0.0F;
     private int installedUnits = 0;
     private float stability = 0.0F;

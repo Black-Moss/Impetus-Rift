@@ -38,10 +38,10 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
     private static final int SCAN_INTERVAL = 60;
     private static final long RECENT_ENERGY_WINDOW = 20L;
     private static final double SCAN_RADIUS = 8.0;
-    private static final long BUFFER_CAPACITY = 1000L;
+    private static final long BUFFER_CAPACITY = 500L;
     private static final long MAX_TRANSFER = 100L;
 
-    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BUFFER_CAPACITY, MAX_TRANSFER, MAX_TRANSFER);
+    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BUFFER_CAPACITY, MAX_TRANSFER);
     private boolean active = false;
     private int ticks;
     private List<BlockPos> connectedTargets = new ArrayList<>();

@@ -15,16 +15,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
 public class ImpetusLinkerItem extends Item {
-
     public ImpetusLinkerItem(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public @NonNull InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        Player player = context.getPlayer();
+        if (player == null) {
+            return InteractionResult.FAIL;
+        }
+        performLink(level, player, context.getItemInHand(), context.getClickedPos());
+        return InteractionResult.SUCCESS;
     }
 
     private static String formatPos(BlockPos pos) {
@@ -35,13 +46,12 @@ public class ImpetusLinkerItem extends Item {
         return Component.translatable(key, args).withStyle(color);
     }
 
-    private static @Nullable MutableComponent diagnoseConnectionFailure(Level level, BlockPos sourcePos, BlockPos targetPos) {
+    private static MutableComponent diagnoseConnectionFailure(Level level, BlockPos sourcePos, BlockPos targetPos) {
         if (sourcePos.distManhattan(targetPos) > ImpetusConnection.MAX_DISTANCE) {
             return Component.translatable("item.impetusrift.impetus_linker.too_far",
                     ImpetusConnection.MAX_DISTANCE);
         }
 
-        // 视线检查：不能穿透不透明方块
         if (!hasLineOfSight(level, sourcePos, targetPos)) {
             return Component.translatable("item.impetusrift.impetus_linker.blocked");
         }
@@ -93,8 +103,7 @@ public class ImpetusLinkerItem extends Item {
             BlockPos checkPos = new BlockPos(checkX, checkY, checkZ);
             if (checkPos.equals(from) || checkPos.equals(to)) continue;
 
-            BlockState state = level.getBlockState(checkPos);
-            if (state.isSolidRender()) {
+            if (level.getBlockState(checkPos).isSolidRender()) {
                 return false;
             }
         }
@@ -108,55 +117,42 @@ public class ImpetusLinkerItem extends Item {
         return null;
     }
 
-    @Override
-    public @NonNull InteractionResult useOn(@NonNull UseOnContext context) {
-        Level level = context.getLevel();
-        Player player = context.getPlayer();
-        if (player == null) return InteractionResult.FAIL;
+    public static void performLink(Level level, Player player, ItemStack stack, BlockPos clickedPos) {
+        if (level.isClientSide() || player == null) return;
 
-        BlockPos clickedPos = context.getClickedPos();
         BlockEntity blockEntity = level.getBlockEntity(clickedPos);
+        if (!(blockEntity instanceof IImpetusNode)) return;
 
-        if (!(blockEntity instanceof IImpetusNode)) {
-            return InteractionResult.FAIL;
-        }
-
-        ItemStack stack = context.getItemInHand();
         BlockPos boundSource = stack.get(IRDataComponents.LINKER_BOUND_SOURCE.get());
 
         if (player.isShiftKeyDown()) {
-            if (level.isClientSide()) return InteractionResult.SUCCESS;
-
             if (boundSource != null && boundSource.equals(clickedPos)) {
                 stack.remove(IRDataComponents.LINKER_BOUND_SOURCE.get());
             } else {
                 stack.set(IRDataComponents.LINKER_BOUND_SOURCE.get(), clickedPos);
             }
-            return InteractionResult.SUCCESS;
+            return;
         }
 
         if (boundSource == null) {
-            if (level.isClientSide()) return InteractionResult.SUCCESS;
             BlockPos highlight = stack.get(IRDataComponents.LINKER_HIGHLIGHT_NODE.get());
             if (highlight != null && highlight.equals(clickedPos)) {
                 stack.remove(IRDataComponents.LINKER_HIGHLIGHT_NODE.get());
             } else {
                 stack.set(IRDataComponents.LINKER_HIGHLIGHT_NODE.get(), clickedPos);
             }
-            return InteractionResult.SUCCESS;
+            return;
         }
-
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
 
         if (boundSource.equals(clickedPos)) {
             stack.remove(IRDataComponents.LINKER_BOUND_SOURCE.get());
-            return InteractionResult.SUCCESS;
+            return;
         }
 
         ImpetusNetworkManager manager = ImpetusNetworkManager.get(level);
         if (manager == null) {
             stack.remove(IRDataComponents.LINKER_BOUND_SOURCE.get());
-            return InteractionResult.FAIL;
+            return;
         }
 
         List<ImpetusConnection> existing = manager.getConnectionsFrom(boundSource);
@@ -189,6 +185,5 @@ public class ImpetusLinkerItem extends Item {
         }
 
         stack.remove(IRDataComponents.LINKER_BOUND_SOURCE.get());
-        return InteractionResult.SUCCESS;
     }
 }

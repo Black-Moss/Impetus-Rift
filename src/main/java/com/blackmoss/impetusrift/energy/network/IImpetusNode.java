@@ -14,7 +14,7 @@ public interface IImpetusNode {
         if (level != null && pos != null) {
             return Component.translatable(level.getBlockState(pos).getBlock().getDescriptionId());
         }
-        return Component.translatable("impulserift.node.unknown");
+        return Component.translatable("tooltip.impetusrift.node.unknown");
     }
 
     default boolean isBulkStorage() {

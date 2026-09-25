@@ -37,7 +37,7 @@ public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetus
     private static final int FE_PER_IMPETUS = 20;
     private static final long MAX_CONVERT = 5;
 
-    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(1000, 100, 100);
+    private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(100);
     private int feBuffer;
     private boolean isActive = false;
     private int ticks;
