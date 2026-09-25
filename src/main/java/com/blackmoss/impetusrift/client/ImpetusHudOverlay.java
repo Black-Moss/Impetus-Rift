@@ -4,6 +4,8 @@ import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
 import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
 import com.leclowndu93150.thaumaturge.TCIds;
+import com.leclowndu93150.thaumaturge.api.items.IRechargable;
+import com.leclowndu93150.thaumaturge.api.items.RechargeAccess;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -28,9 +30,11 @@ public final class ImpetusHudOverlay implements GuiLayer {
     private static final int BEAM_BAR_H = 8;
     private static final int BEAM_BAR_LENGTH = 64;
     private static final float BEAM_SCROLL_SPEED = 1.0F;
+    /** 能量束（填充条）相对框心的水平偏移：位于 scale(0.5) 之后，2.0 单位 = 1 屏幕像素 */
+    private static final float BAR_FILL_OFFSET_X = 2.0F;
 
     private static final int PERIODIC_SHOW_TICKS = 60;
-    private static final int ANCHOR_X = 5;
+    private static final int ANCHOR_X = 4;
     private static final int ANCHOR_BOTTOM = 48;
     private static final int ENTRY_SPACING = 26;
     private static final int ITEM_SIZE = 16;
@@ -53,6 +57,9 @@ public final class ImpetusHudOverlay implements GuiLayer {
     private final Map<EquipmentSlot, Integer> lastCharge = new EnumMap<>(EquipmentSlot.class);
     private final Map<EquipmentSlot, Integer> changeTick = new EnumMap<>(EquipmentSlot.class);
 
+    private final Map<EquipmentSlot, Integer> tcLastCharge = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> tcChangeTick = new EnumMap<>(EquipmentSlot.class);
+
     @Override
     public void render(@NonNull GuiGraphicsExtractor graphics, @NonNull DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
@@ -60,6 +67,8 @@ public final class ImpetusHudOverlay implements GuiLayer {
         if (player == null || mc.options.hideGui) {
             return;
         }
+
+        int offset = countThaumaturgeEntries(player);
 
         int shown = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
@@ -89,8 +98,40 @@ public final class ImpetusHudOverlay implements GuiLayer {
             }
 
             drawMeter(graphics, mc, stack, (int) rechargeable.getMaxCharge(stack, player), charge,
-                    shown++, player.isShiftKeyDown());
+                    offset + shown++, player.isShiftKeyDown());
         }
+    }
+
+    private int countThaumaturgeEntries(LocalPlayer player) {
+        int count = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            if (!(stack.getItem() instanceof IRechargable rechargable)) {
+                tcLastCharge.remove(slot);
+                tcChangeTick.remove(slot);
+                continue;
+            }
+
+            IRechargable.ChargeDisplay display = rechargable.showInHud(stack, player);
+            if (display == IRechargable.ChargeDisplay.NEVER) {
+                continue;
+            }
+
+            int charge = RechargeAccess.getCharge(stack);
+            Integer previous = tcLastCharge.put(slot, charge);
+            if (previous == null || previous != charge) {
+                tcChangeTick.put(slot, player.tickCount);
+            }
+
+            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+            if (!held
+                    && display == IRechargable.ChargeDisplay.PERIODIC
+                    && player.tickCount - tcChangeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
+                continue;
+            }
+            count++;
+        }
+        return count;
     }
 
     private static void drawMeter
