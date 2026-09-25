@@ -21,6 +21,7 @@ public class ClientEventHandler {
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_MATRIX.get(), ImpetusMatrixRenderer::new);
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_DRAINER.get(), ImpetusDrainerRenderer::new);
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_GENERATOR.get(), ImpetusNodeRenderer::new);
+        event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_RELAY.get(), ImpetusNodeRenderer::new);
     }
 
     @SubscribeEvent

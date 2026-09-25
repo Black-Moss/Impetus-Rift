@@ -41,6 +41,10 @@ public class ImpetusNetworkManager extends SavedData {
     private final List<ImpetusConnection> toAdd = new ArrayList<>();
 
     private final Map<BlockPos, Long> matrixTransferAccumulator = new HashMap<>();
+    private static final double TRANSFER_PER_SECOND_MIN = 1.0;
+    private static final double TRANSFER_PER_SECOND_MAX = 50.0;
+    private final Map<ImpetusConnection, Double> transferAccumulator = new HashMap<>();
+    private final Map<ImpetusConnection, Double> transferRate = new HashMap<>();
 
     public ImpetusNetworkManager() {
         this(new ArrayList<>());
@@ -153,6 +157,10 @@ public class ImpetusNetworkManager extends SavedData {
         }
         if (!toRemove.isEmpty()) {
             connections.removeAll(toRemove);
+            toRemove.forEach(c -> {
+                transferAccumulator.remove(c);
+                transferRate.remove(c);
+            });
             toRemove.clear();
             changed = true;
         }
@@ -163,6 +171,11 @@ public class ImpetusNetworkManager extends SavedData {
 
         if (level.getGameTime() % 20 == 0) {
             matrixTransferAccumulator.clear();
+            for (ImpetusConnection conn : connections) {
+                double r = TRANSFER_PER_SECOND_MIN
+                        + (TRANSFER_PER_SECOND_MAX - TRANSFER_PER_SECOND_MIN) * level.getRandom().nextDouble();
+                transferRate.put(conn, r);
+            }
         }
 
         for (ImpetusConnection conn : connections) {
@@ -199,7 +212,7 @@ public class ImpetusNetworkManager extends SavedData {
             return;
         }
 
-        long transferAmount = calculateTransfer(source, target);
+        long transferAmount = calculateTransfer(conn, source, target);
 
         if (transferAmount <= 0) {
             return;
@@ -221,12 +234,23 @@ public class ImpetusNetworkManager extends SavedData {
         }
     }
 
-    private long calculateTransfer(IImpetusNode source, IImpetusNode target) {
+    private long calculateTransfer(ImpetusConnection conn, IImpetusNode source, IImpetusNode target) {
         if (source.isBulkStorage() && target.isBulkStorage()) {
             return calculateMatrixToMatrixTransfer(source);
         }
 
-        return Math.min(source.getEnergyStored(), target.getMaxEnergyStored() - target.getEnergyStored());
+        double rate = transferRate.getOrDefault(conn, (TRANSFER_PER_SECOND_MIN + TRANSFER_PER_SECOND_MAX) / 2.0);
+        double perTick = rate / 20.0;
+        double acc = transferAccumulator.getOrDefault(conn, 0.0) + perTick;
+        long budget = (long) Math.floor(acc);
+        if (budget <= 0) {
+            transferAccumulator.put(conn, acc);
+            return 0;
+        }
+        long available = Math.min(source.getEnergyStored(), target.getMaxEnergyStored() - target.getEnergyStored());
+        long result = Math.min(budget, available);
+        transferAccumulator.put(conn, acc - result);
+        return result;
     }
 
     private long calculateMatrixToMatrixTransfer(IImpetusNode source) {

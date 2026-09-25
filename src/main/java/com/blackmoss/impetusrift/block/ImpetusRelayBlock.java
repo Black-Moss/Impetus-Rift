@@ -1,5 +1,6 @@
 package com.blackmoss.impetusrift.block;
 
+import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -96,6 +97,6 @@ public class ImpetusRelayBlock extends BaseEntityBlock {
             @NonNull Level level,
             @NonNull BlockState state,
             @NonNull BlockEntityType<T> blockEntityType) {
-        return null;
+        return createTickerHelper(blockEntityType, IRBlockEntities.IMPETUS_RELAY.get(), ImpetusRelayBlockEntity::staticTick);
     }
 }

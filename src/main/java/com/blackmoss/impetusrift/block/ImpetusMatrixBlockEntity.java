@@ -45,8 +45,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private static final int STABILITY_DECAY_INTERVAL = 20;
     private static final int STABILITY_SCAN_RADIUS = 2;
     private static final double STABILISER_DIMINISHING = 0.75;
-    // ===== 护目镜显示（稳定度）=====
-    // 稳定度通过 Thaumaturge 护目镜层（IGogglesDisplayExtended）显示；Jade 只显示元动节点数据。
     private static final DecimalFormat STABILITY_FORMAT = new DecimalFormat("#######.##");
     private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BASE_CAPACITY, MAX_TRANSFER, MAX_TRANSFER);
     public float clientStartUp = 0.0F;
