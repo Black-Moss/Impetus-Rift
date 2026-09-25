@@ -13,6 +13,7 @@ public class ImpetusMatrixRenderState extends BlockEntityRenderState {
     public boolean active;
     public boolean unstable;
     public float startUp;
+    public boolean fancyGraphics;
     public List<BlockPos> beamTargets = new ArrayList<>();
     public BlockPos blockPos;
 }

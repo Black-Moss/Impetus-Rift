@@ -21,8 +21,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -33,19 +35,25 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
             RenderSetup.builder(TCRenderPipelines.ENTITY_ADDITIVE_EMISSIVE)
                     .withTexture("Sampler0", TEXTURE)
                     .createRenderSetup());
+    private static final RenderType HALO_TYPE = RenderType.create(
+            "ir_matrix_halo",
+            RenderSetup.builder(TCRenderPipelines.SPARKLE_CULLED).createRenderSetup());
 
     private static final float SUB_CUBE_OFFSET = 0.25F;
     private static final float SUB_CUBE_SCALE = 0.45F;
     private static final float TILT_X = 35.0F;
     private static final float TILT_Z = 45.0F;
     private static final float JITTER_SCALE = 0.01F;
-
-    // 符文颜色
-    private static final float RUNE_R = 0.8F;
-    private static final float RUNE_G = 0.1F;
-    private static final float RUNE_B = 1.0F;
+    private static final float GLOW_RED = 0.8F;
+    private static final float GLOW_GREEN = 0.1F;
+    private static final float GLOW_BLUE = 1.0F;
+    private static final long HALO_SEED = 245L;
+    private static final int HALO_FANS_FANCY = 20;
+    private static final int HALO_FANS_FAST = 10;
+    private static final float HALO_FADE_TICKS = 500.0F;
 
     private final MatrixCubeModel model;
+    private final RandomSource haloRandom = RandomSource.create();
 
     public ImpetusMatrixRenderer(BlockEntityRendererProvider.Context context) {
         this.model = new MatrixCubeModel(context.bakeLayer(TCModelLayers.MATRIX_CUBE));
@@ -64,25 +72,22 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
             @NonNull Vec3 cameraPosition,
             ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(
-                matrix,
-                state,
-                partialTicks,
-                cameraPosition,
-                breakProgress);
+                matrix, state, partialTicks, cameraPosition, breakProgress);
 
         var viewEntity = Minecraft.getInstance().getCameraEntity();
         state.animationTime = viewEntity == null
                 ? partialTicks
                 : viewEntity.tickCount + partialTicks;
+        state.startUp = matrix.clientStartUp;
+        state.stability = matrix.getStability();
 
         long maxEnergy = matrix.getEnergyStorage().getMaxEnergyStored();
         state.energyRatio = maxEnergy > 0
                 ? (float) matrix.getEnergyStorage().getEnergyStored() / maxEnergy
                 : 0.0F;
-        state.stability = matrix.getStability();
         state.active = matrix.checkLocation();
         state.unstable = state.stability < 0.0F;
-        state.startUp = matrix.clientStartUp;
+        state.fancyGraphics = Minecraft.getInstance().options.cutoutLeaves().get();
         state.beamTargets = matrix.getBeamTargetPositions();
         state.blockPos = matrix.getBlockPos();
     }
@@ -93,43 +98,15 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
             @NonNull PoseStack poseStack,
             @NonNull SubmitNodeCollector collector,
             @NonNull CameraRenderState camera) {
-        float instability = state.unstable
-                ? Math.min(6.0F, 1.0F + (-state.stability * 0.66F))
-                : 1.0F;
+        RenderType type = RenderTypes.entityCutout(TEXTURE);
 
-        float runeR, runeG, runeB;
-        if (state.energyRatio <= 0.0F) {
-            runeR = 0.8F;
-            runeG = 0.1F;
-            runeB = 0.1F;
-        } else if (state.energyRatio >= 1.0F) {
-            runeR = 0.1F;
-            runeG = 0.8F;
-            runeB = 0.1F;
-        } else if (state.energyRatio >= 0.5F) {
-            float t = (state.energyRatio - 0.5F) * 2.0F;
-            runeR = Mth.lerp(t, 0.8F, 0.1F);
-            runeG = Mth.lerp(t, 0.8F, 0.8F);
-            runeB = Mth.lerp(t, 0.1F, 0.1F);
-        } else {
-            float t = state.energyRatio * 2.0F;
-            runeR = Mth.lerp(t, 0.8F, 0.8F);
-            runeG = Mth.lerp(t, 0.1F, 0.8F);
-            runeB = Mth.lerp(t, 0.1F, 0.1F);
-        }
+        float instability = Math.min(6.0F,
+                1.0F + (state.stability < 0.0F ? -state.stability * 0.66F : 1.0F) * state.energyRatio);
 
-        if (state.unstable) {
-            float t = Mth.sin(state.animationTime / 8.0F) * 0.3F + 0.5F;
-            runeR = Mth.lerp(t, runeR, 0.6F);
-            runeG = Mth.lerp(t, runeG, 0.2F * 0.3F);
-            runeB = Mth.lerp(t, runeB, 0.1F * 0.3F);
-        }
-
-        var cubeType = RenderTypes.entityCutout(TEXTURE);
+        boolean energized = state.active || state.energyRatio > 0.0F;
 
         poseStack.pushPose();
         poseStack.translate(0.5F, 0.5F, 0.5F);
-
         poseStack.mulPose(Axis.YP.rotationDegrees(state.animationTime % 360.0F * state.startUp));
         poseStack.mulPose(Axis.XP.rotationDegrees(TILT_X * state.startUp));
         poseStack.mulPose(Axis.ZP.rotationDegrees(TILT_Z * state.startUp));
@@ -145,6 +122,7 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
                         jy = Mth.sin((state.animationTime + b * 10) / 14.0F) * JITTER_SCALE * state.startUp * instability;
                         jz = Mth.sin((state.animationTime + c * 10) / 13.0F) * JITTER_SCALE * state.startUp * instability;
                     }
+
                     int aa = a == 0 ? -1 : 1;
                     int bb = b == 0 ? -1 : 1;
                     int cc = c == 0 ? -1 : 1;
@@ -167,14 +145,18 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
 
                     poseStack.scale(SUB_CUBE_SCALE, SUB_CUBE_SCALE, SUB_CUBE_SCALE);
 
-                    collector.submitModelPart(model.cube, poseStack, cubeType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, null);
+                    collector.submitModelPart(
+                            model.cube,
+                            poseStack,
+                            type,
+                            state.lightCoords,
+                            OverlayTexture.NO_OVERLAY,
+                            null,
+                            -1,
+                            null);
 
-                    if (state.active || state.energyRatio > 0) {
-                        float glowAlpha = (Mth.sin((state.animationTime + a * 2 + b * 3 + c * 4) / 4.0F) * 0.1F + 0.2F);
-                        if (state.active) {
-                            glowAlpha = Math.max(glowAlpha, 0.2F);
-                        }
-                        int glowColor = ARGB.colorFromFloat(glowAlpha, runeR, runeG, runeB);
+                    if (energized) {
+                        float glowAlpha = (Mth.sin((state.animationTime + a * 2 + b * 3 + c * 4) / 4.0F) * 0.1F + 0.2F) * state.startUp;
                         collector.submitModelPart(
                                 model.glow,
                                 poseStack,
@@ -182,7 +164,7 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
                                 LightCoordsUtil.FULL_BRIGHT,
                                 OverlayTexture.NO_OVERLAY,
                                 null,
-                                glowColor,
+                                ARGB.colorFromFloat(glowAlpha, GLOW_RED, GLOW_GREEN, GLOW_BLUE),
                                 null);
                     }
 
@@ -193,7 +175,11 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
 
         poseStack.popPose();
 
-        if (!state.beamTargets.isEmpty() && state.energyRatio > 0) {
+        if (state.energyRatio > 0.0F) {
+            drawHalo(state, poseStack, collector);
+        }
+
+        if (!state.beamTargets.isEmpty() && energized) {
             var beamSource = new ImpetusEnergyBeamRenderer.SimpleBeamSource(
                     state.blockPos,
                     state.beamTargets,
@@ -202,9 +188,48 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
         }
     }
 
+    private void drawHalo(ImpetusMatrixRenderState state, PoseStack poseStack, SubmitNodeCollector collector) {
+        int fans = state.fancyGraphics ? HALO_FANS_FANCY : HALO_FANS_FAST;
+        float f1 = state.animationTime / HALO_FADE_TICKS;
+        float ramp = Math.min(state.energyRatio, 1.0F);
+        float centerAlpha = Math.max(0.0F, state.energyRatio);
+
+        poseStack.pushPose();
+        poseStack.translate(0.5F, 0.5F, 0.5F);
+        haloRandom.setSeed(HALO_SEED);
+
+        for (int i = 0; i < fans; i++) {
+            poseStack.mulPose(Axis.XP.rotationDegrees(haloRandom.nextFloat() * 360.0F));
+            poseStack.mulPose(Axis.YP.rotationDegrees(haloRandom.nextFloat() * 360.0F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(haloRandom.nextFloat() * 360.0F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(haloRandom.nextFloat() * 360.0F));
+            poseStack.mulPose(Axis.YP.rotationDegrees(haloRandom.nextFloat() * 360.0F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(haloRandom.nextFloat() * 360.0F + f1 * 360.0F));
+            final float fa = (haloRandom.nextFloat() * 20.0F + 5.0F) / 20.0F * ramp;
+            final float f4 = (haloRandom.nextFloat() * 2.0F + 1.0F) / 20.0F * ramp;
+            collector.submitCustomGeometry(poseStack, HALO_TYPE, (pose, buffer) -> {
+                Matrix4fc mat = pose.pose();
+                float bx1 = -0.866F * f4;
+                float bz1 = -0.5F * f4;
+                float bx2 = 0.866F * f4;
+                buffer.addVertex(mat, 0.0F, 0.0F, 0.0F).setColor(1.0F, 1.0F, 1.0F, centerAlpha);
+                buffer.addVertex(mat, bx1, fa, bz1).setColor(1.0F, 0.0F, 1.0F, 0.0F);
+                buffer.addVertex(mat, bx2, fa, bz1).setColor(1.0F, 0.0F, 1.0F, 0.0F);
+                buffer.addVertex(mat, 0.0F, 0.0F, 0.0F).setColor(1.0F, 1.0F, 1.0F, centerAlpha);
+                buffer.addVertex(mat, bx2, fa, bz1).setColor(1.0F, 0.0F, 1.0F, 0.0F);
+                buffer.addVertex(mat, 0.0F, fa, f4).setColor(1.0F, 0.0F, 1.0F, 0.0F);
+                buffer.addVertex(mat, 0.0F, 0.0F, 0.0F).setColor(1.0F, 1.0F, 1.0F, centerAlpha);
+                buffer.addVertex(mat, 0.0F, fa, f4).setColor(1.0F, 0.0F, 1.0F, 0.0F);
+                buffer.addVertex(mat, bx1, fa, bz1).setColor(1.0F, 0.0F, 1.0F, 0.0F);
+            });
+        }
+
+        poseStack.popPose();
+    }
+
     @Override
     public int getViewDistance() {
-        return 32;
+        return 64;
     }
 
     @Override
