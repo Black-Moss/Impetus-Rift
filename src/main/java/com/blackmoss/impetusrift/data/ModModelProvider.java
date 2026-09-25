@@ -27,6 +27,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -37,6 +38,35 @@ public class ModModelProvider extends ModelProvider {
 
     public ModModelProvider(PackOutput output) {
         super(output, ImpetusRift.MODID);
+    }
+
+    @Override
+    protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MATRIX.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
+
+        generateCubeAllBlock(blockModels, itemModels, IRBlocks.RIFT_BARRIER.get());
+
+        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
+        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
+
+        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
+        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
+        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
+
+        generateImpetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
+
+        generateFlatItem(itemModels, IRItems.IMPETUS_CELL.get());
+        generateFlatItem(itemModels, IRItems.IMPETUS_GEM.get());
+        generateFlatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
+        generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
+
+        generateRiftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
     }
 
     private static void generateCubeAllBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
@@ -83,6 +113,45 @@ public class ModModelProvider extends ModelProvider {
                 MultiVariantGenerator.dispatch(block, variant)
                         .with(BlockModelGenerators.ROTATION_FACING));
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
+    }
+
+    private static void generateDirectionalBlockState(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
+
+        Variant base = new Variant(modelId);
+        VariantMutator x90 = BlockModelGenerators.X_ROT_90;
+        VariantMutator x180 = BlockModelGenerators.X_ROT_180;
+        VariantMutator y90 = BlockModelGenerators.Y_ROT_90;
+        VariantMutator y180 = BlockModelGenerators.Y_ROT_180;
+        VariantMutator y270 = BlockModelGenerators.Y_ROT_270;
+
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(BlockStateProperties.FACING)
+                                .generate((facing) -> {
+                                    Variant v = base;
+                                    switch (facing) {
+                                        case NORTH -> v = x90.apply(v);
+                                        case EAST -> {
+                                            v = x90.apply(v);
+                                            v = y90.apply(v);
+                                        }
+                                        case SOUTH -> {
+                                            v = x90.apply(v);
+                                            v = y180.apply(v);
+                                        }
+                                        case WEST -> {
+                                            v = x90.apply(v);
+                                            v = y270.apply(v);
+                                        }
+                                        case UP -> {
+                                        }
+                                        case DOWN -> v = x180.apply(v);
+                                    }
+                                    return new MultiVariant(WeightedList.of(v));
+                                })));
     }
 
     private static void generateFlatItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
@@ -136,33 +205,5 @@ public class ModModelProvider extends ModelProvider {
                                             : BlockModelGenerators.NOP;
                                     return new MultiVariant(WeightedList.of(rotation.apply(new Variant(modelId))));
                                 })));
-    }
-
-    @Override
-    protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MATRIX.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
-
-        generateCubeAllBlock(blockModels, itemModels, IRBlocks.RIFT_BARRIER.get());
-
-        generateFacingBlock(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
-
-        generateImpetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
-
-        generateFlatItem(itemModels, IRItems.IMPETUS_CELL.get());
-        generateFlatItem(itemModels, IRItems.IMPETUS_GEM.get());
-        generateFlatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
-        generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
-
-        generateRiftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
     }
 }
