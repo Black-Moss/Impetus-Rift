@@ -3,9 +3,9 @@ package com.blackmoss.impetusrift.block;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.ImpetusEnergyStorage;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
-import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.blackmoss.impetusrift.energy.network.ImpetusConnection;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
+import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
 import net.minecraft.core.BlockPos;
@@ -60,6 +60,19 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
             BlockState state,
             ImpetusDrainerBlockEntity drainer) {
         drainer.tick();
+    }
+
+    public static long calcEnergyForSize(int size) {
+        return (long) Math.floor(
+                0.5 * StrictMath.exp(-(size - 172.0) * (size - 172.0) / 11250.0) * size + 1.0);
+    }
+
+    public static long calcTotalRiftEnergy(int size) {
+        long total = 0;
+        for (int i = 1; i <= size; i++) {
+            total += calcEnergyForSize(i);
+        }
+        return total;
     }
 
     private void tick() {
@@ -312,19 +325,6 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
             }
             setChanged();
         }
-    }
-
-    public static long calcEnergyForSize(int size) {
-        return (long) Math.floor(
-                0.5 * StrictMath.exp(-(size - 172.0) * (size - 172.0) / 11250.0) * size + 1.0);
-    }
-
-    public static long calcTotalRiftEnergy(int size) {
-        long total = 0;
-        for (int i = 1; i <= size; i++) {
-            total += calcEnergyForSize(i);
-        }
-        return total;
     }
 
     protected final void syncToClient() {

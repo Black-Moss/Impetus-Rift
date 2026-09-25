@@ -4,8 +4,8 @@ import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusConnection;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
 import com.blackmoss.impetusrift.registry.IRDataComponents;
-import net.minecraft.core.BlockPos;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
@@ -74,7 +74,6 @@ public class ImpetusLinkerItem extends Item {
     }
 
     private static boolean hasLineOfSight(Level level, BlockPos from, BlockPos to) {
-        // 使用 Bresenham 风格的步进检查
         int dx = to.getX() - from.getX();
         int dy = to.getY() - from.getY();
         int dz = to.getZ() - from.getZ();

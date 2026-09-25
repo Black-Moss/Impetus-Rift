@@ -8,8 +8,8 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
 public final class IRCapabilities {
-
-    private IRCapabilities() {}
+    private IRCapabilities() {
+    }
 
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {

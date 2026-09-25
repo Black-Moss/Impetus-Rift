@@ -41,7 +41,7 @@ public final class ImpetusNodeRenderer<T extends BlockEntity & IImpetusNode>
         state.hasEnergy = blockEntity.getEnergyStored() > 0 || blockEntity.hasRecentEnergy();
         boolean active = state.hasEnergy
                 && ImpetusEnergyBeamRenderer.hasReceivableTarget(
-                        blockEntity.getNodeLevel(), state.beamTargets);
+                blockEntity.getNodeLevel(), state.beamTargets);
         state.fade = ImpetusEnergyBeamRenderer.updateFade(blockEntity.getNodePos(), active);
         state.blockPos = blockEntity.getNodePos();
     }

@@ -11,15 +11,15 @@ import com.leclowndu93150.thaumaturge.api.infusion.IInfusionStabiliser;
 import com.leclowndu93150.thaumaturge.api.items.IGogglesDisplayExtended;
 import com.leclowndu93150.thaumaturge.content.infusion.InfusionStabilitySurvey;
 import com.leclowndu93150.thaumaturge.content.infusion.InstabilityEvents;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.Level;
@@ -45,14 +45,15 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private static final int STABILITY_DECAY_INTERVAL = 20;
     private static final int STABILITY_SCAN_RADIUS = 2;
     private static final double STABILISER_DIMINISHING = 0.75;
-
+    // ===== 护目镜显示（稳定度）=====
+    // 稳定度通过 Thaumaturge 护目镜层（IGogglesDisplayExtended）显示；Jade 只显示元动节点数据。
+    private static final DecimalFormat STABILITY_FORMAT = new DecimalFormat("#######.##");
     private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BASE_CAPACITY, MAX_TRANSFER, MAX_TRANSFER);
     public float clientStartUp = 0.0F;
     private int installedUnits = 0;
     private float stability = 0.0F;
     private float stabilityGain = 0.0F;
     private int ticks;
-
     private List<BlockPos> connectedTargets = new ArrayList<>();
 
     public ImpetusMatrixBlockEntity(BlockPos pos, BlockState state) {
@@ -275,13 +276,8 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
         return stability;
     }
 
-    // ===== 护目镜显示（稳定度）=====
-    // 稳定度通过 Thaumaturge 护目镜层（IGogglesDisplayExtended）显示；Jade 只显示元动节点数据。
-    private static final DecimalFormat STABILITY_FORMAT = new DecimalFormat("#######.##");
-
     @Override
     public Component[] getIGogglesText() {
-        // 直接复用 Thaumaturge 注入稳定度的语言键（gui.thaumaturge.infusion.stability.*），避免重复定义
         Component tier = Component.translatable(stabilityTierKey()).withStyle(ChatFormatting.BOLD);
         Component gain = Component.literal(STABILITY_FORMAT.format(stabilityGain) + " ")
                 .append(Component.translatable("gui.thaumaturge.infusion.stability.gain"))
@@ -292,16 +288,18 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
         }
         Component lossText = Component.translatable("gui.thaumaturge.infusion.stability.range")
                 .append(Component.literal(STABILITY_FORMAT.format(loss) + " ")
-                        .append(Component.translatable("gui.thaumaturge.infusion.stability.loss").withStyle(ChatFormatting.ITALIC)))
+                        .append(Component.translatable("gui.thaumaturge.infusion.stability.loss")
+                                .withStyle(ChatFormatting.ITALIC)))
                 .withStyle(ChatFormatting.RED);
         return new Component[]{tier, gain, lossText};
     }
 
     private String stabilityTierKey() {
-        if (stability > 12.5F) return "gui.thaumaturge.infusion.stability.very_stable";
-        if (stability >= 0.0F) return "gui.thaumaturge.infusion.stability.stable";
-        if (stability > -25.0F) return "gui.thaumaturge.infusion.stability.unstable";
-        return "gui.thaumaturge.infusion.stability.very_unstable";
+        String tier = stability > 12.5F ? "very_stable"
+                : stability >= 0.0F ? "stable"
+                : stability > -25.0F ? "unstable"
+                : "very_unstable";
+        return "gui.thaumaturge.infusion.stability." + tier;
     }
 
     @Override
@@ -364,7 +362,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
         ticks = input.getIntOr("Ticks", 0);
         installedUnits = input.getIntOr("InstalledUnits", 0);
         input.child("EnergyStorage").ifPresent(energyStorage::readFromNBT);
-        // 恢复容量
         energyStorage.setCapacity(installedUnits * ImpetusAltarBaseBlockEntity.ENERGY_PER_UNIT);
         int count = input.getIntOr("BeamTargets", 0);
         connectedTargets = new ArrayList<>(count);

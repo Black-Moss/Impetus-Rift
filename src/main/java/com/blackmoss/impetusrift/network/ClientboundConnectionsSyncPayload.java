@@ -23,14 +23,12 @@ public record ClientboundConnectionsSyncPayload(List<ImpetusConnection> connecti
                     ClientboundConnectionsSyncPayload::new
             );
 
+    public static void handle(ClientboundConnectionsSyncPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> ClientConnectionCache.update(payload.connections()));
+    }
+
     @Override
     public CustomPacketPayload.@NonNull Type<ClientboundConnectionsSyncPayload> type() {
         return TYPE;
-    }
-
-    public static void handle(ClientboundConnectionsSyncPayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            ClientConnectionCache.update(payload.connections());
-        });
     }
 }

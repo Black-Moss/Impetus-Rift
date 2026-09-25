@@ -10,7 +10,8 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 public final class IRPayloads {
     private static final String VERSION = "1";
 
-    private IRPayloads() {}
+    private IRPayloads() {
+    }
 
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {

@@ -10,7 +10,8 @@ import java.util.List;
 public final class ClientConnectionCache {
     private static List<ImpetusConnection> connections = Collections.emptyList();
 
-    private ClientConnectionCache() {}
+    private ClientConnectionCache() {
+    }
 
     public static void update(List<ImpetusConnection> newConnections) {
         connections = List.copyOf(newConnections);

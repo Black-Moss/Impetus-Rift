@@ -11,10 +11,10 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -25,10 +25,10 @@ import java.util.Map;
 public class ImpetusNetworkManager extends SavedData {
     public static final Codec<ImpetusNetworkManager> CODEC = RecordCodecBuilder.create(
             builder -> builder
-            .group(ImpetusConnection.CODEC.listOf()
-                    .fieldOf("connections")
-                    .forGetter(m -> new ArrayList<>(m.connections))
-            ).apply(builder, conns -> new ImpetusNetworkManager(new ArrayList<>(conns))));
+                    .group(ImpetusConnection.CODEC.listOf()
+                            .fieldOf("connections")
+                            .forGetter(m -> new ArrayList<>(m.connections))
+                    ).apply(builder, connectionList -> new ImpetusNetworkManager(new ArrayList<>(connectionList))));
     private static final String DATA_NAME = "impetus_network";
     public static final SavedDataType<ImpetusNetworkManager> TYPE = new SavedDataType<>(
             ImpetusRift.IRIdentifier(DATA_NAME),
@@ -157,7 +157,6 @@ public class ImpetusNetworkManager extends SavedData {
             changed = true;
         }
 
-        // 当连接变化时，同步到所有客户端
         if (changed && level instanceof ServerLevel serverLevel) {
             syncToClients(serverLevel);
         }

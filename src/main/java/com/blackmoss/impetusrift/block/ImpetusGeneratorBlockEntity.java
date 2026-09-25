@@ -33,7 +33,6 @@ import java.util.List;
 public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetusNode, EnergyHandler {
 
     private static final long RECENT_ENERGY_WINDOW = 20L;
-    // 元动 → FE
     private static final int FE_CAPACITY = 2000;
     private static final int MAX_PUSH = 40;
     private static final int FE_PER_IMPETUS = 20;
@@ -74,7 +73,6 @@ public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetus
         }
     }
 
-    /** 消耗元动，产出 FE（存入内部 FE 缓冲） */
     private void convertImpetusToFe() {
         if (level == null) return;
         int feSpace = FE_CAPACITY - feBuffer;
@@ -97,12 +95,10 @@ public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetus
         }
     }
 
-    /** FE 的输出面（由方块 FACING 决定） */
     public Direction outputFace() {
         return getBlockState().getValue(ImpetusGeneratorBlock.FACING);
     }
 
-    /** 只朝输出面推送 FE */
     private void pushFeToNeighbors() {
         if (level == null || feBuffer <= 0) return;
         Direction dir = outputFace();
@@ -122,10 +118,9 @@ public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetus
         }
     }
 
-    // 发电机是元动的汇：接收元动，不输出元动
     @Override
     public ImpetusNodePorts getPorts() {
-        return ImpetusNodePorts.of(1, 0);
+        return ImpetusNodePorts.of(2, 0);
     }
 
     @Override
@@ -292,17 +287,17 @@ public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetus
         return isActive;
     }
 
-    @Override
-    public boolean hasRecentEnergy() {
-        if (level == null || lastEnergyGameTime < 0) return false;
-        return level.getGameTime() - lastEnergyGameTime < RECENT_ENERGY_WINDOW;
-    }
-
     private void setActive(boolean active) {
         if (this.isActive != active) {
             this.isActive = active;
             setChanged();
             syncToClient();
         }
+    }
+
+    @Override
+    public boolean hasRecentEnergy() {
+        if (level == null || lastEnergyGameTime < 0) return false;
+        return level.getGameTime() - lastEnergyGameTime < RECENT_ENERGY_WINDOW;
     }
 }

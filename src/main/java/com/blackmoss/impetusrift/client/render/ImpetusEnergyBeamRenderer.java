@@ -115,7 +115,8 @@ public class ImpetusEnergyBeamRenderer {
             float partialTick,
             float fade) {
 
-        collector.submitCustomGeometry(poseStack, BEAM_TYPE, (pose, buffer) -> renderBeamQuads(buffer, pose.pose(), from, to, cameraRelative, partialTick, fade));
+        collector.submitCustomGeometry(poseStack, BEAM_TYPE, (pose, buffer) ->
+                renderBeamQuads(buffer, pose.pose(), from, to, cameraRelative, partialTick, fade));
     }
 
     public static void renderBeamImmediate(
@@ -128,13 +129,6 @@ public class ImpetusEnergyBeamRenderer {
         renderBeamQuads(buffer, matrix, from, to, currentCameraPosition(), partialTick, 1.0F);
     }
 
-    // 渲染层本地的淡入淡出状态
-    private static final class BeamFadeState {
-        float fade = 0.0F;
-        long lastTime = -1L;
-    }
-
-    // 按真实时间增量更新 fade（不受帧率影响）；active=true 淡入、false 淡出
     public static float updateFade(BlockPos pos, boolean active) {
         BeamFadeState state = FADE_STATES.computeIfAbsent(pos, k -> new BeamFadeState());
         long now = System.currentTimeMillis();
@@ -142,22 +136,20 @@ public class ImpetusEnergyBeamRenderer {
             state.lastTime = now;
             return state.fade;
         }
-        // 限制最大间隔，避免卡顿后跳变
         long deltaMs = Math.min(200L, now - state.lastTime);
         state.lastTime = now;
-        float deltaTicks = deltaMs / 50.0F; // 1 tick = 50ms
+        float deltaTicks = deltaMs / 50.0F;
         if (active) {
             state.fade = Math.min(1.0F, state.fade + FADE_IN_STEP * deltaTicks);
         } else {
             state.fade = Math.max(0.0F, state.fade - FADE_OUT_STEP * deltaTicks);
             if (state.fade <= 0.0F) {
-                FADE_STATES.remove(pos); // 淡出完成后清理，避免 Map 累积
+                FADE_STATES.remove(pos);
             }
         }
         return state.fade;
     }
 
-    // 是否至少有一个目标还能接收能量（判断光束是否活跃）
     public static boolean hasReceivableTarget(Level level, List<BlockPos> targets) {
         if (level == null || targets == null) return false;
         for (BlockPos target : targets) {
@@ -215,15 +207,13 @@ public class ImpetusEnergyBeamRenderer {
         float ry = (float) right.y;
         float rz = (float) right.z;
 
-        // fade 同时缩放宽度和透明度（淡入时从小变大，淡出时从大变小）
-        // 呼吸：宽度持续脉动（变大变小）
         float breathe = 1.0F + BREATHE_AMPLITUDE * (float) Math.sin(time * BREATHE_SPEED);
         float w = BEAM_WIDTH * fade * breathe;
         float alpha = BEAM_A * fade;
         float v0 = -1.0F + scroll;
         float v1 = length + v0;
 
-        // 正面（U 用长度坐标 → 条纹沿光束；V 用 0-1 → 宽度方向）
+        // 正面
         buffer.addVertex(matrix, sx - rx * w, sy - ry * w, sz - rz * w)
                 .setUv(v0, 1.0F).setColor(BEAM_R, BEAM_G, BEAM_B, alpha);
         buffer.addVertex(matrix, ex - rx * w, ey - ry * w, ez - rz * w)
@@ -242,6 +232,11 @@ public class ImpetusEnergyBeamRenderer {
                 .setUv(v1, 1.0F).setColor(BEAM_R, BEAM_G, BEAM_B, alpha);
         buffer.addVertex(matrix, sx - rx * w, sy - ry * w, sz - rz * w)
                 .setUv(v0, 1.0F).setColor(BEAM_R, BEAM_G, BEAM_B, alpha);
+    }
+
+    private static final class BeamFadeState {
+        float fade = 0.0F;
+        long lastTime = -1L;
     }
 
     public record SimpleBeamSource(

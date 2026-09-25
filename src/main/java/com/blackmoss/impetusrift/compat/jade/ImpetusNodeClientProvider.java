@@ -16,6 +16,19 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
 
     private static final String PREFIX = "jade.impetusrift.";
 
+    private static void appendDrainerDiagnostic(ITooltip tooltip, CompoundTag data) {
+        boolean hasRift = data.getBooleanOr(ImpetusNodeDataProvider.KEY_HAS_RIFT, false);
+
+        if (hasRift) {
+            int size = data.getIntOr(ImpetusNodeDataProvider.KEY_RIFT_SIZE, 0);
+            float stability = data.getFloatOr(ImpetusNodeDataProvider.KEY_RIFT_STABILITY, 0.0F);
+
+            tooltip.add(Component.translatable(PREFIX + "rift_size", size)
+                    .append(Component.literal("  "))
+                    .append(Component.translatable(PREFIX + "stability", String.format("%.1f", stability))));
+        }
+    }
+
     @Override
     public @NonNull Identifier getUid() {
         return ImpetusRift.IRIdentifier("impetus_node");
@@ -48,19 +61,6 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
 
         if (data.contains(ImpetusNodeDataProvider.KEY_HAS_RIFT)) {
             appendDrainerDiagnostic(tooltip, data);
-        }
-    }
-
-    private static void appendDrainerDiagnostic(ITooltip tooltip, CompoundTag data) {
-        boolean hasRift = data.getBooleanOr(ImpetusNodeDataProvider.KEY_HAS_RIFT, false);
-
-        if (hasRift) {
-            int size = data.getIntOr(ImpetusNodeDataProvider.KEY_RIFT_SIZE, 0);
-            float stability = data.getFloatOr(ImpetusNodeDataProvider.KEY_RIFT_STABILITY, 0.0F);
-
-            tooltip.add(Component.translatable(PREFIX + "rift_size", size)
-                    .append(Component.literal("  "))
-                    .append(Component.translatable(PREFIX + "stability", String.format("%.1f", stability))));
         }
     }
 }

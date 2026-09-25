@@ -1,7 +1,8 @@
 package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.item.*;
+import com.blackmoss.impetusrift.item.ImpetusCellItem;
+import com.blackmoss.impetusrift.item.ImpetusLinkerItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
