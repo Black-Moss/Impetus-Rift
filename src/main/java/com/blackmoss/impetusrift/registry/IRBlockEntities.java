@@ -29,6 +29,10 @@ public final class IRBlockEntities {
             BLOCK_ENTITIES.register("impetus_matrix",
                     () -> new BlockEntityType<>(ImpetusMatrixBlockEntity::new, Set.of(IRBlocks.IMPETUS_MATRIX.get())));
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusRelayBlockEntity>> IMPETUS_RELAY =
+            BLOCK_ENTITIES.register("impetus_relay",
+                    () -> new BlockEntityType<>(ImpetusRelayBlockEntity::new, Set.of(IRBlocks.IMPETUS_RELAY.get())));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusAltarBaseBlockEntity>> IMPETUS_ALTAR_BASE =
             BLOCK_ENTITIES.register("impetus_altar_base",
                     () -> new BlockEntityType<>(ImpetusAltarBaseBlockEntity::new, Set.of(IRBlocks.IMPETUS_ALTAR_BASE.get())));

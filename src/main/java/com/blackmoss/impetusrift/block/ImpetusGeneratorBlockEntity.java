@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImpetusGeneratorBlockEntity extends BlockEntity implements IImpetusNode, EnergyHandler {
-
     private static final long RECENT_ENERGY_WINDOW = 20L;
     private static final int FE_CAPACITY = 2000;
     private static final int MAX_PUSH = 40;
