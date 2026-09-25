@@ -1,11 +1,103 @@
 {
-  "variants": {
-    "facing=down": {
-      "model": "impetusrift:block/impetus_altar_base",
-      "x": 180
+  "multipart": [
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base"
+      },
+      "when": {
+        "facing": "up"
+      }
     },
-    "facing=up": {
-      "model": "impetusrift:block/impetus_altar_base"
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base",
+        "x": 180
+      },
+      "when": {
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell"
+      },
+      "when": {
+        "cell_north": "true",
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "x": 180
+      },
+      "when": {
+        "cell_north": "true",
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "y": 180
+      },
+      "when": {
+        "cell_south": "true",
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "x": 180,
+        "y": 180
+      },
+      "when": {
+        "cell_south": "true",
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "y": 270
+      },
+      "when": {
+        "cell_west": "true",
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "x": 180,
+        "y": 270
+      },
+      "when": {
+        "cell_west": "true",
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "y": 90
+      },
+      "when": {
+        "cell_east": "true",
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "impetusrift:block/impetus_altar_base_cell",
+        "x": 180,
+        "y": 90
+      },
+      "when": {
+        "cell_east": "true",
+        "facing": "down"
+      }
     }
-  }
+  ]
 }

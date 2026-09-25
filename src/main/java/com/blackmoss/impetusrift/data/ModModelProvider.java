@@ -9,6 +9,8 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.ConditionBuilder;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
@@ -28,6 +30,7 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -59,14 +62,14 @@ public class ModModelProvider extends ModelProvider {
         generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
         generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
 
-        generateImpetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
+        impetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
 
         generateFlatItem(itemModels, IRItems.IMPETUS_CELL.get());
         generateFlatItem(itemModels, IRItems.IMPETUS_GEM.get());
         generateFlatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
         generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
 
-        generateRiftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
+        riftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
     }
 
     private static void generateCubeAllBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
@@ -161,7 +164,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
     }
 
-    private static void generateRiftCompassItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
+    private static void riftCompassItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
         Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
         String itemName = itemId.getPath();
 
@@ -191,19 +194,44 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(item, rangeSelect);
     }
 
-    private static void generateImpetusAltarBase(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
+    private static void impetusAltarBase(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier baseModel = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier cellModel = ImpetusRift.IRIdentifier("block/" + blockId.getPath() + "_cell");
 
-        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
-        blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(block)
-                        .with(PropertyDispatch.initial(ImpetusAltarBaseBlock.FACING)
-                                .generate((facing) -> {
-                                    VariantMutator rotation = facing == Direction.DOWN
-                                            ? BlockModelGenerators.X_ROT_180
-                                            : BlockModelGenerators.NOP;
-                                    return new MultiVariant(WeightedList.of(rotation.apply(new Variant(modelId))));
-                                })));
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(baseModel));
+
+        MultiPartGenerator multipart = MultiPartGenerator.multiPart(block);
+
+        multipart.with(
+                new ConditionBuilder().term(ImpetusAltarBaseBlock.FACING, Direction.UP).build(),
+                buildVariant(baseModel));
+        multipart.with(
+                new ConditionBuilder().term(ImpetusAltarBaseBlock.FACING, Direction.DOWN).build(),
+                buildVariant(baseModel, BlockModelGenerators.X_ROT_180));
+
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_NORTH, BlockModelGenerators.NOP);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_SOUTH, BlockModelGenerators.Y_ROT_180);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_WEST, BlockModelGenerators.Y_ROT_270);
+        addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_EAST, BlockModelGenerators.Y_ROT_90);
+
+        blockModels.blockStateOutput.accept(multipart);
+    }
+
+    private static void addCellPart(@NonNull MultiPartGenerator multipart, @NonNull Identifier cellModel, @NonNull BooleanProperty cell, @NonNull VariantMutator yRot) {
+        multipart.with(
+                new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.UP).build(),
+                buildVariant(cellModel, yRot));
+        multipart.with(
+                new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.DOWN).build(),
+                buildVariant(cellModel, yRot, BlockModelGenerators.X_ROT_180));
+    }
+
+    private static MultiVariant buildVariant(@NonNull Identifier model, @NonNull VariantMutator... mutators) {
+        Variant variant = new Variant(model);
+        for (VariantMutator mutator : mutators) {
+            variant = mutator.apply(variant);
+        }
+        return new MultiVariant(WeightedList.of(variant));
     }
 }
