@@ -1,4 +1,4 @@
-package com.blackmoss.impetusrift.client;
+package com.blackmoss.impetusrift.client.hud;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
