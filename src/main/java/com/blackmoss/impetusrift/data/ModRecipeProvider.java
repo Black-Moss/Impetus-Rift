@@ -45,7 +45,7 @@ public final class ModRecipeProvider extends RecipeProvider {
     }
 
     private static ResearchGate irGate(String path) {
-        return new ResearchGate(ImpetusRift.IRIdentifier(path), Optional.empty(), false);
+        return new ResearchGate(ImpetusRift.identifier(path), Optional.empty(), false);
     }
 
     @Override

@@ -40,8 +40,8 @@ public class ImpetusEnergyBeamRenderer {
     private static final float FADE_OUT_STEP = 0.05F;
     private static final Map<BlockPos, BeamFadeState> FADE_STATES = new HashMap<>();
 
-    private static final Identifier IMPETUS_BEAM_TEX = ImpetusRift.IRIdentifier("textures/misc/impetus_energy_beam.png");
-    private static final Identifier PIPELINE_LOC = ImpetusRift.IRIdentifier("pipeline/impetus_energy_beam");
+    private static final Identifier IMPETUS_BEAM_TEX = ImpetusRift.identifier("textures/misc/impetus_energy_beam.png");
+    private static final Identifier PIPELINE_LOC = ImpetusRift.identifier("pipeline/impetus_energy_beam");
     private static final RenderPipeline PIPELINE = TCFXPipelines.translucentTextured(PIPELINE_LOC);
     public static final RenderType BEAM_TYPE = RenderType.create(
             "ir_impetus_energy_beam",

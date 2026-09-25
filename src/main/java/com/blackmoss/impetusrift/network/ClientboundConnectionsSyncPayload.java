@@ -14,7 +14,7 @@ import java.util.List;
 
 public record ClientboundConnectionsSyncPayload(List<ImpetusConnection> connections) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ClientboundConnectionsSyncPayload> TYPE =
-            new CustomPacketPayload.Type<>(ImpetusRift.IRIdentifier("connections_sync"));
+            new CustomPacketPayload.Type<>(ImpetusRift.identifier("connections_sync"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundConnectionsSyncPayload> STREAM_CODEC =
             StreamCodec.composite(

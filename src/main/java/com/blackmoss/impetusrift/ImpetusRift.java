@@ -21,7 +21,7 @@ public class ImpetusRift {
         IRCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
     }
 
-    public static Identifier IRIdentifier(String path) {
+    public static Identifier identifier(String path) {
         return Identifier.fromNamespaceAndPath(MODID, path);
     }
 }

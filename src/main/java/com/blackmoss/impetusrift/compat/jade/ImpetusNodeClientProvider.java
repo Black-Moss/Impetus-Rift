@@ -31,7 +31,7 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
 
     @Override
     public @NonNull Identifier getUid() {
-        return ImpetusRift.IRIdentifier("impetus_node");
+        return ImpetusRift.identifier("impetus_node");
     }
 
     @Override

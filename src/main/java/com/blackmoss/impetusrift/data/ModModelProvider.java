@@ -74,7 +74,7 @@ public class ModModelProvider extends ModelProvider {
 
     private static void generateCubeAllBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         ModelTemplates.CUBE_ALL.create(modelId, TextureMapping.cube(block), blockModels.modelOutput);
         blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(modelId)));
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
@@ -82,7 +82,7 @@ public class ModModelProvider extends ModelProvider {
 
     private static void generateCustomBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         MultiVariant variant = new MultiVariant(WeightedList.of(new Variant(modelId)));
         blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, variant));
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
@@ -90,26 +90,26 @@ public class ModModelProvider extends ModelProvider {
 
     private static void generateBlockStateOnly(@NonNull BlockModelGenerators blockModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelId)));
     }
 
     private static void generateItemModelOnly(@NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
     private static void generateObjBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelId)));
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
     private static void generateFacingBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         MultiVariant variant = new MultiVariant(WeightedList.of(new Variant(modelId)));
 
         blockModels.blockStateOutput.accept(
@@ -120,7 +120,7 @@ public class ModModelProvider extends ModelProvider {
 
     private static void generateDirectionalBlockState(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier modelId = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
 
         Variant base = new Variant(modelId);
@@ -159,7 +159,7 @@ public class ModModelProvider extends ModelProvider {
 
     private static void generateFlatItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
         Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
-        Identifier modelId = ImpetusRift.IRIdentifier("item/" + itemId.getPath());
+        Identifier modelId = ImpetusRift.identifier("item/" + itemId.getPath());
         ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(item), itemModels.modelOutput);
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
     }
@@ -170,8 +170,8 @@ public class ModModelProvider extends ModelProvider {
 
         List<RangeSelectItemModel.Entry> overrides = new ArrayList<>();
 
-        Identifier baseModelId = ImpetusRift.IRIdentifier("item/" + itemName + "_16");
-        Material baseMaterial = new Material(ImpetusRift.IRIdentifier("item/" + itemName + "_16"));
+        Identifier baseModelId = ImpetusRift.identifier("item/" + itemName + "_16");
+        Material baseMaterial = new Material(ImpetusRift.identifier("item/" + itemName + "_16"));
         ModelTemplates.FLAT_ITEM.create(baseModelId, TextureMapping.layer0(baseMaterial), itemModels.modelOutput);
         ItemModel.Unbaked base = ItemModelUtils.plainModel(baseModelId);
         overrides.add(ItemModelUtils.override(base, 0.0F));
@@ -179,8 +179,8 @@ public class ModModelProvider extends ModelProvider {
         for (int i = 1; i < 32; ++i) {
             int textureIndex = Mth.positiveModulo(i - 16, 32);
             String suffix = String.format(Locale.ROOT, "_%02d", textureIndex);
-            Identifier modelId = ImpetusRift.IRIdentifier("item/" + itemName + suffix);
-            Material material = new Material(ImpetusRift.IRIdentifier("item/" + itemName + suffix));
+            Identifier modelId = ImpetusRift.identifier("item/" + itemName + suffix);
+            Material material = new Material(ImpetusRift.identifier("item/" + itemName + suffix));
             ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(material), itemModels.modelOutput);
             ItemModel.Unbaked overrideModel = ItemModelUtils.plainModel(modelId);
             overrides.add(ItemModelUtils.override(overrideModel, (float) i - 0.5F));
@@ -196,8 +196,8 @@ public class ModModelProvider extends ModelProvider {
 
     private static void impetusAltarBase(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-        Identifier baseModel = ImpetusRift.IRIdentifier("block/" + blockId.getPath());
-        Identifier cellModel = ImpetusRift.IRIdentifier("block/" + blockId.getPath() + "_cell");
+        Identifier baseModel = ImpetusRift.identifier("block/" + blockId.getPath());
+        Identifier cellModel = ImpetusRift.identifier("block/" + blockId.getPath() + "_cell");
 
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(baseModel));
 

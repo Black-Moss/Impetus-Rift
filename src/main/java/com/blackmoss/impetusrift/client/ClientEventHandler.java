@@ -27,7 +27,7 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void onRegisterRangeSelectProperties(RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(
-                ImpetusRift.IRIdentifier("rift_compass_angle"),
+                ImpetusRift.identifier("rift_compass_angle"),
                 RiftCompassAngleProperty.MAP_CODEC
         );
     }

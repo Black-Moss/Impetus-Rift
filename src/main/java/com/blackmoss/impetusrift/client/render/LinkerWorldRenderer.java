@@ -30,8 +30,8 @@ import org.joml.Matrix4f;
 @EventBusSubscriber(modid = ImpetusRift.MODID, value = Dist.CLIENT)
 public final class LinkerWorldRenderer {
 
-    private static final Identifier PIPELINE_LOC = ImpetusRift.IRIdentifier("pipeline/linker_overlay");
-    private static final Identifier FRAME_TEX = ImpetusRift.IRIdentifier("textures/misc/frame.png");
+    private static final Identifier PIPELINE_LOC = ImpetusRift.identifier("pipeline/linker_overlay");
+    private static final Identifier FRAME_TEX = ImpetusRift.identifier("textures/misc/frame.png");
     private static final RenderPipeline PIPELINE = TCFXPipelines.additiveTexturedNoDepth(PIPELINE_LOC);
     private static final RenderType OVERLAY_TYPE = RenderType.create("ir_linker_overlay",
             RenderSetup.builder(PIPELINE)

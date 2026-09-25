@@ -31,7 +31,7 @@ public class ImpetusNetworkManager extends SavedData {
                     ).apply(builder, connectionList -> new ImpetusNetworkManager(new ArrayList<>(connectionList))));
     private static final String DATA_NAME = "impetus_network";
     public static final SavedDataType<ImpetusNetworkManager> TYPE = new SavedDataType<>(
-            ImpetusRift.IRIdentifier(DATA_NAME),
+            ImpetusRift.identifier(DATA_NAME),
             ImpetusNetworkManager::new,
             CODEC,
             DataFixTypes.LEVEL);
