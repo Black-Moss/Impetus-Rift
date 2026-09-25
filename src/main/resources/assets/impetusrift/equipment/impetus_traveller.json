@@ -1,0 +1,26 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "impetusrift:impetus_traveller_overlay",
+        "dyeable": {
+          "color_when_undyed": 6961280
+        }
+      },
+      {
+        "texture": "impetusrift:impetus_traveller"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "impetusrift:impetus_traveller_overlay",
+        "dyeable": {
+          "color_when_undyed": 6961280
+        }
+      },
+      {
+        "texture": "impetusrift:impetus_traveller"
+      }
+    ]
+  }
+}

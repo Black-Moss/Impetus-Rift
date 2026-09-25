@@ -3,14 +3,10 @@
   "aspects": [
     {
       "amount": 10,
-      "aspect": "thaumaturge:potentia"
-    },
-    {
-      "amount": 5,
       "aspect": "thaumaturge:vacuos"
     }
   ],
-  "catalyst": "thaumaturge:essentia_crystal",
+  "catalyst": "thaumaturge:void_seed",
   "research": {
     "entry": "impetusrift:impetus_gem"
   },

@@ -1,0 +1,51 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:metallum"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:aqua"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:vacuos"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:fabrico"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 70,
+      "aspect": "thaumaturge:volatus"
+    },
+    {
+      "amount": 70,
+      "aspect": "thaumaturge:motus"
+    }
+  ],
+  "catalyst": "thaumicaddon:void_traveller_boots",
+  "components": [
+    "thaumaturge:plate_void",
+    "impetusrift:impetus_gem",
+    "thaumaturge:plate_void",
+    "impetusrift:impetus_gem",
+    "thaumaturge:plate_void",
+    "impetusrift:impetus_gem",
+    "thaumaturge:plate_void",
+    "impetusrift:impetus_gem"
+  ],
+  "instability": 6,
+  "research": {
+    "entry": "impetusrift:impetus_traveller_boots"
+  },
+  "result": {
+    "id": "impetusrift:impetus_traveller_boots"
+  }
+}

@@ -1,17 +1,26 @@
 {
-  "type": "thaumaturge:arcane_workbench_shapeless",
+  "type": "thaumaturge:arcane_workbench_shaped",
   "crystals": [
     {
+      "amount": 10,
       "aspect": "thaumaturge:perditio"
+    },
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:ordo"
     }
   ],
-  "ingredients": [
-    "thaumaturge:salis_mundus",
-    "thaumaturge:crystal_vitium",
-    "impetusrift:impetus_gem"
+  "key": {
+    "P": "thaumaturge:plate_brass",
+    "S": "thaumaturge:salis_mundus"
+  },
+  "pattern": [
+    " P ",
+    "PSP",
+    " P "
   ],
   "research": {
-    "entry": "impetusrift:rift_locator"
+    "entry": "impetusrift:rift_compass"
   },
   "result": {
     "id": "impetusrift:rift_compass"

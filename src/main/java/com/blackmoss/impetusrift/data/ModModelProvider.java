@@ -5,6 +5,7 @@ import com.blackmoss.impetusrift.block.ImpetusAltarBaseBlock;
 import com.blackmoss.impetusrift.client.model.RiftCompassAngleProperty;
 import com.blackmoss.impetusrift.registry.IRBlocks;
 import com.blackmoss.impetusrift.registry.IRItems;
+import net.minecraft.client.color.item.Dye;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -70,6 +71,7 @@ public class ModModelProvider extends ModelProvider {
         generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
 
         riftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
+        impetusTravellerBootsItem(itemModels, IRItems.IMPETUS_TRAVELLER_BOOTS.get());
     }
 
     private static void generateCubeAllBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
@@ -192,6 +194,14 @@ public class ModModelProvider extends ModelProvider {
                 new RiftCompassAngleProperty(), 32.0F, overrides);
 
         itemModels.itemModelOutput.accept(item, rangeSelect);
+    }
+
+    private static void impetusTravellerBootsItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
+        Identifier identifier = ImpetusRift.identifier("item/impetus_traveller_boots");
+        Material clothTex = new Material(ImpetusRift.identifier("item/impetus_traveller_boots_overlay"));
+        Material metalTex = new Material(identifier);
+        ModelTemplates.TWO_LAYERED_ITEM.create(identifier, TextureMapping.layered(clothTex, metalTex), itemModels.modelOutput);
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(identifier, new Dye(-9815936)));
     }
 
     private static void impetusAltarBase(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {

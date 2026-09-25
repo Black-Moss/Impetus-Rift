@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "thaumaturge:vis_battery"
+            "items": "impetusrift:impetus_cell"
           }
         ]
       },

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:impetus_gem"
+            "items": "impetusrift:impetus_traveller_boots"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:arcane_workbench/rift_compass"
+        "recipe": "impetusrift:infusion/impetus_traveller_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:arcane_workbench/rift_compass"
+      "impetusrift:infusion/impetus_traveller_boots"
     ]
   }
 }

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:rift_feeder"
+            "items": "impetusrift:rift_compass"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:infusion/rift_feeder"
+        "recipe": "impetusrift:arcane_workbench/rift_compass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:infusion/rift_feeder"
+      "impetusrift:arcane_workbench/rift_compass"
     ]
   }
 }
