@@ -29,7 +29,6 @@ public final class IRItems {
     public static final DeferredItem<BlockItem> RIFT_MOVER_OUTPUT = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_MOVER_OUTPUT);
     public static final DeferredItem<BlockItem> RIFT_JAR = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_JAR);
     public static final DeferredItem<BlockItem> RIFT_MONITOR = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_MONITOR);
-    public static final DeferredItem<BlockItem> RIFT_BARRIER = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_BARRIER);
 
     public static final DeferredItem<Item> IMPETUS_GEM = ITEMS.registerItem(
             "impetus_gem", Item::new, props -> props

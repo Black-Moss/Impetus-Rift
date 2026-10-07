@@ -7,8 +7,11 @@ import com.blackmoss.impetusrift.energy.network.ImpetusConnection;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
 import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.blackmoss.impetusrift.registry.IRBlockEntities;
+import com.leclowndu93150.thaumaturge.api.aspect.AspectList;
+import com.leclowndu93150.thaumaturge.api.casters.IInteractWithCaster;
 import com.leclowndu93150.thaumaturge.api.infusion.IInfusionStabiliser;
-import com.leclowndu93150.thaumaturge.api.items.IGogglesDisplayExtended;
+import com.leclowndu93150.thaumaturge.api.items.IGogglesReadout;
+import com.leclowndu93150.thaumaturge.content.aspect.ReadOnlyAspectContainer;
 import com.leclowndu93150.thaumaturge.content.infusion.InfusionStabilitySurvey;
 import com.leclowndu93150.thaumaturge.content.infusion.InstabilityEvents;
 import net.minecraft.ChatFormatting;
@@ -22,6 +25,9 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,7 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNode, IGogglesDisplayExtended {
+public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNode, IGogglesReadout, IInteractWithCaster, ReadOnlyAspectContainer {
     private static final long BASE_CAPACITY = 0L;
     private static final long MAX_TRANSFER = 200L;
     private static final float MIN_STABILITY = -100.0F;
@@ -188,7 +194,7 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     private float getStabilityLossPerCycle() {
         long maxEnergy = energyStorage.getMaxEnergyStored();
         if (maxEnergy <= 0) return 0.0F;
-        return (float) ((double) energyStorage.getEnergyStored() / maxEnergy);
+        return ((float) energyStorage.getEnergyStored() / maxEnergy);
     }
 
     private void ejectEnergyUnit() {
@@ -275,21 +281,21 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     }
 
     @Override
-    public Component[] getIGogglesText() {
+    public List<Component> readout() {
         Component tier = Component.translatable(stabilityTierKey()).withStyle(ChatFormatting.BOLD);
         Component gain = Component.literal(STABILITY_FORMAT.format(stabilityGain) + " ")
                 .append(Component.translatable("gui.thaumaturge.infusion.stability.gain"))
                 .withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC);
         float loss = getStabilityLossPerCycle();
         if (loss <= 0.0F) {
-            return new Component[]{tier, gain};
+            return List.of(tier, gain);
         }
         Component lossText = Component.translatable("gui.thaumaturge.infusion.stability.range")
                 .append(Component.literal(STABILITY_FORMAT.format(loss) + " ")
                         .append(Component.translatable("gui.thaumaturge.infusion.stability.loss")
                                 .withStyle(ChatFormatting.ITALIC)))
                 .withStyle(ChatFormatting.RED);
-        return new Component[]{tier, gain, lossText};
+        return List.of(tier, gain, lossText);
     }
 
     private String stabilityTierKey() {
@@ -393,5 +399,15 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
 
     public int getInstalledUnits() {
         return installedUnits;
+    }
+
+    @Override
+    public AspectList getAspects() {
+        return null;
+    }
+
+    @Override
+    public boolean onCasterRightClick(Level level, ItemStack itemStack, Player player, BlockPos blockPos, Direction direction, InteractionHand interactionHand) {
+        return false;
     }
 }

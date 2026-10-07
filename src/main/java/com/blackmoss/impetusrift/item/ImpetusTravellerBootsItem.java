@@ -52,6 +52,13 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
         }
     }
 
+    @SubscribeEvent
+    public static void onLivingFall(LivingFallEvent event) {
+        LivingEntity entity = event.getEntity();
+        ItemStack feet = entity.getItemBySlot(EquipmentSlot.FEET);
+        feet.getItem();
+    }
+
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(stack, level, entity, slot);
@@ -87,11 +94,6 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
     }
 
     @Override
-    public int getWarp(ItemStack stack, LivingEntity wearer) {
-        return 5;
-    }
-
-    @Override
     public long getMaxCharge(@NonNull ItemStack stack, @Nullable LivingEntity entity) {
         return ImpetusChargeHelper.CAPACITY;
     }
@@ -99,35 +101,5 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
     @Override
     public IImpetusRechargeable.ChargeDisplay showInHud(ItemStack stack, LivingEntity holder) {
         return IImpetusRechargeable.ChargeDisplay.PERIODIC;
-    }
-
-    @SubscribeEvent
-    public static void onLivingFall(LivingFallEvent event) {
-        LivingEntity entity = event.getEntity();
-        ItemStack feet = entity.getItemBySlot(EquipmentSlot.FEET);
-        if (!(feet.getItem() instanceof ImpetusTravellerBootsItem)) {
-            return;
-        }
-        double distance = event.getDistance();
-        double safe = entity.getAttributeValue(Attributes.SAFE_FALL_DISTANCE);
-        double harmful = distance - safe;
-        if (harmful <= 0.0D) {
-            return;
-        }
-
-        int charge = ImpetusChargeHelper.getCharge(feet);
-        if (charge <= 0) {
-            return;
-        }
-
-        int need = (int) Math.ceil(harmful / BLOCKS_PER_ENERGY);
-        if (charge >= need) {
-            ImpetusChargeHelper.setCharge(feet, charge - need);
-            event.setDistance((float) safe);
-        } else {
-            double absorbed = charge * BLOCKS_PER_ENERGY;
-            ImpetusChargeHelper.setCharge(feet, 0);
-            event.setDistance((float) (safe + harmful - absorbed));
-        }
     }
 }

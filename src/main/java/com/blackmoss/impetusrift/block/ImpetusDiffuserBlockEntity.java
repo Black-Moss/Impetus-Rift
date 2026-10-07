@@ -34,7 +34,6 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
     private static final int SCAN_INTERVAL = 20;
     private static final double SCAN_RADIUS = 7.0;
 
-    // maxExtract 必须 >0，否则 extractEnergy 恒返回 0，充能时不会扣除自身能量
     private final ImpetusEnergyStorage energyStorage = new ImpetusEnergyStorage(BUFFER_CAPACITY, BUFFER_CAPACITY, BUFFER_CAPACITY);
     private boolean active = false;
     private int ticks;
@@ -114,7 +113,6 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
         setChanged();
     }
 
-    // 向周围玩家身上（背包 / 装备栏 / 副手）的可充能物品注入元动能源
     private boolean chargeNearbyItems() {
         if (level == null || energyStorage.getEnergyStored() <= 0) return false;
 
@@ -142,7 +140,7 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
                 int room = (int) Math.max(0L, max - current);
                 if (room <= 0) continue;
 
-                int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min((long) room, energyStorage.getEnergyStored()));
+                int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min(room, energyStorage.getEnergyStored()));
                 if (toCharge <= 0) continue;
 
                 ImpetusChargeHelper.setCharge(stack, current + toCharge);

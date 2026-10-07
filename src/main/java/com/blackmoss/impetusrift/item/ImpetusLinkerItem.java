@@ -24,20 +24,6 @@ public class ImpetusLinkerItem extends Item {
         super(properties);
     }
 
-    @Override
-    public @NonNull InteractionResult useOn(UseOnContext context) {
-        Level level = context.getLevel();
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-        Player player = context.getPlayer();
-        if (player == null) {
-            return InteractionResult.FAIL;
-        }
-        performLink(level, player, context.getItemInHand(), context.getClickedPos());
-        return InteractionResult.SUCCESS;
-    }
-
     private static String formatPos(BlockPos pos) {
         return "(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
     }
@@ -185,5 +171,19 @@ public class ImpetusLinkerItem extends Item {
         }
 
         stack.remove(IRDataComponents.LINKER_BOUND_SOURCE.get());
+    }
+
+    @Override
+    public @NonNull InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        Player player = context.getPlayer();
+        if (player == null) {
+            return InteractionResult.FAIL;
+        }
+        performLink(level, player, context.getItemInHand(), context.getClickedPos());
+        return InteractionResult.SUCCESS;
     }
 }

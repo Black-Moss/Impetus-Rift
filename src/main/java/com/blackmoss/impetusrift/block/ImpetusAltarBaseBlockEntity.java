@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ImpetusAltarBaseBlockEntity extends BlockEntity {
-
     public static final int MAX_UNITS_PER_FACE = 1;
     public static final int MAX_TOTAL_UNITS = 8;
     public static final long ENERGY_PER_UNIT = 500L;

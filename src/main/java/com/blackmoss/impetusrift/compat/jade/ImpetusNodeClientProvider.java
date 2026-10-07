@@ -11,7 +11,6 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
-
     INSTANCE;
 
     private static final String PREFIX = "jade.impetusrift.";

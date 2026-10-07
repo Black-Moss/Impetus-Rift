@@ -59,9 +59,6 @@ public final class IRBlocks {
     // 裂隙监测仪
     public static final DeferredBlock<Block> RIFT_MONITOR = impetusMachine("rift_monitor", Block::new);
 
-    // 裂隙屏障
-    public static final DeferredBlock<Block> RIFT_BARRIER = BLOCKS.registerSimpleBlock("rift_barrier");
-
     private IRBlocks() {
     }
 

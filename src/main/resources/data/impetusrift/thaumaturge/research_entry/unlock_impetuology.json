@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturge:eldritch",
+  "name": "research.impetusrift.unlock_impetuology.title",
+  "parents": [
+    "thaumaturge:unlock_eldritch"
+  ],
+  "column": 2,
+  "row": 2,
+  "meta": [
+    "round",
+    "spiky",
+    "hidden"
+  ],
+  "icons": [
+    "impetusrift:impetus_gem"
+  ],
+  "stages": [
+    {
+      "text": "research.impetusrift.unlock_impetuology.stage_0",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "impetusrift:impetuology",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "impetusrift:impetus_gem"
+          ],
+          "amount": 1
+        }
+      ],
+      "warp": 5
+    },
+    {
+      "text": "research.impetusrift.unlock_impetuology.stage_1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 3
+    }
+  ],
+  "complexity": 3
+}

@@ -26,14 +26,14 @@ public final class IRMaterials {
             ASSET_IMPETUS_TRAVELLER
     );
 
+    public IRMaterials() {
+    }
+
     private static Map<ArmorType, Integer> defense(int boots, int leggings, int chestplate, int helmet) {
         return Map.of(
                 ArmorType.BOOTS, boots,
                 ArmorType.LEGGINGS, leggings,
                 ArmorType.CHESTPLATE, chestplate,
                 ArmorType.HELMET, helmet);
-    }
-
-    public IRMaterials() {
     }
 }

@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.147'
+    id 'net.neoforged.moddev' version '2.0.148'
     id 'idea'
 }
 
@@ -19,20 +19,21 @@ sourceSets.main.resources {
 }
 
 repositories {
-    flatDir {
-        name = "thaumaturgeLocal"
-        dirs "E:/MossProject/MinecraftJava/Thaumaturge/build/libs"
+    maven {
+        name = 'JEI Maven'
+        url = 'https://maven.blamejared.com/'
     }
 
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = "https://api.modrinth.com/maven"
-            }
-        }
-        filter {
-            includeGroup "maven.modrinth"
+    maven {
+        name = "Modrinth Maven"
+        url = "https://api.modrinth.com/maven"
+    }
+
+    maven {
+        name = 'Curse Maven'
+        url = 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
         }
     }
 
@@ -41,21 +42,10 @@ repositories {
         url = "https://maven.theillusivec4.top/"
     }
 
-    maven {
-        name = 'JEI Maven'
-        url = 'https://maven.blamejared.com/'
-    }
-    maven {
-        name = 'Curse Maven'
-        url = 'https://cursemaven.com'
-        content {
-            includeGroup 'curse.maven'
-        }
-    }
-    maven{
-        name = 'Architectury'
-        url = 'https://maven.architectury.dev/'
-    }
+//    maven {
+//        name = "blakesmodsReleases"
+//        url = "https://maven.blakesmods.com/releases"
+//    }
 }
 
 base {
@@ -108,15 +98,26 @@ configurations {
 }
 
 dependencies {
-    def thaumaturgeJar = "E:/MossProject/MinecraftJava/Thaumaturge/build/libs/thaumaturge-26.1.2-NeoForge-BETA-0.2.0.jar"
+    def thaumaturgeJar = "thaumaturge-${thaumaturge_version}.jar"
     compileOnly files(thaumaturgeJar)
     localRuntime files(thaumaturgeJar)
 
-    // TerraBlender
-    implementation "maven.modrinth:kkmrDlKT:cWLGFrxw"
+    // Lithostitched
+    implementation "maven.modrinth:lithostitched:${lithostitched_version}"
+
+    // JEI
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    // Curios
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // Jade
-    implementation "maven.modrinth:nvQzSEkH:5jKeKXwB"
+    compileOnly "maven.modrinth:jade:${jade_version}"
+    runtimeOnly "maven.modrinth:jade:${jade_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -159,4 +160,8 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+tasks.named('jar', Jar).configure {
+    archiveFileName = "${mod_id}-${mod_version}-NeoForge-${minecraft_version}.jar"
 }

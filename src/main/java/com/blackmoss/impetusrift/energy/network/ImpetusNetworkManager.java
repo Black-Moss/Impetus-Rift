@@ -35,14 +35,12 @@ public class ImpetusNetworkManager extends SavedData {
             ImpetusNetworkManager::new,
             CODEC,
             DataFixTypes.LEVEL);
-
+    private static final double TRANSFER_PER_SECOND_MIN = 1.0;
+    private static final double TRANSFER_PER_SECOND_MAX = 50.0;
     private final List<ImpetusConnection> connections;
     private final List<ImpetusConnection> toRemove = new ArrayList<>();
     private final List<ImpetusConnection> toAdd = new ArrayList<>();
-
     private final Map<BlockPos, Long> matrixTransferAccumulator = new HashMap<>();
-    private static final double TRANSFER_PER_SECOND_MIN = 1.0;
-    private static final double TRANSFER_PER_SECOND_MAX = 50.0;
     private final Map<ImpetusConnection, Double> transferAccumulator = new HashMap<>();
     private final Map<ImpetusConnection, Double> transferRate = new HashMap<>();
 

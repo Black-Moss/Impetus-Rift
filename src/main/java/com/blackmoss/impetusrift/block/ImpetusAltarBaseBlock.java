@@ -41,11 +41,6 @@ public class ImpetusAltarBaseBlock extends BaseEntityBlock {
         super(properties);
     }
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, CELL_NORTH, CELL_SOUTH, CELL_WEST, CELL_EAST);
-    }
-
     public static BooleanProperty cellProperty(Direction dir) {
         return switch (dir) {
             case NORTH -> CELL_NORTH;
@@ -74,6 +69,11 @@ public class ImpetusAltarBaseBlock extends BaseEntityBlock {
             }
         }
         return count;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING, CELL_NORTH, CELL_SOUTH, CELL_WEST, CELL_EAST);
     }
 
     @Override

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImpetusDrainerRenderer implements BlockEntityRenderer<ImpetusDrainerBlockEntity, ImpetusDrainerRenderer.DrainerRenderState> {
-
     public ImpetusDrainerRenderer(BlockEntityRendererProvider.Context context) {
     }
 

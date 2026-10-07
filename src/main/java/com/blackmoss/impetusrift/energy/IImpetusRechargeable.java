@@ -10,12 +10,12 @@ public interface IImpetusRechargeable {
 
     IImpetusRechargeable.ChargeDisplay showInHud(ItemStack var1, LivingEntity var2);
 
-    public static enum ChargeDisplay {
+    enum ChargeDisplay {
         NEVER,
         NORMAL,
         PERIODIC;
 
-        private ChargeDisplay() {
+        ChargeDisplay() {
         }
     }
 }

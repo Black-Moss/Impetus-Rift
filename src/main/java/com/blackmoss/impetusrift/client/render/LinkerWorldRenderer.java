@@ -142,37 +142,31 @@ public final class LinkerWorldRenderer {
         float x1 = (float) (x - o), y1 = (float) (y - o), z1 = (float) (z - o);
         float x2 = (float) (x + 1 + o), y2 = (float) (y + 1 + o), z2 = (float) (z + 1 + o);
 
-        // 北面 (-Z)
         buffer.addVertex(matrix, x1, y1, z1).setUv(0, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y1, z1).setUv(1, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y2, z1).setUv(1, 1).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y2, z1).setUv(0, 1).setColor(r, g, b, 1.0F);
 
-        // 南面 (+Z)
         buffer.addVertex(matrix, x2, y1, z2).setUv(0, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y1, z2).setUv(1, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y2, z2).setUv(1, 1).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y2, z2).setUv(0, 1).setColor(r, g, b, 1.0F);
 
-        // 西面 (-X)
         buffer.addVertex(matrix, x1, y1, z2).setUv(0, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y1, z1).setUv(1, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y2, z1).setUv(1, 1).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y2, z2).setUv(0, 1).setColor(r, g, b, 1.0F);
 
-        // 东面 (+X)
         buffer.addVertex(matrix, x2, y1, z1).setUv(0, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y1, z2).setUv(1, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y2, z2).setUv(1, 1).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y2, z1).setUv(0, 1).setColor(r, g, b, 1.0F);
 
-        // 顶面 (+Y)
         buffer.addVertex(matrix, x1, y2, z1).setUv(0, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y2, z1).setUv(1, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y2, z2).setUv(1, 1).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x1, y2, z2).setUv(0, 1).setColor(r, g, b, 1.0F);
 
-        // 底面 (-Y)
         buffer.addVertex(matrix, x1, y1, z2).setUv(0, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y1, z2).setUv(1, 0).setColor(r, g, b, 1.0F);
         buffer.addVertex(matrix, x2, y1, z1).setUv(1, 1).setColor(r, g, b, 1.0F);

@@ -35,6 +35,14 @@ public class ImpetusGeneratorBlock extends BaseEntityBlock {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    private static VoxelShape shapeFor(Direction dir) {
+        return switch (dir.getAxis()) {
+            case X -> Shapes.box(0.0, GEN_LO, GEN_LO, 1.0, GEN_HI, GEN_HI);
+            case Y -> Shapes.box(GEN_LO, 0.0, GEN_LO, GEN_HI, 1.0, GEN_HI);
+            case Z -> Shapes.box(GEN_LO, GEN_LO, 0.0, GEN_HI, GEN_HI, 1.0);
+        };
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
@@ -65,14 +73,6 @@ public class ImpetusGeneratorBlock extends BaseEntityBlock {
     public @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter level,
                                                    @NonNull BlockPos pos) {
         return shapeFor(state.getValue(FACING));
-    }
-
-    private static VoxelShape shapeFor(Direction dir) {
-        return switch (dir.getAxis()) {
-            case X -> Shapes.box(0.0, GEN_LO, GEN_LO, 1.0, GEN_HI, GEN_HI);
-            case Y -> Shapes.box(GEN_LO, 0.0, GEN_LO, GEN_HI, 1.0, GEN_HI);
-            case Z -> Shapes.box(GEN_LO, GEN_LO, 0.0, GEN_HI, GEN_HI, 1.0);
-        };
     }
 
     @Nullable

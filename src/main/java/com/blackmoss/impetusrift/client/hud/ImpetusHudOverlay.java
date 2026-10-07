@@ -4,7 +4,8 @@ import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
 import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
 import com.leclowndu93150.thaumaturge.TCIds;
-import com.leclowndu93150.thaumaturge.api.items.IRechargable;
+import com.leclowndu93150.thaumaturge.api.items.ChargeDisplay;
+import com.leclowndu93150.thaumaturge.api.items.ChargeProfile;
 import com.leclowndu93150.thaumaturge.api.items.RechargeAccess;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -30,7 +31,6 @@ public final class ImpetusHudOverlay implements GuiLayer {
     private static final int BEAM_BAR_H = 8;
     private static final int BEAM_BAR_LENGTH = 64;
     private static final float BEAM_SCROLL_SPEED = 1.0F;
-    /** 能量束（填充条）相对框心的水平偏移：位于 scale(0.5) 之后，2.0 单位 = 1 屏幕像素 */
     private static final float BAR_FILL_OFFSET_X = 2.0F;
 
     private static final int PERIODIC_SHOW_TICKS = 60;
@@ -59,80 +59,6 @@ public final class ImpetusHudOverlay implements GuiLayer {
 
     private final Map<EquipmentSlot, Integer> tcLastCharge = new EnumMap<>(EquipmentSlot.class);
     private final Map<EquipmentSlot, Integer> tcChangeTick = new EnumMap<>(EquipmentSlot.class);
-
-    @Override
-    public void render(@NonNull GuiGraphicsExtractor graphics, @NonNull DeltaTracker deltaTracker) {
-        Minecraft mc = Minecraft.getInstance();
-        LocalPlayer player = mc.player;
-        if (player == null || mc.options.hideGui) {
-            return;
-        }
-
-        int offset = countThaumaturgeEntries(player);
-
-        int shown = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = player.getItemBySlot(slot);
-            if (!(stack.getItem() instanceof IImpetusRechargeable rechargeable)) {
-                lastCharge.remove(slot);
-                changeTick.remove(slot);
-                continue;
-            }
-
-            IImpetusRechargeable.ChargeDisplay display = rechargeable.showInHud(stack, player);
-            if (display == IImpetusRechargeable.ChargeDisplay.NEVER) {
-                continue;
-            }
-
-            int charge = ImpetusChargeHelper.getCharge(stack);
-            Integer previous = lastCharge.put(slot, charge);
-            if (previous == null || previous != charge) {
-                changeTick.put(slot, player.tickCount);
-            }
-
-            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-            if (!held
-                    && display == IImpetusRechargeable.ChargeDisplay.PERIODIC
-                    && player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
-                continue;
-            }
-
-            drawMeter(graphics, mc, stack, (int) rechargeable.getMaxCharge(stack, player), charge,
-                    offset + shown++, player.isShiftKeyDown());
-        }
-    }
-
-    private int countThaumaturgeEntries(LocalPlayer player) {
-        int count = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = player.getItemBySlot(slot);
-            if (!(stack.getItem() instanceof IRechargable rechargable)) {
-                tcLastCharge.remove(slot);
-                tcChangeTick.remove(slot);
-                continue;
-            }
-
-            IRechargable.ChargeDisplay display = rechargable.showInHud(stack, player);
-            if (display == IRechargable.ChargeDisplay.NEVER) {
-                continue;
-            }
-
-            int charge = RechargeAccess.getCharge(stack);
-            Integer previous = tcLastCharge.put(slot, charge);
-            if (previous == null || previous != charge) {
-                tcChangeTick.put(slot, player.tickCount);
-            }
-
-            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-            if (!held
-                    && display == IRechargable.ChargeDisplay.PERIODIC
-                    && player.tickCount - tcChangeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
-                continue;
-            }
-            count++;
-        }
-        return count;
-    }
 
     private static void drawMeter
             (GuiGraphicsExtractor graphics,
@@ -191,5 +117,80 @@ public final class ImpetusHudOverlay implements GuiLayer {
             graphics.pose().popMatrix();
         }
         graphics.pose().popMatrix();
+    }
+
+    @Override
+    public void render(@NonNull GuiGraphicsExtractor graphics, @NonNull DeltaTracker deltaTracker) {
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        if (player == null || mc.options.hideGui) {
+            return;
+        }
+
+        int offset = countThaumaturgeEntries(player);
+
+        int shown = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            if (!(stack.getItem() instanceof IImpetusRechargeable rechargeable)) {
+                lastCharge.remove(slot);
+                changeTick.remove(slot);
+                continue;
+            }
+
+            IImpetusRechargeable.ChargeDisplay display = rechargeable.showInHud(stack, player);
+            if (display == IImpetusRechargeable.ChargeDisplay.NEVER) {
+                continue;
+            }
+
+            int charge = ImpetusChargeHelper.getCharge(stack);
+            Integer previous = lastCharge.put(slot, charge);
+            if (previous == null || previous != charge) {
+                changeTick.put(slot, player.tickCount);
+            }
+
+            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+            if (!held
+                    && display == IImpetusRechargeable.ChargeDisplay.PERIODIC
+                    && player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
+                continue;
+            }
+
+            drawMeter(graphics, mc, stack, (int) rechargeable.getMaxCharge(stack, player), charge,
+                    offset + shown++, player.isShiftKeyDown());
+        }
+    }
+
+    private int countThaumaturgeEntries(LocalPlayer player) {
+        int count = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            ChargeProfile profile = RechargeAccess.profile(stack);
+            if (profile == null) {
+                tcLastCharge.remove(slot);
+                tcChangeTick.remove(slot);
+                continue;
+            }
+
+            ChargeDisplay display = profile.display();
+            if (display == ChargeDisplay.NEVER) {
+                continue;
+            }
+
+            int charge = RechargeAccess.getCharge(stack);
+            Integer previous = tcLastCharge.put(slot, charge);
+            if (previous == null || previous != charge) {
+                tcChangeTick.put(slot, player.tickCount);
+            }
+
+            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+            if (!held
+                    && display == ChargeDisplay.ON_CHANGE
+                    && player.tickCount - tcChangeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
+                continue;
+            }
+            count++;
+        }
+        return count;
     }
 }

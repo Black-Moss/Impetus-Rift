@@ -1,0 +1,21 @@
+{
+  "background": "impetusrift:textures/gui/research_background.png",
+  "formula": [
+    {
+      "amount": 20,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 20,
+      "aspect": "thaumaturge:vitium"
+    },
+    {
+      "amount": 20,
+      "aspect": "thaumaturge:tenebrae"
+    }
+  ],
+  "icon": "impetusrift:textures/item/impetus_cell.png",
+  "index": 7,
+  "overlay_background": "thaumaturge:textures/gui/gui_research_back_over.png",
+  "required_research": "impetusrift:unlock_impetuology"
+}

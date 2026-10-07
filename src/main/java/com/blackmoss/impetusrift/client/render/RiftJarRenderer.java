@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class RiftJarRenderer implements BlockEntityRenderer<RiftJarBlockEntity, RiftJarRenderState> {
-
     private static final RenderType RIFT_GLOW_TYPE = RenderType.create("ir_rift_jar_glow",
             RenderSetup.builder(TCRenderPipelines.RIFT_GLOW)
                     .withTexture("Sampler0", AbstractEndPortalRenderer.END_PORTAL_LOCATION)
@@ -49,8 +48,6 @@ public final class RiftJarRenderer implements BlockEntityRenderer<RiftJarBlockEn
     private static final float WOBBLE_Y_PERIOD = 60.0F;
     private static final float WOBBLE_Z_PERIOD = 70.0F;
     private static final float WIDTH_PULSE_PERIOD = 8.0F;
-
-    // Rift generation constants (same as EntityFluxRift)
     private static final double STEP_LENGTH = 0.2;
     private static final double TIP_LENGTH = 0.1;
     private static final float GIRTH_PER_SIZE = 1.0F / 300.0F;

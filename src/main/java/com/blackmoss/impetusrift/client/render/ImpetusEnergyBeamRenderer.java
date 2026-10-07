@@ -28,7 +28,6 @@ import java.util.Map;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID, value = Dist.CLIENT)
 public class ImpetusEnergyBeamRenderer {
-
     public static final float BEAM_R = 0.3F;
     public static final float BEAM_G = 0.1F;
     public static final float BEAM_B = 0.8F;

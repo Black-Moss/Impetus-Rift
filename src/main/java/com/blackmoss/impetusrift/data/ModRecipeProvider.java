@@ -13,10 +13,6 @@ import com.leclowndu93150.thaumaturge.data.recipe.builders.workbench.ArcaneWorkb
 import com.leclowndu93150.thaumaturge.data.recipe.builders.workbench.ArcaneWorkbenchShapelessRecipeBuilder;
 import com.leclowndu93150.thaumaturge.registry.TCDataComponents;
 import com.leclowndu93150.thaumaturge.registry.TCItems;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -39,36 +35,36 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public final class ModRecipeProvider extends RecipeProvider {
+public class ModRecipeProvider extends RecipeProvider {
     private final HolderLookup.Provider lookupProvider;
+    private final HolderGetter<IAspect> aspects;
 
     private ModRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
         super(provider, output);
         this.lookupProvider = provider;
+        this.aspects = registries.lookupOrThrow(IAspect.REGISTRY_KEY);
     }
 
     @Override
     protected void buildRecipes() {
         // 元动能量单元
-        arcaneShapeless(new ItemStackTemplate(IRItems.IMPETUS_CELL.get()), 30)
+        arcaneShapeless(IRItems.IMPETUS_CELL.get(), 30)
                 .aspect(TCAspects.IGNIS)
                 .requires(TCItems.VIS_BATTERY)
                 .requires(TCItems.CRYSTAL_VITIUM)
                 .requires(TCItems.SALIS_MUNDUS)
                 .gate(irGate("impetus_cell"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_CELL.get()))
                 .save(output);
 
         // 元动宝石
-        crucible(new ItemStackTemplate(IRItems.IMPETUS_GEM.get()),
-                Ingredient.of(TCItems.VOID_SEED.get()))
+        crucible(IRItems.IMPETUS_GEM.get(),
+                TCItems.VOID_SEED.get())
                 .aspect(TCAspects.VACUOS, 10)
                 .gate(irGate("impetus_gem"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_GEM.get()))
                 .save(output);
 
         // 裂隙指南针
-        arcaneShaped(new ItemStackTemplate(IRItems.RIFT_COMPASS), 50)
+        arcaneShaped(IRItems.RIFT_COMPASS, 50)
                 .aspect(TCAspects.PERDITIO, 10)
                 .aspect(TCAspects.ORDO, 10)
                 .pattern(" P ")
@@ -77,23 +73,21 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .define('P', TCItems.PLATE_BRASS)
                 .define('S', TCItems.SALIS_MUNDUS)
                 .gate(irGate("rift_compass"))
-                .unlockedBy("has", has(IRItems.RIFT_COMPASS))
                 .save(output);
 
         // 元动谐振器
-        arcaneShapeless(new ItemStackTemplate(IRItems.IMPETUS_LINKER.get()), 40)
+        arcaneShapeless(IRItems.IMPETUS_LINKER.get(), 40)
                 .aspect(TCAspects.IGNIS)
                 .aspect(TCAspects.ORDO)
                 .requires(TCItems.SALIS_MUNDUS)
                 .requires(TCItems.CRYSTAL_VITIUM)
                 .requires(IRItems.IMPETUS_GEM)
                 .gate(irGate("impetus_linker"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_GEM.get()))
                 .save(output);
 
         // 元动汲取仪
-        infusion(new ItemStackTemplate(IRItems.IMPETUS_DRAINER.get()),
-                Ingredient.of(TCItems.VIS_BATTERY.get()))
+        infusion(IRItems.IMPETUS_DRAINER.get(),
+                TCItems.VIS_BATTERY.get())
                 .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
                 .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
                 .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
@@ -104,12 +98,11 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TCAspects.AQUA, 35)
                 .instability(6)
                 .gate(irGate("impetus_drainer"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_DRAINER.get()))
                 .save(output);
 
         // 元动弥散仪
-        infusion(new ItemStackTemplate(IRItems.IMPETUS_DIFFUSER.get()),
-                Ingredient.of(TCItems.VIS_BATTERY.get()))
+        infusion(IRItems.IMPETUS_DIFFUSER.get(),
+                TCItems.VIS_BATTERY.get())
                 .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
                 .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
                 .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
@@ -118,12 +111,10 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TCAspects.ALIENIS, 25)
                 .instability(4)
                 .gate(irGate("impetus_diffuser"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_DIFFUSER.get()))
                 .save(output);
 
         // 元动发电机
-        infusion(new ItemStackTemplate(IRItems.IMPETUS_GENERATOR.get()),
-                Ingredient.of(TCItems.VIS_BATTERY.get()))
+        infusion(IRItems.IMPETUS_GENERATOR.get(), TCItems.VIS_BATTERY.get())
                 .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
                 .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
                 .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
@@ -134,12 +125,11 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TCAspects.IGNIS, 30)
                 .instability(7)
                 .gate(irGate("impetus_generator"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_GENERATOR.get()))
                 .save(output);
 
         // 裂隙旅行者之靴
-        infusion(new ItemStackTemplate(IRItems.IMPETUS_TRAVELLER_BOOTS.get()),
-                Ingredient.of(TCItems.VOID_BOOTS.get()))
+        infusion(IRItems.IMPETUS_TRAVELLER_BOOTS.get(),
+                TCItems.VOID_BOOTS.get())
                 .component(Ingredient.of(TCItems.TRAVELLER_BOOTS.get()))
                 .component(Ingredient.of(TCItems.PLATE_VOID.get()))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
@@ -165,25 +155,18 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TCAspects.MOTUS, 120)
                 .instability(6)
                 .gate(irGate("impetus_traveller_boots"))
-                .unlockedBy("has", this.has(IRItems.IMPETUS_TRAVELLER_BOOTS.get()))
                 .save(output);
     }
 
-    private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(ItemStackTemplate result, int vis) {
-        return new ArcaneWorkbenchShapedRecipeBuilder(RecipeCategory.MISC, result, this.items, this.registries.lookupOrThrow(IAspect.REGISTRY_KEY), vis);
+    private CrucibleRecipeBuilder crucible(ItemStackTemplate result, ItemLike catalyst) {
+        return new CrucibleRecipeBuilder(this.registries.lookupOrThrow(IAspect.REGISTRY_KEY), RecipeCategory.MISC, result, Ingredient.of(catalyst));
     }
 
-    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(ItemStackTemplate result, int vis) {
-        return new ArcaneWorkbenchShapelessRecipeBuilder(RecipeCategory.MISC, result, this.registries.lookupOrThrow(IAspect.REGISTRY_KEY), vis, this.items);
+    private CrucibleRecipeBuilder crucible(ItemLike result, ItemLike catalyst) {
+        return (CrucibleRecipeBuilder) crucible(new ItemStackTemplate(result.asItem()), catalyst)
+                .unlockedBy("has", this.has(result.asItem()));
     }
 
-    private CrucibleRecipeBuilder crucible(ItemStackTemplate result, Ingredient catalyst) {
-        return new CrucibleRecipeBuilder(this.registries.lookupOrThrow(IAspect.REGISTRY_KEY), RecipeCategory.MISC, result, catalyst);
-    }
-
-    private InfusionRecipeBuilder infusion(ItemStackTemplate result, Ingredient catalyst) {
-        return new InfusionRecipeBuilder(this.registries.lookupOrThrow(IAspect.REGISTRY_KEY), RecipeCategory.MISC, result, catalyst);
-    }
 
     private static ResearchGate irGate(String path) {
         return new ResearchGate(ImpetusRift.identifier(path), Optional.empty(), false);
@@ -199,25 +182,72 @@ public final class ModRecipeProvider extends RecipeProvider {
                         space, path)));
     }
 
-    private Ingredient crystal(HolderGetter<IAspect> aspects, ResourceKey<IAspect> aspect) {
+    private Ingredient crystal(ResourceKey<IAspect> aspect) {
         return DataComponentIngredient.of(
                 TCDataComponents.CRYSTAL_ASPECT.get(),
                 new AspectInstance(aspects.getOrThrow(aspect), 1),
                 TCItems.ESSENTIA_CRYSTAL.get());
     }
 
-    protected @NonNull Criterion<InventoryChangeTrigger.TriggerInstance> has(
-            MinMaxBounds.@NonNull Ints count,
-            @NonNull ItemLike item) {
-        return inventoryTrigger(ItemPredicate.Builder.item().of(this.items, item).withCount(count));
+    private Ingredient commonTag(String path) {
+        return Ingredient.of(tag("c", path));
     }
 
-    protected @NonNull Criterion<InventoryChangeTrigger.TriggerInstance> has(@NonNull ItemLike item) {
-        return inventoryTrigger(ItemPredicate.Builder.item().of(this.items, item));
+    private InfusionRecipeBuilder infusion(ItemLike result, RecipeCategory category, ItemLike catalyst) {
+        return (InfusionRecipeBuilder) new InfusionRecipeBuilder(
+                this.registries.lookupOrThrow(IAspect.REGISTRY_KEY),
+                category,
+                new ItemStackTemplate(result.asItem()),
+                Ingredient.of(catalyst))
+                .unlockedBy("has", this.has(result));
     }
 
-    protected @NonNull Criterion<InventoryChangeTrigger.TriggerInstance> has(@NonNull TagKey<Item> tag) {
-        return inventoryTrigger(ItemPredicate.Builder.item().of(this.items, tag));
+    private InfusionRecipeBuilder infusion(ItemLike result, ItemLike catalyst) {
+        return infusion(result, RecipeCategory.MISC, catalyst);
+    }
+
+
+    private CrucibleRecipeBuilder crucible(ItemLike result, RecipeCategory category, ItemLike catalyst) {
+        return (CrucibleRecipeBuilder) new CrucibleRecipeBuilder(
+                aspects,
+                category,
+                new ItemStackTemplate(result.asItem()),
+                Ingredient.of(catalyst))
+                .unlockedBy("has", this.has(result));
+    }
+
+    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(RecipeCategory recipeCategory, ItemStackTemplate result, int vis) {
+        return new ArcaneWorkbenchShapelessRecipeBuilder(recipeCategory,
+                result,
+                aspects,
+                vis,
+                registries.lookupOrThrow(Registries.ITEM));
+    }
+
+    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(RecipeCategory recipeCategory, ItemLike result, int vis) {
+        return (ArcaneWorkbenchShapelessRecipeBuilder) arcaneShapeless(recipeCategory, new ItemStackTemplate(result.asItem()), vis)
+                .unlockedBy("has", this.has(result.asItem()));
+    }
+
+    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(ItemLike result, int vis) {
+        return arcaneShapeless(RecipeCategory.MISC, result, vis);
+    }
+
+    private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(RecipeCategory recipeCategory, ItemStackTemplate result, int vis) {
+        return new ArcaneWorkbenchShapedRecipeBuilder(recipeCategory,
+                result,
+                this.items,
+                aspects,
+                vis);
+    }
+
+    private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(RecipeCategory recipeCategory, ItemLike result, int vis) {
+        return (ArcaneWorkbenchShapedRecipeBuilder) arcaneShaped(recipeCategory, new ItemStackTemplate(result.asItem()), vis)
+                .unlockedBy("has", this.has(result.asItem()));
+    }
+
+    private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(ItemLike result, int vis) {
+        return arcaneShaped(RecipeCategory.MISC, result, vis);
     }
 
     public static final class Runner extends RecipeProvider.Runner {

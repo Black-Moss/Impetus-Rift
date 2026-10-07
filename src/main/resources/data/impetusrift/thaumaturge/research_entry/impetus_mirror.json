@@ -1,0 +1,41 @@
+{
+  "category": "impetusrift:impetuology",
+  "name": "research.impetusrift.impetus_mirror.title",
+  "parents": [
+    "impetusrift:base_impetuology"
+  ],
+  "column": 2,
+  "row": 1,
+  "meta": [
+    "round"
+  ],
+  "icons": [
+    "impetusrift:impetus_mirror"
+  ],
+  "stages": [
+    {
+      "text": "research.impetusrift.impetus_mirror.stage_0",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "impetusrift:impetuology",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.impetusrift.impetus_mirror.stage_1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 3
+    }
+  ],
+  "complexity": 1
+}

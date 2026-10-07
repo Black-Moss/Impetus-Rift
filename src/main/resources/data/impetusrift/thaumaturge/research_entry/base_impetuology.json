@@ -1,0 +1,42 @@
+{
+  "category": "impetusrift:impetuology",
+  "name": "research.impetusrift.base_impetuology.title",
+  "parents": [
+    "impetusrift:unlock_impetuology"
+  ],
+  "column": 0,
+  "row": 0,
+  "meta": [
+    "round",
+    "hidden"
+  ],
+  "icons": [
+    "impetusrift:impetus_gem"
+  ],
+  "stages": [
+    {
+      "text": "research.impetusrift.base_impetuology.stage_0"
+    },
+    {
+      "text": "research.impetusrift.base_impetuology.stage_1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "impetusrift:impetuology",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 3
+    }
+  ],
+  "complexity": 1
+}

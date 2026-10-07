@@ -39,39 +39,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class ModModelProvider extends ModelProvider {
-
     public ModModelProvider(PackOutput output) {
         super(output, ImpetusRift.MODID);
-    }
-
-    @Override
-    protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MATRIX.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
-
-        generateCubeAllBlock(blockModels, itemModels, IRBlocks.RIFT_BARRIER.get());
-
-        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
-        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
-
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
-
-        impetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
-
-        generateFlatItem(itemModels, IRItems.IMPETUS_CELL.get());
-        generateFlatItem(itemModels, IRItems.IMPETUS_GEM.get());
-        generateFlatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
-        generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
-
-        riftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
-        impetusTravellerBootsItem(itemModels, IRItems.IMPETUS_TRAVELLER_BOOTS.get());
     }
 
     private static void generateCubeAllBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
@@ -243,5 +212,33 @@ public class ModModelProvider extends ModelProvider {
             variant = mutator.apply(variant);
         }
         return new MultiVariant(WeightedList.of(variant));
+    }
+
+    @Override
+    protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MATRIX.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
+        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
+
+        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
+        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
+
+        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
+        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
+        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
+
+        impetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
+
+        generateFlatItem(itemModels, IRItems.IMPETUS_CELL.get());
+        generateFlatItem(itemModels, IRItems.IMPETUS_GEM.get());
+        generateFlatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
+        generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
+
+        riftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
+        impetusTravellerBootsItem(itemModels, IRItems.IMPETUS_TRAVELLER_BOOTS.get());
     }
 }

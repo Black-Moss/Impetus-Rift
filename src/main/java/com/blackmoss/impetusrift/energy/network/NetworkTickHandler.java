@@ -60,7 +60,9 @@ public class NetworkTickHandler {
 
         for (Entity entity : entities) {
             float halfDamage = damage / 2.0F;
+            //noinspection deprecation
             entity.hurt(level.damageSources().generic(), halfDamage);
+            //noinspection deprecation
             entity.hurt(level.damageSources().magic(), halfDamage);
         }
     }

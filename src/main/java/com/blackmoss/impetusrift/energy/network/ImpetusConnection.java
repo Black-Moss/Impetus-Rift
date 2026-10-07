@@ -7,7 +7,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
 public record ImpetusConnection(BlockPos sourcePos, BlockPos targetPos) {
-
     public static final Codec<ImpetusConnection> CODEC = RecordCodecBuilder.create(builder -> builder
             .group(
                     BlockPos.CODEC.fieldOf("source").forGetter(ImpetusConnection::sourcePos),

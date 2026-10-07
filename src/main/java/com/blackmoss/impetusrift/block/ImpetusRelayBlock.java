@@ -35,6 +35,19 @@ public class ImpetusRelayBlock extends BaseEntityBlock {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    private static VoxelShape shapeFor(Direction dir) {
+        double lo = RELAY_CORE, hi = RELAY_CORE_HI, face = RELAY_FACE;
+        boolean positive = dir.getAxisDirection() == Direction.AxisDirection.POSITIVE;
+        return switch (dir.getAxis()) {
+            case X -> positive ? Shapes.box(0.0, lo, lo, face, hi, hi)
+                    : Shapes.box(1 - face, lo, lo, 1.0, hi, hi);
+            case Y -> positive ? Shapes.box(lo, 0.0, lo, hi, face, hi)
+                    : Shapes.box(lo, 1 - face, lo, hi, 1.0, hi);
+            case Z -> positive ? Shapes.box(lo, lo, 0.0, hi, hi, face)
+                    : Shapes.box(lo, lo, 1 - face, hi, hi, 1.0);
+        };
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
@@ -70,19 +83,6 @@ public class ImpetusRelayBlock extends BaseEntityBlock {
             @NonNull BlockGetter level,
             @NonNull BlockPos pos) {
         return shapeFor(state.getValue(FACING));
-    }
-
-    private static VoxelShape shapeFor(Direction dir) {
-        double lo = RELAY_CORE, hi = RELAY_CORE_HI, face = RELAY_FACE;
-        boolean positive = dir.getAxisDirection() == Direction.AxisDirection.POSITIVE;
-        return switch (dir.getAxis()) {
-            case X -> positive ? Shapes.box(0.0, lo, lo, face, hi, hi)
-                    : Shapes.box(1 - face, lo, lo, 1.0, hi, hi);
-            case Y -> positive ? Shapes.box(lo, 0.0, lo, hi, face, hi)
-                    : Shapes.box(lo, 1 - face, lo, hi, 1.0, hi);
-            case Z -> positive ? Shapes.box(lo, lo, 0.0, hi, hi, face)
-                    : Shapes.box(lo, lo, 1 - face, hi, hi, 1.0);
-        };
     }
 
     @Nullable
