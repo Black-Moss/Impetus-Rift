@@ -41,11 +41,6 @@ repositories {
         name = "Illusive Soulworks"
         url = "https://maven.theillusivec4.top/"
     }
-
-//    maven {
-//        name = "blakesmodsReleases"
-//        url = "https://maven.blakesmods.com/releases"
-//    }
 }
 
 base {
@@ -98,12 +93,11 @@ configurations {
 }
 
 dependencies {
-    def thaumaturgeJar = "thaumaturge-${thaumaturge_version}.jar"
-    compileOnly files(thaumaturgeJar)
-    localRuntime files(thaumaturgeJar)
-
     // Lithostitched
     implementation "maven.modrinth:lithostitched:${lithostitched_version}"
+
+    // Thaumaturge
+    implementation "curse.maven:thaumaturge-1628024:${thaumaturge_version}"
 
     // JEI
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
@@ -116,8 +110,7 @@ dependencies {
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // Jade
-    compileOnly "maven.modrinth:jade:${jade_version}"
-    runtimeOnly "maven.modrinth:jade:${jade_version}"
+    implementation "maven.modrinth:jade:${jade_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -129,6 +122,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
     ]
     inputs.properties replaceProperties
     expand replaceProperties

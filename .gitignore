@@ -32,6 +32,3 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
-
-### Thaumaturge
-/thaumaturge-26.1.2-NeoForge-BETA-0.2.1.jar
