@@ -39,7 +39,7 @@ public final class IRBlocks {
     // 元动阀门
     public static final DeferredBlock<Block> IMPETUS_GATE = impetusMachine("impetus_gate", Block::new);
 
-    // 咒波引流仪
+    // 裂隙引流仪
     public static final DeferredBlock<Block> RIFT_FEEDER = impetusMachine("rift_feeder", Block::new);
 
     // 裂隙封装仪

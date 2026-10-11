@@ -1,0 +1,38 @@
+{
+  "category": "impetusrift:impetuology",
+  "name": "research.impetusrift.rift_feeder.title",
+  "parents": [
+    "impetusrift:base_impetuology"
+  ],
+  "column": 2,
+  "row": -2,
+  "icons": [
+    "impetusrift:rift_feeder"
+  ],
+  "stages": [
+    {
+      "text": "research.impetusrift.rift_feeder.stage_0",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "impetusrift:impetuology",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.impetusrift.rift_feeder.stage_1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 3
+    }
+  ],
+  "complexity": 2
+}

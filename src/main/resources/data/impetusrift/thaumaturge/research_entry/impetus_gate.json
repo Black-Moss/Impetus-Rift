@@ -4,11 +4,8 @@
   "parents": [
     "impetusrift:base_impetuology"
   ],
-  "column": -1,
+  "column": 6,
   "row": 2,
-  "meta": [
-    "round"
-  ],
   "icons": [
     "impetusrift:impetus_gate"
   ],
