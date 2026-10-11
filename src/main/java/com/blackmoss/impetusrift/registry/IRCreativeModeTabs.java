@@ -40,5 +40,6 @@ public class IRCreativeModeTabs {
                         output.accept(IRItems.RIFT_TRAVELLER_BOOTS.get());
 
                         output.accept(IRItems.THAUMOSTATIC_ELYTRA.get());
+                        output.accept(IRItems.ELYTRA_THRUSTER.get());
                     }).build());
 }

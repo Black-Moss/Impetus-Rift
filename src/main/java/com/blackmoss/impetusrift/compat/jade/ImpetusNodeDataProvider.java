@@ -16,8 +16,6 @@ import snownee.jade.api.IServerDataProvider;
 public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor> {
     INSTANCE;
 
-    public static final String KEY_ENERGY = "energy";
-    public static final String KEY_MAX_ENERGY = "maxEnergy";
     public static final String KEY_INPUT_COUNT = "inputCount";
     public static final String KEY_MAX_INPUTS = "maxInputs";
     public static final String KEY_OUTPUT_COUNT = "outputCount";
@@ -28,7 +26,7 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
 
     @Override
     public @NonNull Identifier getUid() {
-        return ImpetusRift.identifier("impetusrift");
+        return ImpetusRift.identifier("impetus_node");
     }
 
     @Override
@@ -38,8 +36,6 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
             return;
         }
 
-        tag.putLong(KEY_ENERGY, node.getEnergyStored());
-        tag.putLong(KEY_MAX_ENERGY, node.getMaxEnergyStored());
         tag.putInt(KEY_MAX_INPUTS, node.getMaxInputs());
         tag.putInt(KEY_MAX_OUTPUTS, node.getMaxOutputs());
 

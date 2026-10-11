@@ -2,6 +2,7 @@ package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
+import com.blackmoss.impetusrift.energy.ElytraThruster;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -37,4 +38,10 @@ public final class IRDataComponents {
                     builder -> builder
                             .persistent(ImpetusChargeProfile.CODEC)
                             .networkSynchronized(ImpetusChargeProfile.STREAM_CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ElytraThruster>> ELYTRA_THRUSTER =
+            DATA_COMPONENTS.registerComponentType("elytra_thruster",
+                    builder -> builder
+                            .persistent(ElytraThruster.CODEC)
+                            .networkSynchronized(ElytraThruster.STREAM_CODEC));
 }

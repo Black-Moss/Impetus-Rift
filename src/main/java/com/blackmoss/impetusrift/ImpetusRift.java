@@ -1,5 +1,7 @@
 package com.blackmoss.impetusrift;
 
+import com.blackmoss.impetusrift.config.IRClientConfig;
+import com.blackmoss.impetusrift.config.IRCommonConfig;
 import com.blackmoss.impetusrift.data.*;
 import com.blackmoss.impetusrift.data.lang.EnUsProvider;
 import com.blackmoss.impetusrift.data.lang.ZhCnProvider;
@@ -18,6 +20,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
 
@@ -35,7 +38,12 @@ public class ImpetusRift {
         IRItems.ITEMS.register(modEventBus);
         IRBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         IRDataComponents.DATA_COMPONENTS.register(modEventBus);
+        IRRecipeSerializers.SERIALIZERS.register(modEventBus);
+        IRIngredientTypes.register(modEventBus);
         IRCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+
+        modContainer.registerConfig(ModConfig.Type.CLIENT, IRClientConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, IRCommonConfig.SPEC);
     }
 
     public static Identifier identifier(String path) {

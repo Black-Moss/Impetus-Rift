@@ -1,0 +1,57 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 64,
+      "aspect": "thaumaturge:volatus"
+    },
+    {
+      "amount": 64,
+      "aspect": "thaumaturge:potentia"
+    },
+    {
+      "amount": 64,
+      "aspect": "thaumaturge:machina"
+    },
+    {
+      "amount": 32,
+      "aspect": "thaumaturge:motus"
+    },
+    {
+      "amount": 16,
+      "aspect": "thaumaturge:vacuos"
+    }
+  ],
+  "catalyst": "minecraft:elytra",
+  "components": [
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:aer"
+        }
+      },
+      "items": "thaumaturge:essentia_crystal"
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:aer"
+        }
+      },
+      "items": "thaumaturge:essentia_crystal"
+    },
+    "#c:planks/greatwood",
+    "#c:planks/greatwood",
+    "minecraft:comparator",
+    "impetusrift:impetus_gem",
+    "impetusrift:impetus_gem",
+    "#c:plates/void_metal",
+    "#c:plates/void_metal"
+  ],
+  "instability": 7,
+  "result": {
+    "id": "impetusrift:thaumostatic_elytra"
+  }
+}

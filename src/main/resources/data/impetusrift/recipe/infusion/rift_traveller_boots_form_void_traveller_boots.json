@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "thaumaturgeadditions"
+    }
+  ],
   "type": "thaumaturge:infusion",
   "aspects": [
     {
@@ -30,7 +36,7 @@
       "aspect": "thaumaturge:motus"
     }
   ],
-  "catalyst": "thaumicaddon:void_traveller_boots",
+  "catalyst": "thaumaturgeadditions:void_traveller_boots",
   "components": [
     "thaumaturge:plate_void",
     "impetusrift:impetus_gem",
@@ -43,9 +49,9 @@
   ],
   "instability": 6,
   "research": {
-    "entry": "impetusrift:impetus_traveller_boots"
+    "entry": "impetusrift:rift_traveller_boots"
   },
   "result": {
-    "id": "impetusrift:impetus_traveller_boots"
+    "id": "impetusrift:rift_traveller_boots"
   }
 }

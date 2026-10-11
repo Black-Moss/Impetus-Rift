@@ -13,9 +13,6 @@
     "thaumaturge:crystal_vitium",
     "impetusrift:impetus_gem"
   ],
-  "research": {
-    "entry": "impetusrift:impetus_linker"
-  },
   "result": {
     "id": "impetusrift:impetus_linker"
   },

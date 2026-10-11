@@ -53,7 +53,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
-    private static void generateCustomBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
+    private static void customBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
         Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         MultiVariant variant = new MultiVariant(WeightedList.of(new Variant(modelId)));
@@ -73,7 +73,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
-    private static void generateObjBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
+    private static void objBlock(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
         Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelId)));
@@ -91,7 +91,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
-    private static void generateDirectionalBlockState(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
+    private static void directionalBlockState(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
         Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
@@ -130,7 +130,7 @@ public class ModModelProvider extends ModelProvider {
                                 })));
     }
 
-    private static void generateFlatItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
+    private static void flatItem(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
         Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
         Identifier modelId = ImpetusRift.identifier("item/" + itemId.getPath());
         ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(item), itemModels.modelOutput);
@@ -175,7 +175,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(identifier, new Dye(-9815936)));
     }
 
-    private static void generateElytra(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
+    private static void thaumostaticElytra(@NonNull ItemModelGenerators itemModels, @NonNull Item item) {
         String path = BuiltInRegistries.ITEM.getKey(item).getPath();
 
         Identifier normalModel = ImpetusRift.identifier("item/" + path);
@@ -235,30 +235,31 @@ public class ModModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MATRIX.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
-        generateCustomBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
+        customBlock(blockModels, itemModels, IRBlocks.IMPETUS_MATRIX.get());
+        customBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
+        customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
+        customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
+        customBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
+        customBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
+        customBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
 
-        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
-        generateDirectionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
+        directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
+        directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
 
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
-        generateObjBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
+        objBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
+        objBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
+        objBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
 
         impetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
 
-        generateFlatItem(itemModels, IRItems.IMPETUS_CELL.get());
-        generateFlatItem(itemModels, IRItems.IMPETUS_GEM.get());
-        generateFlatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
-        generateFlatItem(itemModels, IRItems.IMPETUS_LINKER.get());
+        flatItem(itemModels, IRItems.IMPETUS_CELL.get());
+        flatItem(itemModels, IRItems.IMPETUS_GEM.get());
+        flatItem(itemModels, IRItems.RIFT_SEED_FLUX.get());
+        flatItem(itemModels, IRItems.IMPETUS_LINKER.get());
 
         riftCompassItem(itemModels, IRItems.RIFT_COMPASS.get());
         riftTravellerBootsItem(itemModels, IRItems.RIFT_TRAVELLER_BOOTS.get());
-        generateElytra(itemModels, IRItems.THAUMOSTATIC_ELYTRA.get());
+        thaumostaticElytra(itemModels, IRItems.THAUMOSTATIC_ELYTRA.get());
+        flatItem(itemModels, IRItems.ELYTRA_THRUSTER.get());
     }
 }

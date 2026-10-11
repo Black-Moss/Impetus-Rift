@@ -36,8 +36,10 @@ public class EnUsProvider extends LanguageProvider {
         addItem(IRItems.IMPETUS_LINKER, "Impetus Linker");
         addItem(IRItems.RIFT_TRAVELLER_BOOTS, "Rift Traveller Boots");
         addItem(IRItems.THAUMOSTATIC_ELYTRA, "Thaumostatic Elytra");
+        addItem(IRItems.ELYTRA_THRUSTER, "Elytra Thruster");
 
         research();
+        configuration();
         jade();
         tooltip();
         impetusLinker();
@@ -75,6 +77,18 @@ public class EnUsProvider extends LanguageProvider {
 //                "Effects of the Impetus Traveller Boots:<BR>· While sprinting they consume Impetus and double both step height and jump height.<BR>· On landing they spend Impetus to absorb the fall: each point cancels 5 blocks of falling distance. If there isn't enough energy, the rest of the fall hurts as normal.<BR>· Energy can be replenished with something like the Impetus Diffuser.");
     }
 
+    private void configuration() {
+        addConfiguration("title", "Impetus Rife Configuration");
+
+        addConfiguration("section.impetusrift.client.toml", "Impetus Rife Client Settings");
+        addConfiguration("section.impetusrift.client.toml.title", "Impetus Rife Client Settings");
+
+        addConfiguration("thruster_super_boost_hold_time", "Thruster Super Boost Hold Time");
+
+        addConfiguration("thruster_super_boost_multiplier", "Thruster Super Boost Multiplier");
+        addConfiguration("thruster_super_boost_min_speed", "Thruster Super Boost Min Speed");
+    }
+
     private void addResearch(String researchId, String title, String... stage) {
         add("research.%s.%s.title".formatted(ImpetusRift.MODID, researchId), title);
         for (int i = 0; i < stage.length; i++) {
@@ -82,18 +96,25 @@ public class EnUsProvider extends LanguageProvider {
         }
     }
 
+    private void addConfiguration(String configID, String translations) {
+        add("%s.configuration.%s".formatted(ImpetusRift.MODID, configID), translations);
+    }
+
     private void jade() {
-        add("config.jade.plugin_impetusrift.impetusrift", "Impetus Rift");
-        add("jade.impetusrift.input_nodes", "Input Nodes: %1$s/%2$s");
-        add("jade.impetusrift.output_nodes", "Output Nodes: %1$s/%2$s");
-        add("jade.impetusrift.energy", "Impetus Energy: %1$s/%2$s");
-        add("jade.impetusrift.rift_size", "Rift Size: %1$s");
-        add("jade.impetusrift.stability", "Stability: %1$s");
+        add("config.jade.plugin_impetusrift.impetus_node", "Impetus Node");
+        add("config.jade.plugin_impetusrift.impetus_energy", "Impetus Node");
+        add("jade.impetusrift.impetus_node.input_nodes", "Input Nodes: %1$s/%2$s");
+        add("jade.impetusrift.impetus_node.output_nodes", "Output Nodes: %1$s/%2$s");
+        add("jade.impetusrift.impetus_node.rift_size", "Rift Size: %1$s");
+        add("jade.impetusrift.impetus_node.stability", "Stability: %1$s");
+        add("jade.impetusrift.impetus_energy.energy", "Impetus Energy: %1$s/%2$s");
     }
 
     private void tooltip() {
         add("tooltip.impetusrift.node.unknown", "Unknown Node");
         add("tooltip.impetusrift.impetus_energy", "Impetus Energy: %s / %s");
+        add("tooltip.impetusrift.thaumostatic_elytra.charge", "Impetus Energy: %s / %s");
+        add("tooltip.impetusrift.thaumostatic_elytra.thruster", "Thruster Fuel: %s / %s");
     }
 
     // 元动谐振器

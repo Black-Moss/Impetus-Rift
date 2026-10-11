@@ -4,6 +4,8 @@ import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.ImpetusChargeDisplay;
 import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
+import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
+import com.blackmoss.impetusrift.registry.IRItems;
 import com.leclowndu93150.thaumaturge.TTIds;
 import com.leclowndu93150.thaumaturge.api.items.ChargeDisplay;
 import com.leclowndu93150.thaumaturge.api.items.ChargeProfile;
@@ -54,12 +56,25 @@ public final class ImpetusHudOverlay implements GuiLayer {
     private static final int AMOUNT_TEXT_Y = -14;
     private static final int WHITE = 0xFFFFFFFF;
     private static final int ENERGY_COLOR = 0xAA55FF;
+    private static final float SUB_ICON_SCALE = 0.75F;
+
+    private static ItemStack thrusterIcon;
+
+    private static ItemStack thrusterIcon() {
+        if (thrusterIcon == null) {
+            thrusterIcon = new ItemStack(IRItems.ELYTRA_THRUSTER.get());
+        }
+        return thrusterIcon;
+    }
 
     private final Map<EquipmentSlot, Integer> lastCharge = new EnumMap<>(EquipmentSlot.class);
     private final Map<EquipmentSlot, Integer> changeTick = new EnumMap<>(EquipmentSlot.class);
 
     private final Map<EquipmentSlot, Integer> tcLastCharge = new EnumMap<>(EquipmentSlot.class);
     private final Map<EquipmentSlot, Integer> tcChangeTick = new EnumMap<>(EquipmentSlot.class);
+
+    private final Map<EquipmentSlot, Integer> thrusterLastCharge = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> thrusterChangeTick = new EnumMap<>(EquipmentSlot.class);
 
     private static void drawMeter
             (GuiGraphicsExtractor graphics,
@@ -68,9 +83,25 @@ public final class ImpetusHudOverlay implements GuiLayer {
              int max,
              int charge,
              int index,
-             boolean showAmount) {
+             boolean showAmount,
+             ItemStack subIcon) {
         int y = graphics.guiHeight() - ANCHOR_BOTTOM - index * ENTRY_SPACING;
-        graphics.item(stack, ANCHOR_X, y - ITEM_SIZE);
+        if (subIcon == null) {
+            graphics.item(stack, ANCHOR_X, y - ITEM_SIZE);
+        } else {
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(ANCHOR_X, y - ITEM_SIZE);
+            graphics.pose().scale(SUB_ICON_SCALE, SUB_ICON_SCALE);
+            graphics.item(stack, 0, 0);
+            graphics.pose().popMatrix();
+
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(ANCHOR_X + ITEM_SIZE * (1.0F - SUB_ICON_SCALE),
+                    y - ITEM_SIZE * SUB_ICON_SCALE);
+            graphics.pose().scale(SUB_ICON_SCALE, SUB_ICON_SCALE);
+            graphics.item(subIcon, 0, 0);
+            graphics.pose().popMatrix();
+        }
         graphics.pose().pushMatrix();
         graphics.pose().translate(
                 ANCHOR_X + ITEM_SIZE + BAR_GAP_X + BAR_FRAME_W * BAR_SPACE_SCALE / 2.0F,
@@ -134,32 +165,55 @@ public final class ImpetusHudOverlay implements GuiLayer {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = player.getItemBySlot(slot);
             ImpetusChargeProfile profile = ImpetusRechargeAccess.profile(stack);
-            if (profile == null) {
+            boolean hasThruster = ElytraThrusterAccess.hasThruster(stack);
+            if (profile == null && !hasThruster) {
                 lastCharge.remove(slot);
                 changeTick.remove(slot);
+                thrusterLastCharge.remove(slot);
+                thrusterChangeTick.remove(slot);
                 continue;
-            }
-
-            ImpetusChargeDisplay display = profile.display();
-            if (display == ImpetusChargeDisplay.NEVER) {
-                continue;
-            }
-
-            int charge = ImpetusRechargeAccess.getCharge(stack);
-            Integer previous = lastCharge.put(slot, charge);
-            if (previous == null || previous != charge) {
-                changeTick.put(slot, player.tickCount);
             }
 
             boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-            if (!held
-                    && display == ImpetusChargeDisplay.ON_CHANGE
-                    && player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
-                continue;
+
+            if (profile != null) {
+                ImpetusChargeDisplay display = profile.display();
+                if (display != ImpetusChargeDisplay.NEVER) {
+                    int charge = ImpetusRechargeAccess.getCharge(stack);
+                    Integer previous = lastCharge.put(slot, charge);
+                    if (previous == null || previous != charge) {
+                        changeTick.put(slot, player.tickCount);
+                    }
+                    boolean timedOut = !held
+                            && display == ImpetusChargeDisplay.ON_CHANGE
+                            && player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS;
+                    if (!timedOut) {
+                        drawMeter(graphics, mc, stack, profile.capacity(), charge,
+                                offset + shown++, player.isShiftKeyDown(), null);
+                    }
+                }
+            } else {
+                lastCharge.remove(slot);
+                changeTick.remove(slot);
             }
 
-            drawMeter(graphics, mc, stack, profile.capacity(), charge,
-                    offset + shown++, player.isShiftKeyDown());
+            if (hasThruster) {
+                int fuel = ElytraThrusterAccess.getFuel(stack);
+                Integer previous = thrusterLastCharge.put(slot, fuel);
+                if (previous == null || previous != fuel) {
+                    thrusterChangeTick.put(slot, player.tickCount);
+                }
+                boolean timedOut = !held
+                        && player.tickCount - thrusterChangeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS;
+                if (!timedOut) {
+                    drawMeter(graphics, mc, stack, ElytraThrusterAccess.getCapacity(stack), fuel,
+                            offset + shown++, player.isShiftKeyDown(),
+                            profile != null ? thrusterIcon() : null);
+                }
+            } else {
+                thrusterLastCharge.remove(slot);
+                thrusterChangeTick.remove(slot);
+            }
         }
     }
 

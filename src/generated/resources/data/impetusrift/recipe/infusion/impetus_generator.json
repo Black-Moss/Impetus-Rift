@@ -20,9 +20,6 @@
     "thaumaturge:salis_mundus"
   ],
   "instability": 7,
-  "research": {
-    "entry": "impetusrift:impetus_generator"
-  },
   "result": {
     "id": "impetusrift:impetus_generator"
   }

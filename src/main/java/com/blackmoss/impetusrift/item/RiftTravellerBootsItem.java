@@ -20,17 +20,17 @@ import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import org.jspecify.annotations.Nullable;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
-public class ImpetusTravellerBootsItem extends VoidGearItem {
+public class RiftTravellerBootsItem extends VoidGearItem {
     public static final float BLOCKS_PER_ENERGY = 5.0F;
 
     private static final AttributeModifier STEP_MODIFIER = new AttributeModifier(
-            ImpetusRift.identifier("impetus_traveller_step"), 1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+            ImpetusRift.identifier("rift_traveller_step"), 1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     private static final AttributeModifier JUMP_MODIFIER = new AttributeModifier(
-            ImpetusRift.identifier("impetus_traveller_jump"), 1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+            ImpetusRift.identifier("rift_traveller_jump"), 1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
     private static final Vec3 FORWARD = new Vec3(0.0, 0.0, 1.0);
 
-    public ImpetusTravellerBootsItem(Properties properties) {
+    public RiftTravellerBootsItem(Properties properties) {
         super(properties);
     }
 

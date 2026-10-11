@@ -46,9 +46,6 @@
     "thaumaturge:plate_void"
   ],
   "instability": 6,
-  "research": {
-    "entry": "impetusrift:impetus_traveller_boots"
-  },
   "result": {
     "id": "impetusrift:rift_traveller_boots"
   }

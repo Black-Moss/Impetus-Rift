@@ -12,6 +12,7 @@ import com.leclowndu93150.thaumaturge.data.recipe.builders.InfusionRecipeBuilder
 import com.leclowndu93150.thaumaturge.data.recipe.builders.workbench.ArcaneWorkbenchShapedRecipeBuilder;
 import com.leclowndu93150.thaumaturge.data.recipe.builders.workbench.ArcaneWorkbenchShapelessRecipeBuilder;
 import com.leclowndu93150.thaumaturge.registry.TTDataComponents;
+import com.leclowndu93150.thaumaturge.registry.TTItemTags;
 import com.leclowndu93150.thaumaturge.registry.TTItems;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -21,14 +22,15 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import org.jspecify.annotations.NonNull;
 
@@ -53,14 +55,12 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .requires(TTItems.VIS_BATTERY)
                 .requires(TTItems.CRYSTAL_VITIUM)
                 .requires(TTItems.SALIS_MUNDUS)
-                .gate(irGate("impetus_cell"))
                 .save(output);
 
         // 元动宝石
         crucible(IRItems.IMPETUS_GEM.get(),
                 TTItems.VOID_SEED.get())
                 .aspect(TTAspects.VACUOS, 10)
-                .gate(irGate("impetus_gem"))
                 .save(output);
 
         // 裂隙指南针
@@ -72,7 +72,6 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .pattern(" P ")
                 .define('P', TTItems.PLATE_BRASS)
                 .define('S', TTItems.SALIS_MUNDUS)
-                .gate(irGate("rift_compass"))
                 .save(output);
 
         // 元动谐振器
@@ -82,7 +81,6 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .requires(TTItems.SALIS_MUNDUS)
                 .requires(TTItems.CRYSTAL_VITIUM)
                 .requires(IRItems.IMPETUS_GEM)
-                .gate(irGate("impetus_linker"))
                 .save(output);
 
         // 元动汲取仪
@@ -97,7 +95,6 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TTAspects.VITIUM, 35)
                 .aspect(TTAspects.AQUA, 35)
                 .instability(6)
-                .gate(irGate("impetus_drainer"))
                 .save(output);
 
         // 元动弥散仪
@@ -110,7 +107,6 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TTAspects.VITIUM, 25)
                 .aspect(TTAspects.ALIENIS, 25)
                 .instability(4)
-                .gate(irGate("impetus_diffuser"))
                 .save(output);
 
         // 元动发电机
@@ -124,7 +120,6 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TTAspects.VITIUM, 40)
                 .aspect(TTAspects.IGNIS, 30)
                 .instability(7)
-                .gate(irGate("impetus_generator"))
                 .save(output);
 
         // 裂隙旅行者之靴
@@ -154,7 +149,44 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TTAspects.VOLATUS, 120)
                 .aspect(TTAspects.MOTUS, 120)
                 .instability(6)
-                .gate(irGate("impetus_traveller_boots"))
+                .save(output);
+
+        // 奥法鞘翅
+        infusion(IRItems.THAUMOSTATIC_ELYTRA,
+                RecipeCategory.COMBAT,
+                Items.ELYTRA)
+                .component(Ingredient.of(TTItems.CRYSTAL_AER.get()))
+                .component(Ingredient.of(TTItems.CRYSTAL_AER.get()))
+                .component(tag(TTItemTags.PLANKS_GREATWOOD))
+                .component(tag(TTItemTags.PLANKS_GREATWOOD))
+                .component(Ingredient.of(Items.COMPARATOR))
+                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .aspect(TTAspects.VOLATUS, 64)
+                .aspect(TTAspects.POTENTIA, 64)
+                .aspect(TTAspects.MACHINA, 64)
+                .aspect(TTAspects.MOTUS, 32)
+                .aspect(TTAspects.VACUOS, 16)
+                .instability(7)
+                .save(output);
+
+        // 鞘翅助推器
+        infusion(IRItems.ELYTRA_THRUSTER,
+                RecipeCategory.COMBAT,
+                TTItems.GIRDLE_MUNDANE)
+                .component(Ingredient.of(IRItems.IMPETUS_CELL.get()))
+                .component(crystal(TTAspects.ALIENIS))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                .component(crystal(TTAspects.VACUOS))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .aspect(TTAspects.ALIENIS, 25)
+                .aspect(TTAspects.MOTUS, 75)
+                .aspect(TTAspects.POTENTIA, 50)
+                .aspect(TTAspects.VOLATUS, 45)
+                .instability(7)
                 .save(output);
     }
 

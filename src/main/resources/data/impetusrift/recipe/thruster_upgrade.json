@@ -1,0 +1,5 @@
+{
+  "type": "impetusrift:thruster_upgrade",
+  "base": "#impetusrift:gliders",
+  "addition": "impetusrift:elytra_thruster"
+}

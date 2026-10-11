@@ -3,7 +3,8 @@
   "package": "com.blackmoss.impetusrift.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "BlockEntityVoidSiphonMixin"
+    "BlockEntityVoidSiphonMixin",
+    "SmithingMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1

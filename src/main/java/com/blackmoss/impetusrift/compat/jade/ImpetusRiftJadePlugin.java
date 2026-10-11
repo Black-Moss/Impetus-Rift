@@ -15,12 +15,18 @@ public class ImpetusRiftJadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(
                 ImpetusNodeDataProvider.INSTANCE,
                 BlockEntity.class);
+        registration.registerBlockDataProvider(
+                ImpetusEnergyDataProvider.INSTANCE,
+                BlockEntity.class);
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(
                 ImpetusNodeClientProvider.INSTANCE,
+                Block.class);
+        registration.registerBlockComponent(
+                ImpetusEnergyClientProvider.INSTANCE,
                 Block.class);
     }
 }

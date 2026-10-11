@@ -7,9 +7,6 @@
     }
   ],
   "catalyst": "thaumaturge:void_seed",
-  "research": {
-    "entry": "impetusrift:impetus_gem"
-  },
   "result": {
     "id": "impetusrift:impetus_gem"
   }

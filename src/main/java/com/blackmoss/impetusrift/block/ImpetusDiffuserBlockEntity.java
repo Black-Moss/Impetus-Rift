@@ -2,6 +2,7 @@ package com.blackmoss.impetusrift.block;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
+import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import com.blackmoss.impetusrift.energy.ImpetusEnergyStorage;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
@@ -132,18 +133,30 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.isEmpty()) continue;
                 int current = ImpetusRechargeAccess.getCharge(stack);
-                if (current < 0) continue;
+                if (current >= 0) {
+                    int max = ImpetusRechargeAccess.getCapacity(stack);
+                    int room = Math.max(0, max - current);
+                    if (room > 0) {
+                        int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min(room, energyStorage.getEnergyStored()));
+                        if (toCharge > 0) {
+                            ImpetusRechargeAccess.addCharge(stack, toCharge);
+                            energyStorage.extractEnergy(toCharge, false);
+                            anyCharged = true;
+                        }
+                    }
+                }
 
-                int max = ImpetusRechargeAccess.getCapacity(stack);
-                int room = Math.max(0, max - current);
-                if (room <= 0) continue;
-
-                int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min(room, energyStorage.getEnergyStored()));
-                if (toCharge <= 0) continue;
-
-                ImpetusRechargeAccess.addCharge(stack, toCharge);
-                energyStorage.extractEnergy(toCharge, false);
-                anyCharged = true;
+                if (ElytraThrusterAccess.hasThruster(stack) && energyStorage.getEnergyStored() > 0) {
+                    int room = Math.max(0, ElytraThrusterAccess.getCapacity(stack) - ElytraThrusterAccess.getFuel(stack));
+                    if (room > 0) {
+                        int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min(room, energyStorage.getEnergyStored()));
+                        if (toCharge > 0) {
+                            ElytraThrusterAccess.addFuel(stack, toCharge);
+                            energyStorage.extractEnergy(toCharge, false);
+                            anyCharged = true;
+                        }
+                    }
+                }
             }
         }
         return anyCharged;

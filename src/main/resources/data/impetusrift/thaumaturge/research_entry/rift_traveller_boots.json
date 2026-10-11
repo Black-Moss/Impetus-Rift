@@ -1,6 +1,6 @@
 {
   "category": "impetusrift:impetuology",
-  "name": "research.impetusrift.impetus_traveller_boots.title",
+  "name": "research.impetusrift.rift_traveller_boots.title",
   "parents": [
     "impetusrift:base_impetuology"
   ],
@@ -10,11 +10,11 @@
     "round"
   ],
   "icons": [
-    "impetusrift:impetus_traveller_boots"
+    "impetusrift:rift_traveller_boots"
   ],
   "stages": [
     {
-      "text": "research.impetusrift.impetus_traveller_boots.stage_0",
+      "text": "research.impetusrift.rift_traveller_boots.stage_0",
       "required_knowledge": [
         {
           "type": "theory",
@@ -24,9 +24,9 @@
       ]
     },
     {
-      "text": "research.impetusrift.impetus_traveller_boots.stage_1",
+      "text": "research.impetusrift.rift_traveller_boots.stage_1",
       "recipes": [
-        "impetusrift:infusion/impetus_traveller_boots_form_void_traveller_boots"
+        "impetusrift:infusion/rift_traveller_boots_form_void_traveller_boots"
       ]
     }
   ],

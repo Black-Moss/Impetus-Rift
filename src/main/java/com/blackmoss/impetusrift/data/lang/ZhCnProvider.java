@@ -36,8 +36,10 @@ public class ZhCnProvider extends LanguageProvider {
         addItem(IRItems.IMPETUS_LINKER, "元动谐振器");
         addItem(IRItems.RIFT_TRAVELLER_BOOTS, "裂隙行者之靴");
         addItem(IRItems.THAUMOSTATIC_ELYTRA, "奥法鞘翅");
+        addItem(IRItems.ELYTRA_THRUSTER, "鞘翅助推器");
 
         research();
+        configuration();
         jade();
         tooltip();
         impetusLinker();
@@ -98,6 +100,18 @@ public class ZhCnProvider extends LanguageProvider {
 //                        "虽然我总体上对元动之镜为我提供的灵活性感到满意，但它们还是有一些限制。元动能量的传输速度必须加以限制，以免它们在虚空中发生逸散，所以如果我需要高通量的传输元动能量，我最好还是多加考虑。就像魔镜一样，元动之镜会对附近的灵气场产生压力，所以频繁地使用元动之镜来传输元动能量会导致其在两面镜子处同时产生咒波。最后，元动之镜的造价远超元动中继器之类的普通设备，所以我应当明智地设计我的元动设施，以尽可能少地使用它们。");
     }
 
+    private void configuration() {
+        addConfiguration("title", "元动裂隙配置文件");
+
+        addConfiguration("section.impetusrift.client.toml", "元动裂隙客户端配置文件");
+        addConfiguration("section.impetusrift.client.toml.title", "元动裂隙客户端配置文件");
+
+        addConfiguration("thruster_super_boost_hold_time", "助推器超级加速长按时间");
+
+        addConfiguration("thruster_super_boost_multiplier", "助推器超级加速倍率");
+        addConfiguration("thruster_super_boost_min_speed", "助推器超级加速最小速度");
+    }
+
     private void addResearch(String researchId, String title, String... stage) {
         add("research.%s.%s.title".formatted(ImpetusRift.MODID, researchId), title);
         for (int i = 0; i < stage.length; i++) {
@@ -105,18 +119,25 @@ public class ZhCnProvider extends LanguageProvider {
         }
     }
 
+    private void addConfiguration(String configID, String translations) {
+        add("%s.configuration.%s".formatted(ImpetusRift.MODID, configID), translations);
+    }
+
     private void jade() {
-        add("config.jade.plugin_impetusrift.impetusrift", "元动裂隙");
-        add("jade.impetusrift.input_nodes", "输入节点：%1$s / %2$s");
-        add("jade.impetusrift.output_nodes", "输出节点：%1$s / %2$s");
-        add("jade.impetusrift.energy", "元动能量：%1$s / %2$s");
-        add("jade.impetusrift.rift_size", "裂隙大小：%1$s");
-        add("jade.impetusrift.stability", "稳定度：%1$s");
+        add("config.jade.plugin_impetusrift.impetus_node", "元动节点");
+        add("config.jade.plugin_impetusrift.impetus_energy", "元动能量");
+        add("jade.impetusrift.impetus_node.input_nodes", "输入节点：%1$s / %2$s");
+        add("jade.impetusrift.impetus_node.output_nodes", "输出节点：%1$s / %2$s");
+        add("jade.impetusrift.impetus_node.rift_size", "裂隙大小：%1$s");
+        add("jade.impetusrift.impetus_node.stability", "稳定度：%1$s");
+        add("jade.impetusrift.impetus_energy.energy", "元动能量：%1$s / %2$s");
     }
 
     private void tooltip() {
         add("tooltip.impetusrift.node.unknown", "未知节点");
         add("tooltip.impetusrift.impetus_energy", "元动能量：%s / %s");
+        add("tooltip.impetusrift.thaumostatic_elytra.charge", "元动能量：%s / %s");
+        add("tooltip.impetusrift.thaumostatic_elytra.thruster", "助推器燃料：%s / %s");
     }
 
     // 元动谐振器

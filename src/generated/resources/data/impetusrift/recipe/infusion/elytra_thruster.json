@@ -1,0 +1,50 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 75,
+      "aspect": "thaumaturge:motus"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:potentia"
+    },
+    {
+      "amount": 45,
+      "aspect": "thaumaturge:volatus"
+    }
+  ],
+  "catalyst": "thaumaturge:girdle_mundane",
+  "components": [
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:alienis"
+        }
+      },
+      "items": "thaumaturge:essentia_crystal"
+    },
+    "#c:plates/void_metal",
+    "impetusrift:impetus_gem",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:vacuos"
+        }
+      },
+      "items": "thaumaturge:essentia_crystal"
+    },
+    "#c:plates/void_metal",
+    "impetusrift:impetus_cell"
+  ],
+  "instability": 7,
+  "result": {
+    "id": "impetusrift:elytra_thruster"
+  }
+}
