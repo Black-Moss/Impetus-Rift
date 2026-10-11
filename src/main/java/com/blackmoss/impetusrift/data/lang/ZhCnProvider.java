@@ -34,7 +34,8 @@ public class ZhCnProvider extends LanguageProvider {
         addItem(IRItems.RIFT_SEED_FLUX, "咒波裂隙种子");
         addItem(IRItems.RIFT_COMPASS, "裂隙指南针");
         addItem(IRItems.IMPETUS_LINKER, "元动谐振器");
-        addItem(IRItems.IMPETUS_TRAVELLER_BOOTS, "裂隙旅行者之靴");
+        addItem(IRItems.RIFT_TRAVELLER_BOOTS, "裂隙行者之靴");
+        addItem(IRItems.THAUMOSTATIC_ELYTRA, "奥法鞘翅");
 
         research();
         jade();

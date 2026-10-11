@@ -4,11 +4,17 @@ import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.ImpetusChargeDisplay;
 import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import com.blackmoss.impetusrift.item.ImpetusCellItem;
+import com.blackmoss.impetusrift.item.ThaumostaticElytraItem;
 import com.blackmoss.impetusrift.item.ImpetusLinkerItem;
 import com.blackmoss.impetusrift.item.ImpetusTravellerBootsItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Unit;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.equipment.EquipmentAssets;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -52,14 +58,26 @@ public final class IRItems {
             "impetus_cell", ImpetusCellItem::new, props -> props
                     .stacksTo(64));
 
-    public static final DeferredItem<ImpetusTravellerBootsItem> IMPETUS_TRAVELLER_BOOTS = ITEMS.registerItem(
-            "impetus_traveller_boots", ImpetusTravellerBootsItem::new, props -> props
-                    .humanoidArmor(IRMaterials.ARMOR_IMPETUS_TRAVELLER, ArmorType.BOOTS)
+    public static final DeferredItem<ImpetusTravellerBootsItem> RIFT_TRAVELLER_BOOTS = ITEMS.registerItem(
+            "rift_traveller_boots", ImpetusTravellerBootsItem::new, props -> props
+                    .humanoidArmor(IRMaterials.ARMOR_RIFT_TRAVELLER, ArmorType.BOOTS)
                     .durability(700)
                     .rarity(Rarity.EPIC)
-                    .attributes(IRMaterials.ARMOR_IMPETUS_TRAVELLER.createAttributes(ArmorType.BOOTS))
+                    .attributes(IRMaterials.ARMOR_RIFT_TRAVELLER.createAttributes(ArmorType.BOOTS))
                     .component(IRDataComponents.IMPETUS_RECHARGEABLE.get(),
                             new ImpetusChargeProfile(1000, ImpetusChargeDisplay.ON_CHANGE)));
+
+    public static final DeferredItem<ThaumostaticElytraItem> THAUMOSTATIC_ELYTRA = ITEMS.registerItem(
+            "thaumostatic_elytra", ThaumostaticElytraItem::new, props -> props
+                    .component(DataComponents.GLIDER, Unit.INSTANCE)
+                    .stacksTo(1)
+                    .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST)
+                            .setAsset(EquipmentAssets.ELYTRA)
+                            .setEquipOnInteract(true)
+                            .setDamageOnHurt(false)
+                            .build())
+                    .component(IRDataComponents.IMPETUS_RECHARGEABLE.get(),
+                            new ImpetusChargeProfile(1500, ImpetusChargeDisplay.ON_CHANGE)));
 
 
     private IRItems() {

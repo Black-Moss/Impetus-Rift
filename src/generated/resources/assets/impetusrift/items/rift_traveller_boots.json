@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "impetusrift:item/impetus_traveller_boots",
+    "model": "impetusrift:item/rift_traveller_boots",
     "tints": [
       {
         "type": "minecraft:dye",

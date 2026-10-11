@@ -34,7 +34,8 @@ public class EnUsProvider extends LanguageProvider {
         addItem(IRItems.RIFT_SEED_FLUX, "Rift Seed Flux");
         addItem(IRItems.RIFT_COMPASS, "Rift Compass");
         addItem(IRItems.IMPETUS_LINKER, "Impetus Linker");
-        addItem(IRItems.IMPETUS_TRAVELLER_BOOTS, "Impetus Traveller Boots   ");
+        addItem(IRItems.RIFT_TRAVELLER_BOOTS, "Rift Traveller Boots");
+        addItem(IRItems.THAUMOSTATIC_ELYTRA, "Thaumostatic Elytra");
 
         research();
         jade();

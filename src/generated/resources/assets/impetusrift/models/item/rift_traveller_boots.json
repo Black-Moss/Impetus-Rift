@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "impetusrift:item/rift_traveller_boots_overlay",
+    "layer1": "impetusrift:item/rift_traveller_boots"
+  }
+}

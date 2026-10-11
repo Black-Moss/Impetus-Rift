@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:impetus_traveller_boots"
+            "items": "impetusrift:rift_traveller_boots"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:infusion/impetus_traveller_boots"
+        "recipe": "impetusrift:infusion/rift_traveller_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:infusion/impetus_traveller_boots"
+      "impetusrift:infusion/rift_traveller_boots"
     ]
   }
 }

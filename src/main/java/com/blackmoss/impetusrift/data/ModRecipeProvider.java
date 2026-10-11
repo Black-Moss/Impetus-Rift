@@ -128,7 +128,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .save(output);
 
         // 裂隙旅行者之靴
-        infusion(IRItems.IMPETUS_TRAVELLER_BOOTS.get(),
+        infusion(IRItems.RIFT_TRAVELLER_BOOTS.get(),
                 TTItems.VOID_BOOTS.get())
                 .component(Ingredient.of(TTItems.TRAVELLER_BOOTS.get()))
                 .component(Ingredient.of(TTItems.PLATE_VOID.get()))
