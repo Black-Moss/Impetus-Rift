@@ -20,6 +20,7 @@
   ],
   "catalyst": "thaumaturge:girdle_mundane",
   "components": [
+    "impetusrift:impetus_cell",
     {
       "neoforge:ingredient_type": "neoforge:components",
       "components": {
@@ -40,8 +41,7 @@
       },
       "items": "thaumaturge:essentia_crystal"
     },
-    "#c:plates/void_metal",
-    "impetusrift:impetus_cell"
+    "#c:plates/void_metal"
   ],
   "instability": 7,
   "result": {

@@ -24,24 +24,8 @@
   ],
   "catalyst": "minecraft:elytra",
   "components": [
-    {
-      "neoforge:ingredient_type": "neoforge:components",
-      "components": {
-        "thaumaturge:crystal_aspect": {
-          "aspect": "thaumaturge:aer"
-        }
-      },
-      "items": "thaumaturge:essentia_crystal"
-    },
-    {
-      "neoforge:ingredient_type": "neoforge:components",
-      "components": {
-        "thaumaturge:crystal_aspect": {
-          "aspect": "thaumaturge:aer"
-        }
-      },
-      "items": "thaumaturge:essentia_crystal"
-    },
+    "thaumaturge:crystal_aer",
+    "thaumaturge:crystal_aer",
     "#c:planks/greatwood",
     "#c:planks/greatwood",
     "minecraft:comparator",

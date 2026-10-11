@@ -30,7 +30,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import org.jspecify.annotations.NonNull;
 
@@ -50,11 +49,18 @@ public final class ModRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes() {
         // 元动能量单元
-        arcaneShapeless(IRItems.IMPETUS_CELL.get(), 30)
-                .aspect(TTAspects.IGNIS)
-                .requires(TTItems.VIS_BATTERY)
-                .requires(TTItems.CRYSTAL_VITIUM)
-                .requires(TTItems.SALIS_MUNDUS)
+        infusion(IRItems.IMPETUS_CELL.get(), TTItems.VOID_SEED.get())
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(crystal(TTAspects.ALIENIS))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(TTItems.PRIMORDIAL_PEARL.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(tag(TTItemTags.GEMS_AMBER))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(Items.REDSTONE))
+                .aspect(TTAspects.ALIENIS, 25)
+                .aspect(TTAspects.POTENTIA, 100)
+                .aspect(TTAspects.VACUOS, 50)
                 .save(output);
 
         // 元动宝石
@@ -126,21 +132,17 @@ public final class ModRecipeProvider extends RecipeProvider {
         infusion(IRItems.RIFT_TRAVELLER_BOOTS.get(),
                 TTItems.VOID_BOOTS.get())
                 .component(Ingredient.of(TTItems.TRAVELLER_BOOTS.get()))
-                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-
-                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
                 .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-
-                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
                 .component(Ingredient.of(TTItems.FABRIC.get()))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-
                 .component(Ingredient.of(Items.LEATHER))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
-
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
                 .aspect(TTAspects.METALLUM, 80)
                 .aspect(TTAspects.AQUA, 80)
                 .aspect(TTAspects.VACUOS, 80)
