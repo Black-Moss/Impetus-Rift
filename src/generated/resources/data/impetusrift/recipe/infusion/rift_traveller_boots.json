@@ -33,17 +33,17 @@
   "catalyst": "thaumaturge:void_boots",
   "components": [
     "thaumaturge:traveller_boots",
-    "thaumaturge:plate_void",
+    "#c:plates/void_metal",
     "impetusrift:impetus_gem",
-    "thaumaturge:plate_void",
+    "#c:plates/void_metal",
     "thaumaturge:salis_mundus",
     "impetusrift:impetus_gem",
-    "thaumaturge:plate_void",
+    "#c:plates/void_metal",
     "thaumaturge:fabric",
     "impetusrift:impetus_gem",
     "minecraft:leather",
     "impetusrift:impetus_gem",
-    "thaumaturge:plate_void"
+    "#c:plates/void_metal"
   ],
   "instability": 6,
   "result": {
