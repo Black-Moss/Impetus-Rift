@@ -3,7 +3,7 @@ package com.blackmoss.impetusrift.client.render;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
-import com.leclowndu93150.thaumaturge.client.effect.pipeline.TCFXPipelines;
+import com.leclowndu93150.thaumaturge.client.effect.pipeline.TTFXPipelines;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -41,7 +41,7 @@ public class ImpetusEnergyBeamRenderer {
 
     private static final Identifier IMPETUS_BEAM_TEX = ImpetusRift.identifier("textures/misc/impetus_energy_beam.png");
     private static final Identifier PIPELINE_LOC = ImpetusRift.identifier("pipeline/impetus_energy_beam");
-    private static final RenderPipeline PIPELINE = TCFXPipelines.translucentTextured(PIPELINE_LOC);
+    private static final RenderPipeline PIPELINE = TTFXPipelines.translucentTextured(PIPELINE_LOC);
     public static final RenderType BEAM_TYPE = RenderType.create(
             "ir_impetus_energy_beam",
             RenderSetup.builder(PIPELINE)

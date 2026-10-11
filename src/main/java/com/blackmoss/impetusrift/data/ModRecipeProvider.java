@@ -2,17 +2,17 @@ package com.blackmoss.impetusrift.data;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.registry.IRItems;
-import com.leclowndu93150.thaumaturge.TCIds;
+import com.leclowndu93150.thaumaturge.TTIds;
 import com.leclowndu93150.thaumaturge.api.aspect.AspectInstance;
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
-import com.leclowndu93150.thaumaturge.api.aspect.TCAspects;
+import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.api.recipe.ResearchGate;
 import com.leclowndu93150.thaumaturge.data.recipe.builders.CrucibleRecipeBuilder;
 import com.leclowndu93150.thaumaturge.data.recipe.builders.InfusionRecipeBuilder;
 import com.leclowndu93150.thaumaturge.data.recipe.builders.workbench.ArcaneWorkbenchShapedRecipeBuilder;
 import com.leclowndu93150.thaumaturge.data.recipe.builders.workbench.ArcaneWorkbenchShapelessRecipeBuilder;
-import com.leclowndu93150.thaumaturge.registry.TCDataComponents;
-import com.leclowndu93150.thaumaturge.registry.TCItems;
+import com.leclowndu93150.thaumaturge.registry.TTDataComponents;
+import com.leclowndu93150.thaumaturge.registry.TTItems;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -35,7 +35,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public class ModRecipeProvider extends RecipeProvider {
+public final class ModRecipeProvider extends RecipeProvider {
     private final HolderLookup.Provider lookupProvider;
     private final HolderGetter<IAspect> aspects;
 
@@ -49,110 +49,110 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void buildRecipes() {
         // 元动能量单元
         arcaneShapeless(IRItems.IMPETUS_CELL.get(), 30)
-                .aspect(TCAspects.IGNIS)
-                .requires(TCItems.VIS_BATTERY)
-                .requires(TCItems.CRYSTAL_VITIUM)
-                .requires(TCItems.SALIS_MUNDUS)
+                .aspect(TTAspects.IGNIS)
+                .requires(TTItems.VIS_BATTERY)
+                .requires(TTItems.CRYSTAL_VITIUM)
+                .requires(TTItems.SALIS_MUNDUS)
                 .gate(irGate("impetus_cell"))
                 .save(output);
 
         // 元动宝石
         crucible(IRItems.IMPETUS_GEM.get(),
-                TCItems.VOID_SEED.get())
-                .aspect(TCAspects.VACUOS, 10)
+                TTItems.VOID_SEED.get())
+                .aspect(TTAspects.VACUOS, 10)
                 .gate(irGate("impetus_gem"))
                 .save(output);
 
         // 裂隙指南针
         arcaneShaped(IRItems.RIFT_COMPASS, 50)
-                .aspect(TCAspects.PERDITIO, 10)
-                .aspect(TCAspects.ORDO, 10)
+                .aspect(TTAspects.PERDITIO, 10)
+                .aspect(TTAspects.ORDO, 10)
                 .pattern(" P ")
                 .pattern("PSP")
                 .pattern(" P ")
-                .define('P', TCItems.PLATE_BRASS)
-                .define('S', TCItems.SALIS_MUNDUS)
+                .define('P', TTItems.PLATE_BRASS)
+                .define('S', TTItems.SALIS_MUNDUS)
                 .gate(irGate("rift_compass"))
                 .save(output);
 
         // 元动谐振器
         arcaneShapeless(IRItems.IMPETUS_LINKER.get(), 40)
-                .aspect(TCAspects.IGNIS)
-                .aspect(TCAspects.ORDO)
-                .requires(TCItems.SALIS_MUNDUS)
-                .requires(TCItems.CRYSTAL_VITIUM)
+                .aspect(TTAspects.IGNIS)
+                .aspect(TTAspects.ORDO)
+                .requires(TTItems.SALIS_MUNDUS)
+                .requires(TTItems.CRYSTAL_VITIUM)
                 .requires(IRItems.IMPETUS_GEM)
                 .gate(irGate("impetus_linker"))
                 .save(output);
 
         // 元动汲取仪
         infusion(IRItems.IMPETUS_DRAINER.get(),
-                TCItems.VIS_BATTERY.get())
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .aspect(TCAspects.VITIUM, 35)
-                .aspect(TCAspects.AQUA, 35)
+                TTItems.VIS_BATTERY.get())
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .aspect(TTAspects.VITIUM, 35)
+                .aspect(TTAspects.AQUA, 35)
                 .instability(6)
                 .gate(irGate("impetus_drainer"))
                 .save(output);
 
         // 元动弥散仪
         infusion(IRItems.IMPETUS_DIFFUSER.get(),
-                TCItems.VIS_BATTERY.get())
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .aspect(TCAspects.VITIUM, 25)
-                .aspect(TCAspects.ALIENIS, 25)
+                TTItems.VIS_BATTERY.get())
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .aspect(TTAspects.VITIUM, 25)
+                .aspect(TTAspects.ALIENIS, 25)
                 .instability(4)
                 .gate(irGate("impetus_diffuser"))
                 .save(output);
 
         // 元动发电机
-        infusion(IRItems.IMPETUS_GENERATOR.get(), TCItems.VIS_BATTERY.get())
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TCItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
-                .aspect(TCAspects.VITIUM, 40)
-                .aspect(TCAspects.IGNIS, 30)
+        infusion(IRItems.IMPETUS_GENERATOR.get(), TTItems.VIS_BATTERY.get())
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
+                .aspect(TTAspects.VITIUM, 40)
+                .aspect(TTAspects.IGNIS, 30)
                 .instability(7)
                 .gate(irGate("impetus_generator"))
                 .save(output);
 
         // 裂隙旅行者之靴
         infusion(IRItems.IMPETUS_TRAVELLER_BOOTS.get(),
-                TCItems.VOID_BOOTS.get())
-                .component(Ingredient.of(TCItems.TRAVELLER_BOOTS.get()))
-                .component(Ingredient.of(TCItems.PLATE_VOID.get()))
+                TTItems.VOID_BOOTS.get())
+                .component(Ingredient.of(TTItems.TRAVELLER_BOOTS.get()))
+                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
 
-                .component(Ingredient.of(TCItems.PLATE_VOID.get()))
-                .component(Ingredient.of(TCItems.SALIS_MUNDUS.get()))
+                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
+                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
 
-                .component(Ingredient.of(TCItems.PLATE_VOID.get()))
-                .component(Ingredient.of(TCItems.FABRIC.get()))
+                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
+                .component(Ingredient.of(TTItems.FABRIC.get()))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
 
                 .component(Ingredient.of(Items.LEATHER))
                 .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-                .component(Ingredient.of(TCItems.PLATE_VOID.get()))
+                .component(Ingredient.of(TTItems.PLATE_VOID.get()))
 
-                .aspect(TCAspects.METALLUM, 80)
-                .aspect(TCAspects.AQUA, 80)
-                .aspect(TCAspects.VACUOS, 80)
-                .aspect(TCAspects.FABRICO, 80)
-                .aspect(TCAspects.ALIENIS, 80)
-                .aspect(TCAspects.VOLATUS, 120)
-                .aspect(TCAspects.MOTUS, 120)
+                .aspect(TTAspects.METALLUM, 80)
+                .aspect(TTAspects.AQUA, 80)
+                .aspect(TTAspects.VACUOS, 80)
+                .aspect(TTAspects.FABRICO, 80)
+                .aspect(TTAspects.ALIENIS, 80)
+                .aspect(TTAspects.VOLATUS, 120)
+                .aspect(TTAspects.MOTUS, 120)
                 .instability(6)
                 .gate(irGate("impetus_traveller_boots"))
                 .save(output);
@@ -173,7 +173,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private static ResearchGate tcGate(String path) {
-        return new ResearchGate(TCIds.rl(path), Optional.empty(), false);
+        return new ResearchGate(TTIds.rl(path), Optional.empty(), false);
     }
 
     private HolderSet<Item> tag(String space, String path) {
@@ -184,9 +184,9 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private Ingredient crystal(ResourceKey<IAspect> aspect) {
         return DataComponentIngredient.of(
-                TCDataComponents.CRYSTAL_ASPECT.get(),
+                TTDataComponents.CRYSTAL_ASPECT.get(),
                 new AspectInstance(aspects.getOrThrow(aspect), 1),
-                TCItems.ESSENTIA_CRYSTAL.get());
+                TTItems.ESSENTIA_CRYSTAL.get());
     }
 
     private Ingredient commonTag(String path) {

@@ -1,7 +1,7 @@
 package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.leclowndu93150.thaumaturge.registry.TCItemTags;
+import com.leclowndu93150.thaumaturge.registry.TTItemTags;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.equipment.ArmorMaterial;
@@ -22,7 +22,7 @@ public final class IRMaterials {
             SoundEvents.ARMOR_EQUIP_LEATHER,
             3.0F,
             0.25F,
-            TCItemTags.INGOTS_VOID_METAL,
+            TTItemTags.INGOTS_VOID_METAL,
             ASSET_IMPETUS_TRAVELLER
     );
 

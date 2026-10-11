@@ -1,9 +1,10 @@
 package com.blackmoss.impetusrift.client.hud;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
-import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
-import com.leclowndu93150.thaumaturge.TCIds;
+import com.blackmoss.impetusrift.energy.ImpetusChargeDisplay;
+import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
+import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
+import com.leclowndu93150.thaumaturge.TTIds;
 import com.leclowndu93150.thaumaturge.api.items.ChargeDisplay;
 import com.leclowndu93150.thaumaturge.api.items.ChargeProfile;
 import com.leclowndu93150.thaumaturge.api.items.RechargeAccess;
@@ -23,7 +24,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public final class ImpetusHudOverlay implements GuiLayer {
-    private static final Identifier HUD_FRAME = TCIds.rl("textures/gui/hud.png");
+    private static final Identifier HUD_FRAME = TTIds.rl("textures/gui/hud.png");
     private static final int HUD_TEX_SIZE = 256;
     private static final Identifier BEAM = ImpetusRift.identifier("textures/misc/impetus_energy_beam.png");
     private static final int BEAM_TEX_SIZE = 64;
@@ -132,18 +133,19 @@ public final class ImpetusHudOverlay implements GuiLayer {
         int shown = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = player.getItemBySlot(slot);
-            if (!(stack.getItem() instanceof IImpetusRechargeable rechargeable)) {
+            ImpetusChargeProfile profile = ImpetusRechargeAccess.profile(stack);
+            if (profile == null) {
                 lastCharge.remove(slot);
                 changeTick.remove(slot);
                 continue;
             }
 
-            IImpetusRechargeable.ChargeDisplay display = rechargeable.showInHud(stack, player);
-            if (display == IImpetusRechargeable.ChargeDisplay.NEVER) {
+            ImpetusChargeDisplay display = profile.display();
+            if (display == ImpetusChargeDisplay.NEVER) {
                 continue;
             }
 
-            int charge = ImpetusChargeHelper.getCharge(stack);
+            int charge = ImpetusRechargeAccess.getCharge(stack);
             Integer previous = lastCharge.put(slot, charge);
             if (previous == null || previous != charge) {
                 changeTick.put(slot, player.tickCount);
@@ -151,12 +153,12 @@ public final class ImpetusHudOverlay implements GuiLayer {
 
             boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
             if (!held
-                    && display == IImpetusRechargeable.ChargeDisplay.PERIODIC
+                    && display == ImpetusChargeDisplay.ON_CHANGE
                     && player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) > PERIODIC_SHOW_TICKS) {
                 continue;
             }
 
-            drawMeter(graphics, mc, stack, (int) rechargeable.getMaxCharge(stack, player), charge,
+            drawMeter(graphics, mc, stack, profile.capacity(), charge,
                     offset + shown++, player.isShiftKeyDown());
         }
     }

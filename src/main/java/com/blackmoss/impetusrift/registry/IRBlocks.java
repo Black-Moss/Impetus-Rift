@@ -2,7 +2,7 @@ package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.block.*;
-import com.leclowndu93150.thaumaturge.registry.TCSoundTypes;
+import com.leclowndu93150.thaumaturge.registry.TTSoundTypes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -53,7 +53,7 @@ public final class IRBlocks {
             "rift_jar", RiftJarBlock::new, props -> props
                     .mapColor(MapColor.NONE)
                     .strength(0.3F)
-                    .sound(TCSoundTypes.JAR.get())
+                    .sound(TTSoundTypes.JAR.get())
                     .noOcclusion());
 
     // 裂隙监测仪

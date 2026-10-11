@@ -1,8 +1,7 @@
 package com.blackmoss.impetusrift.block;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
-import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
+import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
 import com.blackmoss.impetusrift.energy.ImpetusEnergyStorage;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
@@ -132,18 +131,17 @@ public class ImpetusDiffuserBlockEntity extends BlockEntity implements IImpetusN
                 if (energyStorage.getEnergyStored() <= 0) break;
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.isEmpty()) continue;
-                // 物品侧元动能源：IImpetusRechargeable + ImpetusChargeHelper（IMPETUS_ENERGY 数据组件）
-                if (!(stack.getItem() instanceof IImpetusRechargeable rechargeable)) continue;
+                int current = ImpetusRechargeAccess.getCharge(stack);
+                if (current < 0) continue;
 
-                int current = ImpetusChargeHelper.getCharge(stack);
-                long max = rechargeable.getMaxCharge(stack, player);
-                int room = (int) Math.max(0L, max - current);
+                int max = ImpetusRechargeAccess.getCapacity(stack);
+                int room = Math.max(0, max - current);
                 if (room <= 0) continue;
 
                 int toCharge = (int) Math.min(CHARGE_PER_ITEM, Math.min(room, energyStorage.getEnergyStored()));
                 if (toCharge <= 0) continue;
 
-                ImpetusChargeHelper.setCharge(stack, current + toCharge);
+                ImpetusRechargeAccess.addCharge(stack, toCharge);
                 energyStorage.extractEnergy(toCharge, false);
                 anyCharged = true;
             }

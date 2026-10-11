@@ -1,9 +1,9 @@
 package com.blackmoss.impetusrift.client.render;
 
 import com.blackmoss.impetusrift.block.ImpetusMatrixBlockEntity;
-import com.leclowndu93150.thaumaturge.TCIds;
-import com.leclowndu93150.thaumaturge.client.effect.pipeline.TCRenderPipelines;
-import com.leclowndu93150.thaumaturge.client.entity.TCModelLayers;
+import com.leclowndu93150.thaumaturge.TTIds;
+import com.leclowndu93150.thaumaturge.client.effect.pipeline.TTRenderPipelines;
+import com.leclowndu93150.thaumaturge.client.entity.TTModelLayers;
 import com.leclowndu93150.thaumaturge.client.model.entity.MatrixCubeModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -29,15 +29,15 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusMatrixBlockEntity, ImpetusMatrixRenderState> {
-    private static final Identifier TEXTURE = TCIds.rl("textures/block/infuser_eldritch.png");
+    private static final Identifier TEXTURE = TTIds.rl("textures/block/infuser_eldritch.png");
     private static final RenderType GLOW_TYPE = RenderType.create(
             "ir_matrix_glow",
-            RenderSetup.builder(TCRenderPipelines.ENTITY_ADDITIVE_EMISSIVE)
+            RenderSetup.builder(TTRenderPipelines.ENTITY_ADDITIVE_EMISSIVE)
                     .withTexture("Sampler0", TEXTURE)
                     .createRenderSetup());
     private static final RenderType HALO_TYPE = RenderType.create(
             "ir_matrix_halo",
-            RenderSetup.builder(TCRenderPipelines.SPARKLE_CULLED).createRenderSetup());
+            RenderSetup.builder(TTRenderPipelines.SPARKLE_CULLED).createRenderSetup());
 
     private static final float SUB_CUBE_OFFSET = 0.25F;
     private static final float SUB_CUBE_SCALE = 0.45F;
@@ -56,7 +56,7 @@ public final class ImpetusMatrixRenderer implements BlockEntityRenderer<ImpetusM
     private final RandomSource haloRandom = RandomSource.create();
 
     public ImpetusMatrixRenderer(BlockEntityRendererProvider.Context context) {
-        this.model = new MatrixCubeModel(context.bakeLayer(TCModelLayers.MATRIX_CUBE));
+        this.model = new MatrixCubeModel(context.bakeLayer(TTModelLayers.MATRIX_CUBE));
     }
 
     @Override

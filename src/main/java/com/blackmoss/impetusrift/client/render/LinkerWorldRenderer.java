@@ -5,7 +5,7 @@ import com.blackmoss.impetusrift.client.network.ClientConnectionCache;
 import com.blackmoss.impetusrift.energy.network.ImpetusConnection;
 import com.blackmoss.impetusrift.item.ImpetusLinkerItem;
 import com.blackmoss.impetusrift.registry.IRDataComponents;
-import com.leclowndu93150.thaumaturge.client.effect.pipeline.TCFXPipelines;
+import com.leclowndu93150.thaumaturge.client.effect.pipeline.TTFXPipelines;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -32,7 +32,7 @@ public final class LinkerWorldRenderer {
 
     private static final Identifier PIPELINE_LOC = ImpetusRift.identifier("pipeline/linker_overlay");
     private static final Identifier FRAME_TEX = ImpetusRift.identifier("textures/misc/frame.png");
-    private static final RenderPipeline PIPELINE = TCFXPipelines.additiveTexturedNoDepth(PIPELINE_LOC);
+    private static final RenderPipeline PIPELINE = TTFXPipelines.additiveTexturedNoDepth(PIPELINE_LOC);
     private static final RenderType OVERLAY_TYPE = RenderType.create("ir_linker_overlay",
             RenderSetup.builder(PIPELINE)
                     .withTexture("Sampler0", FRAME_TEX)

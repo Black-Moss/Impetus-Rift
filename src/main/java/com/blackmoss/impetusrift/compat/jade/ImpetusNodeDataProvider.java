@@ -28,7 +28,7 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
 
     @Override
     public @NonNull Identifier getUid() {
-        return ImpetusRift.identifier("impetus_node");
+        return ImpetusRift.identifier("impetusrift");
     }
 
     @Override

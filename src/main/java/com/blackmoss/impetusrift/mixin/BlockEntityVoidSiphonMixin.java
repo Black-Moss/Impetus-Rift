@@ -5,7 +5,7 @@ import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.leclowndu93150.thaumaturge.content.device.BlockEntityVoidSiphon;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
-import com.leclowndu93150.thaumaturge.registry.TCItems;
+import com.leclowndu93150.thaumaturge.registry.TTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -135,7 +135,7 @@ public abstract class BlockEntityVoidSiphonMixin extends BlockEntity {
     private void impetus_Rift$emitSeed() {
         ItemStack current = output.getResource(0).toStack(output.getAmountAsInt(0));
         if (current.isEmpty()) {
-            output.set(0, ItemResource.of(new ItemStack(TCItems.VOID_SEED.get())), 1);
+            output.set(0, ItemResource.of(new ItemStack(TTItems.VOID_SEED.get())), 1);
         } else {
             output.set(0, output.getResource(0), current.getCount() + 1);
         }

@@ -2,7 +2,7 @@ package com.blackmoss.impetusrift.block;
 
 import com.blackmoss.impetusrift.registry.IRBlocks;
 import com.blackmoss.impetusrift.registry.IRItems;
-import com.leclowndu93150.thaumaturge.registry.TCBlocks;
+import com.leclowndu93150.thaumaturge.registry.TTBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -89,7 +89,7 @@ public class ImpetusAltarBaseBlock extends BaseEntityBlock {
     @Override
     public @NonNull List<ItemStack> getDrops(@NonNull BlockState state, LootParams.@NonNull Builder params) {
         List<ItemStack> drops = new ArrayList<>();
-        drops.add(new ItemStack(TCBlocks.PEDESTAL_ELDRITCH.get()));
+        drops.add(new ItemStack(TTBlocks.PEDESTAL_ELDRITCH.get()));
         int cells = countCells(state);
         if (cells > 0) {
             drops.add(new ItemStack(IRItems.IMPETUS_CELL.get(), cells));
@@ -131,7 +131,7 @@ public class ImpetusAltarBaseBlock extends BaseEntityBlock {
         if (cells > 0) {
             popResource(level, pos, new ItemStack(IRItems.IMPETUS_CELL.get(), cells));
         }
-        level.setBlockAndUpdate(pos, TCBlocks.PEDESTAL_ELDRITCH.get().defaultBlockState());
+        level.setBlockAndUpdate(pos, TTBlocks.PEDESTAL_ELDRITCH.get().defaultBlockState());
     }
 
     @Override

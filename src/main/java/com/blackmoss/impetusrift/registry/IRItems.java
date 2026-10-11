@@ -1,6 +1,8 @@
 package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
+import com.blackmoss.impetusrift.energy.ImpetusChargeDisplay;
+import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import com.blackmoss.impetusrift.item.ImpetusCellItem;
 import com.blackmoss.impetusrift.item.ImpetusLinkerItem;
 import com.blackmoss.impetusrift.item.ImpetusTravellerBootsItem;
@@ -50,13 +52,14 @@ public final class IRItems {
             "impetus_cell", ImpetusCellItem::new, props -> props
                     .stacksTo(64));
 
-    // 裂隙旅行者之靴
     public static final DeferredItem<ImpetusTravellerBootsItem> IMPETUS_TRAVELLER_BOOTS = ITEMS.registerItem(
             "impetus_traveller_boots", ImpetusTravellerBootsItem::new, props -> props
                     .humanoidArmor(IRMaterials.ARMOR_IMPETUS_TRAVELLER, ArmorType.BOOTS)
                     .durability(700)
                     .rarity(Rarity.EPIC)
-                    .attributes(IRMaterials.ARMOR_IMPETUS_TRAVELLER.createAttributes(ArmorType.BOOTS)));
+                    .attributes(IRMaterials.ARMOR_IMPETUS_TRAVELLER.createAttributes(ArmorType.BOOTS))
+                    .component(IRDataComponents.IMPETUS_RECHARGEABLE.get(),
+                            new ImpetusChargeProfile(1000, ImpetusChargeDisplay.ON_CHANGE)));
 
 
     private IRItems() {

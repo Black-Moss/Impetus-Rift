@@ -1,7 +1,7 @@
 package com.blackmoss.impetusrift.client.render;
 
 import com.blackmoss.impetusrift.block.RiftJarBlockEntity;
-import com.leclowndu93150.thaumaturge.client.effect.pipeline.TCRenderPipelines;
+import com.leclowndu93150.thaumaturge.client.effect.pipeline.TTRenderPipelines;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -25,13 +25,13 @@ import java.util.List;
 
 public final class RiftJarRenderer implements BlockEntityRenderer<RiftJarBlockEntity, RiftJarRenderState> {
     private static final RenderType RIFT_GLOW_TYPE = RenderType.create("ir_rift_jar_glow",
-            RenderSetup.builder(TCRenderPipelines.RIFT_GLOW)
+            RenderSetup.builder(TTRenderPipelines.RIFT_GLOW)
                     .withTexture("Sampler0", AbstractEndPortalRenderer.END_PORTAL_LOCATION)
                     .withTexture("Sampler1", AbstractEndPortalRenderer.END_PORTAL_LOCATION)
                     .createRenderSetup());
 
     private static final RenderType RIFT_SOLID_TYPE = RenderType.create("ir_rift_jar_solid",
-            RenderSetup.builder(TCRenderPipelines.RIFT_SOLID)
+            RenderSetup.builder(TTRenderPipelines.RIFT_SOLID)
                     .withTexture("Sampler0", AbstractEndPortalRenderer.END_PORTAL_LOCATION)
                     .withTexture("Sampler1", AbstractEndPortalRenderer.END_PORTAL_LOCATION)
                     .createRenderSetup());

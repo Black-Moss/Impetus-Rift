@@ -5,7 +5,7 @@ import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
 import com.leclowndu93150.thaumaturge.api.casters.IInteractWithCaster;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
-import com.leclowndu93150.thaumaturge.registry.TCSounds;
+import com.leclowndu93150.thaumaturge.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -116,7 +116,7 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         level.playSound(
                 null,
                 worldPosition,
-                TCSounds.CRAFTSTART.get(),
+                TTSounds.CRAFTSTART.get(),
                 SoundSource.BLOCKS,
                 0.5F,
                 1.0F);
@@ -194,7 +194,7 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         level.playSound(
                 null,
                 worldPosition,
-                TCSounds.CRAFTFAIL.get(),
+                TTSounds.CRAFTFAIL.get(),
                 SoundSource.BLOCKS,
                 0.5F,
                 1.0F);
@@ -209,7 +209,7 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
             level.playSound(
                     null,
                     worldPosition,
-                    TCSounds.WAND.get(),
+                    TTSounds.WAND.get(),
                     SoundSource.BLOCKS,
                     0.5F,
                     1.0F);

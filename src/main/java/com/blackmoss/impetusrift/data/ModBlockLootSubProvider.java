@@ -1,7 +1,7 @@
 package com.blackmoss.impetusrift.data;
 
 import com.blackmoss.impetusrift.registry.IRBlocks;
-import com.leclowndu93150.thaumaturge.registry.TCBlocks;
+import com.leclowndu93150.thaumaturge.registry.TTBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -27,7 +27,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         dropSelf(IRBlocks.IMPETUS_DIFFUSER.get());
         dropSelf(IRBlocks.IMPETUS_GENERATOR.get());
         dropSelf(IRBlocks.IMPETUS_MATRIX.get());
-        dropOther(IRBlocks.IMPETUS_ALTAR_BASE.get(), TCBlocks.PEDESTAL_ELDRITCH.get());
+        dropOther(IRBlocks.IMPETUS_ALTAR_BASE.get(), TTBlocks.PEDESTAL_ELDRITCH.get());
         dropSelf(IRBlocks.IMPETUS_MIRROR.get());
         dropSelf(IRBlocks.IMPETUS_RELAY.get());
         dropSelf(IRBlocks.IMPETUS_GATE.get());

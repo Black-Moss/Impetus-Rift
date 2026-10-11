@@ -2,15 +2,14 @@ package com.blackmoss.impetusrift.client;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.client.hud.ImpetusHudOverlay;
-import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
-import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
+import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
+import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
 import com.blackmoss.impetusrift.item.ImpetusTravellerBootsItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,16 +32,18 @@ public final class IREvents {
 
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
-        if (event.getEntity() != null) {
-            Item item = event.getItemStack().getItem();
-            if (item instanceof IImpetusRechargeable impetusRechargeable) {
-                event.getToolTip().add(1, Component.translatable("tooltip.impetusrift.impetus_energy",
-                                ImpetusChargeHelper.getCharge(event.getItemStack()),
-                                impetusRechargeable.getMaxCharge(event.getItemStack(),
-                                        event.getEntity()))
-                        .withStyle(ChatFormatting.DARK_PURPLE));
-            }
+        if (event.getEntity() == null) {
+            return;
         }
+        ItemStack stack = event.getItemStack();
+        ImpetusChargeProfile profile = ImpetusRechargeAccess.profile(stack);
+        if (profile == null) {
+            return;
+        }
+        event.getToolTip().add(1, Component.translatable("tooltip.impetusrift.impetus_energy",
+                        ImpetusRechargeAccess.getCharge(stack),
+                        profile.capacity())
+                .withStyle(ChatFormatting.DARK_PURPLE));
     }
 
     @SubscribeEvent

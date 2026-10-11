@@ -1,9 +1,7 @@
 package com.blackmoss.impetusrift.item;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.energy.IImpetusRechargeable;
-import com.blackmoss.impetusrift.energy.ImpetusChargeHelper;
-import com.leclowndu93150.thaumaturge.api.items.RechargeAccess;
+import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
 import com.leclowndu93150.thaumaturge.content.equipment.VoidGearItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,11 +17,10 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
-public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusRechargeable {
+public class ImpetusTravellerBootsItem extends VoidGearItem {
     public static final float BLOCKS_PER_ENERGY = 5.0F;
 
     private static final AttributeModifier STEP_MODIFIER = new AttributeModifier(
@@ -38,7 +35,7 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
     }
 
     public static void clientMovementTick(Player player, ItemStack stack) {
-        if (RechargeAccess.getCharge(stack) > 0 && !player.getAbilities().flying && !(player.zza <= 0.0F)) {
+        if (ImpetusRechargeAccess.getCharge(stack) > 0 && !player.getAbilities().flying && !(player.zza <= 0.0F)) {
             if (player.onGround()) {
                 float bonus = 0.05F;
                 if (player.isInWater()) {
@@ -56,7 +53,31 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
     public static void onLivingFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
         ItemStack feet = entity.getItemBySlot(EquipmentSlot.FEET);
-        feet.getItem();
+        if (!ImpetusRechargeAccess.isRechargeable(feet)) {
+            return;
+        }
+
+        double distance = event.getDistance();
+        double safe = entity.getAttributeValue(Attributes.SAFE_FALL_DISTANCE);
+        double harmful = distance - safe;
+        if (harmful <= 0.0D) {
+            return;
+        }
+
+        int charge = ImpetusRechargeAccess.getCharge(feet);
+        if (charge <= 0) {
+            return;
+        }
+
+        int need = (int) Math.ceil(harmful / BLOCKS_PER_ENERGY);
+        if (charge >= need) {
+            ImpetusRechargeAccess.consumeCharge(feet, need);
+            event.setDistance((float) safe);
+        } else {
+            double absorbed = charge * BLOCKS_PER_ENERGY;
+            ImpetusRechargeAccess.consumeCharge(feet, charge);
+            event.setDistance((float) (safe + harmful - absorbed));
+        }
     }
 
     @Override
@@ -67,13 +88,10 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
         }
 
         if (player.tickCount % 20 == 0 && player.isSprinting()) {
-            int charge = ImpetusChargeHelper.getCharge(stack);
-            if (charge > 0) {
-                ImpetusChargeHelper.setCharge(stack, charge - 1);
-            }
+            ImpetusRechargeAccess.consumeCharge(stack, 1);
         }
 
-        boolean charged = ImpetusChargeHelper.getCharge(stack) > 0;
+        boolean charged = ImpetusRechargeAccess.getCharge(stack) > 0;
         boolean active = charged && player.isSprinting() && !player.getAbilities().flying;
         AttributeInstance stepHeight = player.getAttribute(Attributes.STEP_HEIGHT);
         AttributeInstance jumpHeight = player.getAttribute(Attributes.JUMP_STRENGTH);
@@ -91,15 +109,5 @@ public class ImpetusTravellerBootsItem extends VoidGearItem implements IImpetusR
                 jumpHeight.removeModifier(JUMP_MODIFIER.id());
             }
         }
-    }
-
-    @Override
-    public long getMaxCharge(@NonNull ItemStack stack, @Nullable LivingEntity entity) {
-        return ImpetusChargeHelper.CAPACITY;
-    }
-
-    @Override
-    public IImpetusRechargeable.ChargeDisplay showInHud(ItemStack stack, LivingEntity holder) {
-        return IImpetusRechargeable.ChargeDisplay.PERIODIC;
     }
 }

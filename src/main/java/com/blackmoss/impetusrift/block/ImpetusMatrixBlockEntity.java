@@ -284,16 +284,14 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
     public List<Component> readout() {
         Component tier = Component.translatable(stabilityTierKey()).withStyle(ChatFormatting.BOLD);
         Component gain = Component.literal(STABILITY_FORMAT.format(stabilityGain) + " ")
-                .append(Component.translatable("gui.thaumaturge.infusion.stability.gain"))
+                .append(Component.translatable("gui.thaumaturge.infusion.stability.gain_amount"))
                 .withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC);
         float loss = getStabilityLossPerCycle();
         if (loss <= 0.0F) {
             return List.of(tier, gain);
         }
-        Component lossText = Component.translatable("gui.thaumaturge.infusion.stability.range")
-                .append(Component.literal(STABILITY_FORMAT.format(loss) + " ")
-                        .append(Component.translatable("gui.thaumaturge.infusion.stability.loss")
-                                .withStyle(ChatFormatting.ITALIC)))
+        Component lossText = Component.translatable("gui.thaumaturge.infusion.stability.loss_range")
+                .append(Component.literal(STABILITY_FORMAT.format(loss)))
                 .withStyle(ChatFormatting.RED);
         return List.of(tier, gain, lossText);
     }

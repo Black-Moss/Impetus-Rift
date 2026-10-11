@@ -1,6 +1,7 @@
 package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
+import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -30,4 +31,10 @@ public final class IRDataComponents {
                     builder -> builder
                             .persistent(ExtraCodecs.NON_NEGATIVE_INT)
                             .networkSynchronized(ByteBufCodecs.VAR_INT));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ImpetusChargeProfile>> IMPETUS_RECHARGEABLE =
+            DATA_COMPONENTS.registerComponentType("impetus_rechargeable",
+                    builder -> builder
+                            .persistent(ImpetusChargeProfile.CODEC)
+                            .networkSynchronized(ImpetusChargeProfile.STREAM_CODEC));
 }
