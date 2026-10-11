@@ -2,6 +2,8 @@ package com.blackmoss.impetusrift.compat.jade;
 
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.block.ImpetusDrainerBlockEntity;
+import com.blackmoss.impetusrift.block.ImpetusGateBlockEntity;
+import com.blackmoss.impetusrift.block.RiftMonitorBlockEntity;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
@@ -23,6 +25,8 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
     public static final String KEY_HAS_RIFT = "hasRift";
     public static final String KEY_RIFT_SIZE = "riftSize";
     public static final String KEY_RIFT_STABILITY = "riftStability";
+    public static final String KEY_GATE_ENABLED = "gateEnabled";
+    public static final String KEY_MONITOR_MODE = "monitorMode";
 
     @Override
     public @NonNull Identifier getUid() {
@@ -45,6 +49,21 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
                 tag.putInt(KEY_INPUT_COUNT, mgr.getConnectionsTo(node.getNodePos()).size());
                 tag.putInt(KEY_OUTPUT_COUNT, mgr.getConnectionsFrom(node.getNodePos()).size());
             }
+        }
+
+        if (be instanceof ImpetusGateBlockEntity gate) {
+            tag.putBoolean(KEY_GATE_ENABLED, gate.isEnabled());
+        }
+
+        if (be instanceof RiftMonitorBlockEntity monitor) {
+            tag.putInt(KEY_MONITOR_MODE, monitor.getMode());
+            EntityFluxRift target = monitor.resolveTarget();
+            tag.putBoolean(KEY_HAS_RIFT, target != null);
+            if (target != null) {
+                tag.putInt(KEY_RIFT_SIZE, target.getRiftSize());
+                tag.putFloat(KEY_RIFT_STABILITY, target.getRiftStability());
+            }
+            return;
         }
 
         if (be instanceof ImpetusDrainerBlockEntity drainer) {

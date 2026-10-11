@@ -1,0 +1,39 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 100,
+      "aspect": "thaumaturge:potentia"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:vacuos"
+    }
+  ],
+  "catalyst": "thaumaturge:void_seed",
+  "components": [
+    "#c:plates/void_metal",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:alienis"
+        }
+      },
+      "items": "thaumaturge:essentia_crystal"
+    },
+    "#c:plates/void_metal",
+    "thaumaturge:primordial_pearl",
+    "#c:plates/void_metal",
+    "#c:gems/amber",
+    "#c:plates/void_metal",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "impetusrift:impetus_cell"
+  }
+}

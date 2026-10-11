@@ -33,6 +33,22 @@ public final class IRBlockEntities {
             BLOCK_ENTITIES.register("impetus_relay",
                     () -> new BlockEntityType<>(ImpetusRelayBlockEntity::new, Set.of(IRBlocks.IMPETUS_RELAY.get())));
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusMirrorBlockEntity>> IMPETUS_MIRROR =
+            BLOCK_ENTITIES.register("impetus_mirror",
+                    () -> new BlockEntityType<>(ImpetusMirrorBlockEntity::new, Set.of(IRBlocks.IMPETUS_MIRROR.get())));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusGateBlockEntity>> IMPETUS_GATE =
+            BLOCK_ENTITIES.register("impetus_gate",
+                    () -> new BlockEntityType<>(ImpetusGateBlockEntity::new, Set.of(IRBlocks.IMPETUS_GATE.get())));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftFeederBlockEntity>> RIFT_FEEDER =
+            BLOCK_ENTITIES.register("rift_feeder",
+                    () -> new BlockEntityType<>(RiftFeederBlockEntity::new, Set.of(IRBlocks.RIFT_FEEDER.get())));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftMonitorBlockEntity>> RIFT_MONITOR =
+            BLOCK_ENTITIES.register("rift_monitor",
+                    () -> new BlockEntityType<>(RiftMonitorBlockEntity::new, Set.of(IRBlocks.RIFT_MONITOR.get())));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusAltarBaseBlockEntity>> IMPETUS_ALTAR_BASE =
             BLOCK_ENTITIES.register("impetus_altar_base",
                     () -> new BlockEntityType<>(ImpetusAltarBaseBlockEntity::new, Set.of(IRBlocks.IMPETUS_ALTAR_BASE.get())));

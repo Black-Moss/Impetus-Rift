@@ -31,16 +31,16 @@ public final class IRBlocks {
     public static final DeferredBlock<Block> IMPETUS_ALTAR_BASE = impetusMachine("impetus_altar_base", ImpetusAltarBaseBlock::new);
 
     // 元动之镜
-    public static final DeferredBlock<Block> IMPETUS_MIRROR = impetusMachine("impetus_mirror", Block::new);
+    public static final DeferredBlock<ImpetusMirrorBlock> IMPETUS_MIRROR = impetusMachine("impetus_mirror", ImpetusMirrorBlock::new);
 
     // 元动中继器
     public static final DeferredBlock<ImpetusRelayBlock> IMPETUS_RELAY = impetusMachine("impetus_relay", ImpetusRelayBlock::new);
 
     // 元动阀门
-    public static final DeferredBlock<Block> IMPETUS_GATE = impetusMachine("impetus_gate", Block::new);
+    public static final DeferredBlock<ImpetusGateBlock> IMPETUS_GATE = impetusMachine("impetus_gate", ImpetusGateBlock::new);
 
     // 裂隙引流仪
-    public static final DeferredBlock<Block> RIFT_FEEDER = impetusMachine("rift_feeder", Block::new);
+    public static final DeferredBlock<RiftFeederBlock> RIFT_FEEDER = impetusMachine("rift_feeder", RiftFeederBlock::new);
 
     // 裂隙封装仪
     public static final DeferredBlock<Block> RIFT_MOVER_INPUT = impetusMachine("rift_mover_input", RiftMoverInputBlock::new);
@@ -57,7 +57,7 @@ public final class IRBlocks {
                     .noOcclusion());
 
     // 裂隙监测仪
-    public static final DeferredBlock<Block> RIFT_MONITOR = impetusMachine("rift_monitor", Block::new);
+    public static final DeferredBlock<RiftMonitorBlock> RIFT_MONITOR = impetusMachine("rift_monitor", RiftMonitorBlock::new);
 
     private IRBlocks() {
     }

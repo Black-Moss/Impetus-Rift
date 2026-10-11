@@ -15,17 +15,33 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
 
     private static final String PREFIX = "jade.impetusrift.impetus_node.";
 
-    private static void appendDrainerDiagnostic(ITooltip tooltip, CompoundTag data) {
+    /** 阀门开关状态。 */
+    private static void appendGateStatus(ITooltip tooltip, CompoundTag data) {
+        boolean enabled = data.getBooleanOr(ImpetusNodeDataProvider.KEY_GATE_ENABLED, true);
+        tooltip.add(Component.translatable(PREFIX + (enabled ? "gate_enabled" : "gate_disabled")));
+    }
+
+    /** 监测仪：当前模式 + 目标裂隙读数。 */
+    private static void appendMonitorDiagnostic(ITooltip tooltip, CompoundTag data) {
+        int mode = data.getIntOr(ImpetusNodeDataProvider.KEY_MONITOR_MODE, 0);
+        tooltip.add(Component.translatable(
+                PREFIX + (mode == 1 ? "monitor_mode_stability" : "monitor_mode_size")));
+        appendRiftReadout(tooltip, data);
+    }
+
+    /** 汲取仪：已绑定裂隙的读数。 */
+    private static void appendRiftReadout(ITooltip tooltip, CompoundTag data) {
         boolean hasRift = data.getBooleanOr(ImpetusNodeDataProvider.KEY_HAS_RIFT, false);
-
-        if (hasRift) {
-            int size = data.getIntOr(ImpetusNodeDataProvider.KEY_RIFT_SIZE, 0);
-            float stability = data.getFloatOr(ImpetusNodeDataProvider.KEY_RIFT_STABILITY, 0.0F);
-
-            tooltip.add(Component.translatable(PREFIX + "rift_size", size)
-                    .append(Component.literal("  "))
-                    .append(Component.translatable(PREFIX + "stability", String.format("%.1f", stability))));
+        if (!hasRift) {
+            tooltip.add(Component.translatable(PREFIX + "no_target"));
+            return;
         }
+        int size = data.getIntOr(ImpetusNodeDataProvider.KEY_RIFT_SIZE, 0);
+        float stability = data.getFloatOr(ImpetusNodeDataProvider.KEY_RIFT_STABILITY, 0.0F);
+
+        tooltip.add(Component.translatable(PREFIX + "rift_size", size)
+                .append(Component.literal("  "))
+                .append(Component.translatable(PREFIX + "stability", String.format("%.1f", stability))));
     }
 
     @Override
@@ -52,8 +68,18 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
             tooltip.add(Component.translatable(PREFIX + "output_nodes", outputCount, maxOutputs));
         }
 
+        if (data.contains(ImpetusNodeDataProvider.KEY_GATE_ENABLED)) {
+            appendGateStatus(tooltip, data);
+            return;
+        }
+
+        if (data.contains(ImpetusNodeDataProvider.KEY_MONITOR_MODE)) {
+            appendMonitorDiagnostic(tooltip, data);
+            return;
+        }
+
         if (data.contains(ImpetusNodeDataProvider.KEY_HAS_RIFT)) {
-            appendDrainerDiagnostic(tooltip, data);
+            appendRiftReadout(tooltip, data);
         }
     }
 }

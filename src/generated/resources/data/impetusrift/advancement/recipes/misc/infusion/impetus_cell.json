@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:arcane_workbench/impetus_cell"
+        "recipe": "impetusrift:infusion/impetus_cell"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:arcane_workbench/impetus_cell"
+      "impetusrift:infusion/impetus_cell"
     ]
   }
 }

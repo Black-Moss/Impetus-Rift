@@ -107,6 +107,11 @@ public class EnUsProvider extends LanguageProvider {
         add("jade.impetusrift.impetus_node.output_nodes", "Output Nodes: %1$s/%2$s");
         add("jade.impetusrift.impetus_node.rift_size", "Rift Size: %1$s");
         add("jade.impetusrift.impetus_node.stability", "Stability: %1$s");
+        add("jade.impetusrift.impetus_node.no_target", "No rift detected");
+        add("jade.impetusrift.impetus_node.gate_enabled", "State: Passing");
+        add("jade.impetusrift.impetus_node.gate_disabled", "State: Blocked");
+        add("jade.impetusrift.impetus_node.monitor_mode_size", "Mode: Size");
+        add("jade.impetusrift.impetus_node.monitor_mode_stability", "Mode: Stability");
         add("jade.impetusrift.impetus_energy.energy", "Impetus Energy: %1$s/%2$s");
     }
 
@@ -130,5 +135,14 @@ public class EnUsProvider extends LanguageProvider {
         add("item.impetusrift.impetus_linker.disconnected", "Disconnected: %1$s ✕ %2$s");
         add("item.impetusrift.impetus_linker.connected", "Connected: %1$s → %2$s");
         add("item.impetusrift.impetus_linker.failed", "Connection failed (unknown reason)");
+
+        // Impetus Mirror binding
+        add("item.impetusrift.impetus_linker.mirror_bound", "Impetus Mirrors bound");
+        add("item.impetusrift.impetus_linker.mirror_unbound", "Impetus Mirror unbound");
+        add("item.impetusrift.impetus_linker.mirror_need_pair", "Two Impetus Mirrors are required");
+        add("item.impetusrift.impetus_linker.mirror_select_source", "Sneak-right-click a mirror first to pick the source");
+        add("item.impetusrift.impetus_linker.mirror_self", "A mirror cannot be bound to itself");
+        add("item.impetusrift.impetus_linker.mirror_target_busy", "This mirror is already bound to another");
+        add("item.impetusrift.impetus_linker.mirror_source_busy", "The source mirror is already bound to another");
     }
 }
