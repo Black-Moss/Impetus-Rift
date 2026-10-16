@@ -76,12 +76,12 @@ public final class IRItems {
                             .setDamageOnHurt(false)
                             .build())
                     .component(IRDataComponents.IMPETUS_RECHARGEABLE.get(),
-                            new ImpetusChargeProfile(1500, ImpetusChargeDisplay.ON_CHANGE)));
+                            new ImpetusChargeProfile(1000, ImpetusChargeDisplay.ON_CHANGE)));
 
     public static final DeferredItem<ElytraThrusterItem> ELYTRA_THRUSTER = ITEMS.registerItem(
             "elytra_thruster", ElytraThrusterItem::new, props -> props
                     .component(IRDataComponents.IMPETUS_RECHARGEABLE.get(),
-                            new ImpetusChargeProfile(1500, ImpetusChargeDisplay.ON_CHANGE)));
+                            new ImpetusChargeProfile(1000, ImpetusChargeDisplay.ON_CHANGE)));
 
 
     private IRItems() {
