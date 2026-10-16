@@ -37,7 +37,11 @@ public class ImpetusMatrixBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
+    protected int getAnalogOutputSignal(
+            @NonNull BlockState state,
+            @NonNull Level level,
+            @NonNull BlockPos pos,
+            @NonNull Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof ImpetusMatrixBlockEntity matrix) {
             return matrix.getComparatorOutput();

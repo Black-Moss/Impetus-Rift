@@ -36,6 +36,10 @@ public class ImpetusGateBlockEntity extends BlockEntity implements IImpetusNode 
         super(IRBlockEntities.IMPETUS_GATE.get(), pos, state);
     }
 
+    public static void staticTick(Level level, BlockPos pos, BlockState state, ImpetusGateBlockEntity gate) {
+        gate.tick();
+    }
+
     @Override
     public @NonNull BlockPos getNodePos() {
         return worldPosition;
@@ -130,10 +134,6 @@ public class ImpetusGateBlockEntity extends BlockEntity implements IImpetusNode 
         if (level != null) {
             lastEnergyGameTime = level.getGameTime();
         }
-    }
-
-    public static void staticTick(Level level, BlockPos pos, BlockState state, ImpetusGateBlockEntity gate) {
-        gate.tick();
     }
 
     private void tick() {

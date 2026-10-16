@@ -245,7 +245,7 @@ public class ImpetusEnergyBeamRenderer {
 
         @Override
         public ImpetusNodePorts getPorts() {
-            return ImpetusNodePorts.NONE; // 仅用于渲染，不参与连接
+            return ImpetusNodePorts.NONE;
         }
 
         @Override

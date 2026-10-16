@@ -1,8 +1,8 @@
 package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import com.blackmoss.impetusrift.energy.ElytraThruster;
+import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;

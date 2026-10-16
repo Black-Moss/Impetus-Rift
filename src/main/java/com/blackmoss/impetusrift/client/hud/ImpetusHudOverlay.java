@@ -1,10 +1,10 @@
 package com.blackmoss.impetusrift.client.hud;
 
 import com.blackmoss.impetusrift.ImpetusRift;
+import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import com.blackmoss.impetusrift.energy.ImpetusChargeDisplay;
 import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
-import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import com.blackmoss.impetusrift.registry.IRItems;
 import com.leclowndu93150.thaumaturge.TTIds;
 import com.leclowndu93150.thaumaturge.api.items.ChargeDisplay;
@@ -59,6 +59,12 @@ public final class ImpetusHudOverlay implements GuiLayer {
     private static final float SUB_ICON_SCALE = 0.75F;
 
     private static ItemStack thrusterIcon;
+    private final Map<EquipmentSlot, Integer> lastCharge = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> changeTick = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> tcLastCharge = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> tcChangeTick = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> thrusterLastCharge = new EnumMap<>(EquipmentSlot.class);
+    private final Map<EquipmentSlot, Integer> thrusterChangeTick = new EnumMap<>(EquipmentSlot.class);
 
     private static ItemStack thrusterIcon() {
         if (thrusterIcon == null) {
@@ -66,15 +72,6 @@ public final class ImpetusHudOverlay implements GuiLayer {
         }
         return thrusterIcon;
     }
-
-    private final Map<EquipmentSlot, Integer> lastCharge = new EnumMap<>(EquipmentSlot.class);
-    private final Map<EquipmentSlot, Integer> changeTick = new EnumMap<>(EquipmentSlot.class);
-
-    private final Map<EquipmentSlot, Integer> tcLastCharge = new EnumMap<>(EquipmentSlot.class);
-    private final Map<EquipmentSlot, Integer> tcChangeTick = new EnumMap<>(EquipmentSlot.class);
-
-    private final Map<EquipmentSlot, Integer> thrusterLastCharge = new EnumMap<>(EquipmentSlot.class);
-    private final Map<EquipmentSlot, Integer> thrusterChangeTick = new EnumMap<>(EquipmentSlot.class);
 
     private static void drawMeter
             (GuiGraphicsExtractor graphics,

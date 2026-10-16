@@ -32,6 +32,10 @@ public class ImpetusMirrorBlock extends BaseEntityBlock {
         super(properties);
     }
 
+    private static void message(Player player, String key, ChatFormatting color) {
+        player.sendOverlayMessage(Component.translatable(MSG_PREFIX + key).withStyle(color));
+    }
+
     @Override
     protected @NonNull MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
@@ -99,10 +103,6 @@ public class ImpetusMirrorBlock extends BaseEntityBlock {
         stack.remove(IRDataComponents.LINKER_BOUND_SOURCE.get());
         message(player, "mirror_bound", ChatFormatting.GREEN);
         return InteractionResult.SUCCESS;
-    }
-
-    private static void message(Player player, String key, ChatFormatting color) {
-        player.sendOverlayMessage(Component.translatable(MSG_PREFIX + key).withStyle(color));
     }
 
     @Nullable

@@ -42,15 +42,12 @@ public class RiftMonitorBlockEntity extends BlockEntity {
         super(IRBlockEntities.RIFT_MONITOR.get(), pos, state);
     }
 
-    public int getMode() {
-        return mode;
+    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftMonitorBlockEntity monitor) {
+        monitor.tick();
     }
 
-    /** 切换监测模式（右键时调用）。 */
-    public void cycleMode() {
-        mode = mode == MODE_SIZE ? MODE_STABILITY : MODE_SIZE;
-        setChanged();
-        syncToClient();
+    public int getMode() {
+        return mode;
     }
 
     public void setMode(int newMode) {
@@ -59,6 +56,12 @@ public class RiftMonitorBlockEntity extends BlockEntity {
             setChanged();
             syncToClient();
         }
+    }
+
+    public void cycleMode() {
+        mode = mode == MODE_SIZE ? MODE_STABILITY : MODE_SIZE;
+        setChanged();
+        syncToClient();
     }
 
     public @Nullable UUID getTargetId() {
@@ -128,7 +131,7 @@ public class RiftMonitorBlockEntity extends BlockEntity {
         }
         Vec3 center = Vec3.atCenterOf(worldPosition);
         rifts.sort(Comparator.comparingDouble(r -> r.distanceToSqr(center)));
-        EntityFluxRift nearest = rifts.get(0);
+        EntityFluxRift nearest = rifts.getFirst();
         cachedTarget = nearest;
         setTargetId(nearest.getUUID());
     }
@@ -175,10 +178,6 @@ public class RiftMonitorBlockEntity extends BlockEntity {
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftMonitorBlockEntity monitor) {
-        monitor.tick();
     }
 
     private void tick() {

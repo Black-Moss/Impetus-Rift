@@ -37,7 +37,11 @@ public class RiftMonitorBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
+    public int getAnalogOutputSignal(
+            @NonNull BlockState state,
+            @NonNull Level level,
+            @NonNull BlockPos pos,
+            @NonNull Direction direction) {
         return level.getBlockEntity(pos) instanceof RiftMonitorBlockEntity monitor
                 ? monitor.getLastResult()
                 : 0;

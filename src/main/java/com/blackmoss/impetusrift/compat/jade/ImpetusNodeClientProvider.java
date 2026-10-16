@@ -15,13 +15,17 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
 
     private static final String PREFIX = "jade.impetusrift.impetus_node.";
 
-    /** 阀门开关状态。 */
+    /**
+     * 阀门开关状态。
+     */
     private static void appendGateStatus(ITooltip tooltip, CompoundTag data) {
         boolean enabled = data.getBooleanOr(ImpetusNodeDataProvider.KEY_GATE_ENABLED, true);
         tooltip.add(Component.translatable(PREFIX + (enabled ? "gate_enabled" : "gate_disabled")));
     }
 
-    /** 监测仪：当前模式 + 目标裂隙读数。 */
+    /**
+     * 监测仪：当前模式 + 目标裂隙读数。
+     */
     private static void appendMonitorDiagnostic(ITooltip tooltip, CompoundTag data) {
         int mode = data.getIntOr(ImpetusNodeDataProvider.KEY_MONITOR_MODE, 0);
         tooltip.add(Component.translatable(
@@ -29,7 +33,9 @@ public enum ImpetusNodeClientProvider implements IBlockComponentProvider {
         appendRiftReadout(tooltip, data);
     }
 
-    /** 汲取仪：已绑定裂隙的读数。 */
+    /**
+     * 汲取仪：已绑定裂隙的读数。
+     */
     private static void appendRiftReadout(ITooltip tooltip, CompoundTag data) {
         boolean hasRift = data.getBooleanOr(ImpetusNodeDataProvider.KEY_HAS_RIFT, false);
         if (!hasRift) {

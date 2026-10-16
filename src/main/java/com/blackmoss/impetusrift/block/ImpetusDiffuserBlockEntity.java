@@ -1,9 +1,9 @@
 package com.blackmoss.impetusrift.block;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
 import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import com.blackmoss.impetusrift.energy.ImpetusEnergyStorage;
+import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
 import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;

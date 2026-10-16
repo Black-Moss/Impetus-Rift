@@ -64,14 +64,19 @@ public class ImpetusGeneratorBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level,
-                                        @NonNull BlockPos pos, @NonNull CollisionContext context) {
+    public @NonNull VoxelShape getShape(
+            @NonNull BlockState state,
+            @NonNull BlockGetter level,
+            @NonNull BlockPos pos,
+            @NonNull CollisionContext context) {
         return shapeFor(state.getValue(FACING));
     }
 
     @Override
-    public @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter level,
-                                                   @NonNull BlockPos pos) {
+    public @NonNull VoxelShape getInteractionShape(
+            @NonNull BlockState state,
+            @NonNull BlockGetter level,
+            @NonNull BlockPos pos) {
         return shapeFor(state.getValue(FACING));
     }
 

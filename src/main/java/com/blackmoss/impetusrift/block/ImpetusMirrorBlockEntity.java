@@ -46,6 +46,10 @@ public class ImpetusMirrorBlockEntity extends BlockEntity implements IImpetusNod
         super(IRBlockEntities.IMPETUS_MIRROR.get(), pos, state);
     }
 
+    public static void staticTick(Level level, BlockPos pos, BlockState state, ImpetusMirrorBlockEntity mirror) {
+        mirror.tick();
+    }
+
     @Override
     public @NonNull BlockPos getNodePos() {
         return worldPosition;
@@ -194,10 +198,6 @@ public class ImpetusMirrorBlockEntity extends BlockEntity implements IImpetusNod
             return null;
         }
         return target.getBlockEntity(pos.pos()) instanceof ImpetusMirrorBlockEntity mirror ? mirror : null;
-    }
-
-    public static void staticTick(Level level, BlockPos pos, BlockState state, ImpetusMirrorBlockEntity mirror) {
-        mirror.tick();
     }
 
     private void tick() {

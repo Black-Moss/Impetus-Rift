@@ -30,6 +30,19 @@ public class RiftFeederBlockEntity extends BlockEntity {
         super(IRBlockEntities.RIFT_FEEDER.get(), pos, state);
     }
 
+    public static int essentiaRequiredFor(int riftSize) {
+        return (int) Math.sqrt(Math.max(0, riftSize));
+    }
+
+    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftFeederBlockEntity feeder) {
+        feeder.tick();
+    }
+
+    @Nullable
+    public static RiftFeederBlockEntity at(Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof RiftFeederBlockEntity feeder ? feeder : null;
+    }
+
     public int getStoredEssentia() {
         return storedEssentia;
     }
@@ -45,10 +58,6 @@ public class RiftFeederBlockEntity extends BlockEntity {
             syncToClient();
         }
         return accepted;
-    }
-
-    public static int essentiaRequiredFor(int riftSize) {
-        return (int) Math.sqrt(Math.max(0, riftSize));
     }
 
     public int getTicks() {
@@ -91,10 +100,6 @@ public class RiftFeederBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftFeederBlockEntity feeder) {
-        feeder.tick();
-    }
-
     private void tick() {
         if (level == null || level.isClientSide()) {
             return;
@@ -102,14 +107,5 @@ public class RiftFeederBlockEntity extends BlockEntity {
         if (++ticks % 20 == 0) {
             ImpetusRift.LOGGER.debug("[rift_feeder] {} 骨架 tick，缓存源质={}", worldPosition, storedEssentia);
         }
-        // TODO 引流仪逻辑：
-        //  1. 从前端以外的任意一面抽取 Vitium 源质（IEssentiaTransport）
-        //  2. 每 GROW_INTERVAL tick 在 MAX_RANGE 内沿 FACING 方向找最近的裂隙（需视线）
-        //  3. 源质足够时消耗 essentiaRequiredFor(size) 点，令裂隙尺寸 +1（上限 MAX_RIFT_SIZE）
-    }
-
-    @Nullable
-    public static RiftFeederBlockEntity at(Level level, BlockPos pos) {
-        return level.getBlockEntity(pos) instanceof RiftFeederBlockEntity feeder ? feeder : null;
     }
 }

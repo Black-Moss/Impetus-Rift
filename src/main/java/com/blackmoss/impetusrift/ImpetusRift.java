@@ -2,7 +2,9 @@ package com.blackmoss.impetusrift;
 
 import com.blackmoss.impetusrift.config.IRClientConfig;
 import com.blackmoss.impetusrift.config.IRCommonConfig;
-import com.blackmoss.impetusrift.data.*;
+import com.blackmoss.impetusrift.data.ModBlockLootSubProvider;
+import com.blackmoss.impetusrift.data.ModModelProvider;
+import com.blackmoss.impetusrift.data.ModRecipeProvider;
 import com.blackmoss.impetusrift.data.lang.EnUsProvider;
 import com.blackmoss.impetusrift.data.lang.ZhCnProvider;
 import com.blackmoss.impetusrift.data.tag.ModBlockTagsProvider;

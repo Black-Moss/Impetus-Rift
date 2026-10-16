@@ -22,13 +22,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import org.jspecify.annotations.NonNull;
@@ -44,6 +44,14 @@ public final class ModRecipeProvider extends RecipeProvider {
         super(provider, output);
         this.lookupProvider = provider;
         this.aspects = registries.lookupOrThrow(IAspect.REGISTRY_KEY);
+    }
+
+    private static ResearchGate irGate(String path) {
+        return new ResearchGate(ImpetusRift.identifier(path), Optional.empty(), false);
+    }
+
+    private static ResearchGate tcGate(String path) {
+        return new ResearchGate(TTIds.rl(path), Optional.empty(), false);
     }
 
     @Override
@@ -199,15 +207,6 @@ public final class ModRecipeProvider extends RecipeProvider {
     private CrucibleRecipeBuilder crucible(ItemLike result, ItemLike catalyst) {
         return (CrucibleRecipeBuilder) crucible(new ItemStackTemplate(result.asItem()), catalyst)
                 .unlockedBy("has", this.has(result.asItem()));
-    }
-
-
-    private static ResearchGate irGate(String path) {
-        return new ResearchGate(ImpetusRift.identifier(path), Optional.empty(), false);
-    }
-
-    private static ResearchGate tcGate(String path) {
-        return new ResearchGate(TTIds.rl(path), Optional.empty(), false);
     }
 
     private HolderSet<Item> tag(String space, String path) {

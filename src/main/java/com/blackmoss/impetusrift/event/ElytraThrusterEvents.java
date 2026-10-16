@@ -22,16 +22,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @EventBusSubscriber(modid = ImpetusRift.MODID)
 public final class ElytraThrusterEvents {
     private static final int FUEL_PER_BOOST = 1;
-    /** 超级模式下两次自动加速之间的最小间隔（tick） */
     private static final int SUPER_RECHARGE_COOLDOWN = 10;
     private static final double BOOST_DIRECT = 0.1;
     private static final double BOOST_TARGET = 1.5;
     private static final double BOOST_LERP = 0.5;
     private static final Map<UUID, Boolean> LAST_JUMP = new ConcurrentHashMap<>();
     private static final Map<UUID, Integer> HOLD_TICKS = new ConcurrentHashMap<>();
-    /** 本次按住是否已进入超级加速模式 */
     private static final Map<UUID, Boolean> SUPER_FIRED = new ConcurrentHashMap<>();
-    /** 下次允许自动再次超级加速的 tickCount */
     private static final Map<UUID, Integer> SUPER_RECHARGE_AT = new ConcurrentHashMap<>();
 
     private ElytraThrusterEvents() {
