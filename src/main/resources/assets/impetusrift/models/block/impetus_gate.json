@@ -4,7 +4,8 @@
   "credit": "Made with Blockbench",
   "textures": {
     "2": "thaumaturge:block/base_metal",
-    "3": "impetusrift:block/impetus_gate"
+    "3": "impetusrift:block/impetus_gate",
+    "particle": "impetusrift:block/impetus_gate"
   },
   "elements": [
     {

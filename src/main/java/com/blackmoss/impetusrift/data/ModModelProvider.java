@@ -239,7 +239,7 @@ public class ModModelProvider extends ModelProvider {
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_MIRROR.get());
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
-        customBlock(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
+        directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
         customBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
         customBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
 

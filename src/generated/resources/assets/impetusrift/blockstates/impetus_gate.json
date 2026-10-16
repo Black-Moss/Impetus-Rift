@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
+    "facing=down": {
+      "model": "impetusrift:block/impetus_gate",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "impetusrift:block/impetus_gate",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "impetusrift:block/impetus_gate",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "impetusrift:block/impetus_gate",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
       "model": "impetusrift:block/impetus_gate"
+    },
+    "facing=west": {
+      "model": "impetusrift:block/impetus_gate",
+      "x": 90,
+      "y": 270
     }
   }
 }

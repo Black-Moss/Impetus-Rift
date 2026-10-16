@@ -5,6 +5,7 @@ import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNodePorts;
 import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -14,9 +15,11 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -68,11 +71,15 @@ public class ImpetusGateBlockEntity extends BlockEntity implements IImpetusNode 
             return;
         }
         enabled = value;
-        if (!enabled && buffer > 0L) {
-            buffer = 0L;
-        }
         setChanged();
         syncToClient();
+    }
+
+    public void updateFromRedstone() {
+        if (level == null) {
+            return;
+        }
+        setEnabled(!level.hasNeighborSignal(worldPosition));
     }
 
     @Override
@@ -136,6 +143,22 @@ public class ImpetusGateBlockEntity extends BlockEntity implements IImpetusNode 
         }
     }
 
+    @Override
+    public Vec3 getBeamEndpoint() {
+        Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
+        double x = worldPosition.getX();
+        double y = worldPosition.getY();
+        double z = worldPosition.getZ();
+        return switch (facing) {
+            case DOWN -> new Vec3(x + 0.5, y + 0.5625, z + 0.5);
+            case UP -> new Vec3(x + 0.5, y + 0.4375, z + 0.5);
+            case NORTH -> new Vec3(x + 0.5, y + 0.5, z + 0.5625);
+            case SOUTH -> new Vec3(x + 0.5, y + 0.5, z + 0.4375);
+            case EAST -> new Vec3(x + 0.4375, y + 0.5, z + 0.5);
+            case WEST -> new Vec3(x + 0.5625, y + 0.5, z + 0.5);
+        };
+    }
+
     private void tick() {
         if (level == null || level.isClientSide()) {
             return;
@@ -156,6 +179,7 @@ public class ImpetusGateBlockEntity extends BlockEntity implements IImpetusNode 
     @Override
     protected void saveAdditional(@NonNull ValueOutput output) {
         super.saveAdditional(output);
+        output.putLong("Buffer", buffer);
         output.putLong("LastEnergyTime", lastEnergyGameTime);
         output.putBoolean("Enabled", enabled);
     }
@@ -163,6 +187,7 @@ public class ImpetusGateBlockEntity extends BlockEntity implements IImpetusNode 
     @Override
     protected void loadAdditional(@NonNull ValueInput input) {
         super.loadAdditional(input);
+        buffer = input.getLongOr("Buffer", 0L);
         lastEnergyGameTime = input.getLongOr("LastEnergyTime", -1L);
         enabled = input.getBooleanOr("Enabled", true);
     }

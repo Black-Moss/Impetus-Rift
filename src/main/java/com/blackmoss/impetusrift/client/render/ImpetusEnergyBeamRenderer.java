@@ -74,18 +74,20 @@ public class ImpetusEnergyBeamRenderer {
         if (targets == null || targets.isEmpty()) return;
 
         BlockPos sourcePos = sourceNode.getNodePos();
-        Vec3 origin = new Vec3(0.5, 0.5, 0.5);
         Vec3 sourceMin = Vec3.atLowerCornerOf(sourcePos);
+        Vec3 origin = sourceNode.getBeamEndpoint().subtract(sourceMin);
         Vec3 cameraRelative = currentCameraPosition().subtract(sourceMin);
         Level level = Minecraft.getInstance().level;
 
         for (BlockPos targetPos : targets) {
-            if (fade >= 1.0F && level != null
-                    && level.getBlockEntity(targetPos) instanceof IImpetusNode target
-                    && !target.canReceive()) {
-                continue;
+            Vec3 targetEndpoint = Vec3.atCenterOf(targetPos);
+            if (level != null && level.getBlockEntity(targetPos) instanceof IImpetusNode targetNode) {
+                targetEndpoint = targetNode.getBeamEndpoint();
+                if (fade >= 1.0F && !targetNode.canReceive()) {
+                    continue;
+                }
             }
-            Vec3 targetRelative = Vec3.atCenterOf(targetPos).subtract(sourceMin);
+            Vec3 targetRelative = targetEndpoint.subtract(sourceMin);
             renderBeam(poseStack, collector, origin, targetRelative, cameraRelative, partialTick, fade);
         }
     }

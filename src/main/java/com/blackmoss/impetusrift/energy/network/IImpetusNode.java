@@ -3,6 +3,7 @@ package com.blackmoss.impetusrift.energy.network;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Collections;
 import java.util.List;
@@ -80,6 +81,11 @@ public interface IImpetusNode {
 
     default List<BlockPos> getBeamTargetPositions() {
         return Collections.emptyList();
+    }
+
+    default Vec3 getBeamEndpoint() {
+        BlockPos pos = getNodePos();
+        return pos == null ? Vec3.ZERO : Vec3.atCenterOf(pos);
     }
 
     default boolean hasActiveTransfer() {
