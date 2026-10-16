@@ -56,8 +56,8 @@ public final class IRBlocks {
                     .sound(TTSoundTypes.JAR.get())
                     .noOcclusion());
 
-    // 裂隙监测仪
-    public static final DeferredBlock<RiftMonitorBlock> RIFT_MONITOR = impetusMachine("rift_monitor", RiftMonitorBlock::new);
+    // 裂隙屈光仪
+    public static final DeferredBlock<RiftDioptraBlock> RIFT_DIOPTRA = impetusMachine("rift_dioptra", RiftDioptraBlock::new);
 
     private IRBlocks() {
     }

@@ -27,7 +27,7 @@ public class ZhCnProvider extends LanguageProvider {
         addBlock(IRBlocks.RIFT_MOVER_INPUT, "裂隙封装仪");
         addBlock(IRBlocks.RIFT_MOVER_OUTPUT, "裂隙释放仪");
         addBlock(IRBlocks.RIFT_JAR, "裂隙罐子");
-        addBlock(IRBlocks.RIFT_MONITOR, "裂隙监测仪");
+        addBlock(IRBlocks.RIFT_DIOPTRA, "裂隙屈光仪");
 
         addItem(IRItems.IMPETUS_CELL, "元动能量单元");
         addItem(IRItems.IMPETUS_GEM, "元动宝石");

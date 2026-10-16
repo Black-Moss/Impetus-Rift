@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "impetusrift:rift_monitor"
+          "name": "impetusrift:rift_dioptra"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "impetusrift:blocks/rift_monitor"
+  "random_sequence": "impetusrift:blocks/rift_dioptra"
 }

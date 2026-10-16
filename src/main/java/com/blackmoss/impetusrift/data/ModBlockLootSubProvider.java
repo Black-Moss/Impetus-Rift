@@ -35,6 +35,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         dropSelf(IRBlocks.RIFT_MOVER_INPUT.get());
         dropSelf(IRBlocks.RIFT_MOVER_OUTPUT.get());
         dropSelf(IRBlocks.RIFT_JAR.get());
-        dropSelf(IRBlocks.RIFT_MONITOR.get());
+        dropSelf(IRBlocks.RIFT_DIOPTRA.get());
     }
 }

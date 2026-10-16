@@ -25,7 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
-public class RiftMonitorBlockEntity extends BlockEntity {
+public class RiftDioptraBlockEntity extends BlockEntity {
     public static final int MODE_SIZE = 0;
     public static final int MODE_STABILITY = 1;
     public static final int SCAN_RADIUS = 12;
@@ -38,11 +38,11 @@ public class RiftMonitorBlockEntity extends BlockEntity {
     private @Nullable UUID targetId;
     private @Nullable EntityFluxRift cachedTarget;
 
-    public RiftMonitorBlockEntity(BlockPos pos, BlockState state) {
-        super(IRBlockEntities.RIFT_MONITOR.get(), pos, state);
+    public RiftDioptraBlockEntity(BlockPos pos, BlockState state) {
+        super(IRBlockEntities.RIFT_DIOPTRA.get(), pos, state);
     }
 
-    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftMonitorBlockEntity monitor) {
+    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftDioptraBlockEntity monitor) {
         monitor.tick();
     }
 

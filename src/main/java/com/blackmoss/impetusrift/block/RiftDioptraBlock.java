@@ -14,10 +14,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class RiftMonitorBlock extends BaseEntityBlock {
-    public static final MapCodec<RiftMonitorBlock> CODEC = simpleCodec(RiftMonitorBlock::new);
+public class RiftDioptraBlock extends BaseEntityBlock {
+    public static final MapCodec<RiftDioptraBlock> CODEC = simpleCodec(RiftDioptraBlock::new);
 
-    public RiftMonitorBlock(Properties properties) {
+    public RiftDioptraBlock(Properties properties) {
         super(properties);
     }
 
@@ -42,7 +42,7 @@ public class RiftMonitorBlock extends BaseEntityBlock {
             @NonNull Level level,
             @NonNull BlockPos pos,
             @NonNull Direction direction) {
-        return level.getBlockEntity(pos) instanceof RiftMonitorBlockEntity monitor
+        return level.getBlockEntity(pos) instanceof RiftDioptraBlockEntity monitor
                 ? monitor.getLastResult()
                 : 0;
     }
@@ -50,7 +50,7 @@ public class RiftMonitorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
-        return new RiftMonitorBlockEntity(pos, state);
+        return new RiftDioptraBlockEntity(pos, state);
     }
 
     @Nullable
@@ -62,6 +62,6 @@ public class RiftMonitorBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, IRBlockEntities.RIFT_MONITOR.get(), RiftMonitorBlockEntity::staticTick);
+        return createTickerHelper(blockEntityType, IRBlockEntities.RIFT_DIOPTRA.get(), RiftDioptraBlockEntity::staticTick);
     }
 }

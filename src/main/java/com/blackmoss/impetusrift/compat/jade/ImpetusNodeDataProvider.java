@@ -3,7 +3,7 @@ package com.blackmoss.impetusrift.compat.jade;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.block.ImpetusDrainerBlockEntity;
 import com.blackmoss.impetusrift.block.ImpetusGateBlockEntity;
-import com.blackmoss.impetusrift.block.RiftMonitorBlockEntity;
+import com.blackmoss.impetusrift.block.RiftDioptraBlockEntity;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
@@ -55,7 +55,7 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
             tag.putBoolean(KEY_GATE_ENABLED, gate.isEnabled());
         }
 
-        if (be instanceof RiftMonitorBlockEntity monitor) {
+        if (be instanceof RiftDioptraBlockEntity monitor) {
             tag.putInt(KEY_MONITOR_MODE, monitor.getMode());
             EntityFluxRift target = monitor.resolveTarget();
             tag.putBoolean(KEY_HAS_RIFT, target != null);

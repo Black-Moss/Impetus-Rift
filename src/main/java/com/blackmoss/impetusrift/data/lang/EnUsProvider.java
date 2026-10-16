@@ -27,7 +27,7 @@ public class EnUsProvider extends LanguageProvider {
         addBlock(IRBlocks.RIFT_MOVER_INPUT, "Rift Mover Input");
         addBlock(IRBlocks.RIFT_MOVER_OUTPUT, "Rift Mover Output");
         addBlock(IRBlocks.RIFT_JAR, "Rift Jar");
-        addBlock(IRBlocks.RIFT_MONITOR, "Rift Monitor");
+        addBlock(IRBlocks.RIFT_DIOPTRA, "Rift Dioptra");
 
         addItem(IRItems.IMPETUS_CELL, "Impetus Cell");
         addItem(IRItems.IMPETUS_GEM, "Impetus Gem");

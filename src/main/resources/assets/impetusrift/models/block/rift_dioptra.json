@@ -1,9 +1,9 @@
 {
   "loader": "neoforge:obj",
-  "model": "impetusrift:models/block/rift_monitor.obj",
+  "model": "impetusrift:models/block/rift_dioptra.obj",
   "textures": {
-    "texture0": "impetusrift:block/rift_monitor",
-    "particle": "impetusrift:block/rift_monitor"
+    "texture0": "impetusrift:block/rift_dioptra",
+    "particle": "impetusrift:block/rift_dioptra"
   },
   "flip_v": true,
   "display": {

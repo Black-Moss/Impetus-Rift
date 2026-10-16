@@ -246,7 +246,7 @@ public class ModModelProvider extends ModelProvider {
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
 
-        objBlock(blockModels, itemModels, IRBlocks.RIFT_MONITOR.get());
+        objBlock(blockModels, itemModels, IRBlocks.RIFT_DIOPTRA.get());
         objBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
         objBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
 

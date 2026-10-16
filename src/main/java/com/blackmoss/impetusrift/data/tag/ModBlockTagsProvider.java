@@ -25,6 +25,6 @@ public final class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_FEEDER.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_MOVER_INPUT.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_MOVER_OUTPUT.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_MONITOR.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_DIOPTRA.get());
     }
 }

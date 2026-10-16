@@ -28,7 +28,7 @@ public class IRCreativeModeTabs {
                         output.accept(IRItems.RIFT_MOVER_INPUT.get());
                         output.accept(IRItems.RIFT_MOVER_OUTPUT.get());
                         output.accept(IRItems.RIFT_JAR.get());
-                        output.accept(IRItems.RIFT_MONITOR.get());
+                        output.accept(IRItems.RIFT_DIOPTRA.get());
 
                         output.accept(IRItems.IMPETUS_CELL.get());
                         output.accept(IRItems.IMPETUS_GEM.get());

@@ -45,9 +45,9 @@ public final class IRBlockEntities {
             BLOCK_ENTITIES.register("rift_feeder",
                     () -> new BlockEntityType<>(RiftFeederBlockEntity::new, Set.of(IRBlocks.RIFT_FEEDER.get())));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftMonitorBlockEntity>> RIFT_MONITOR =
-            BLOCK_ENTITIES.register("rift_monitor",
-                    () -> new BlockEntityType<>(RiftMonitorBlockEntity::new, Set.of(IRBlocks.RIFT_MONITOR.get())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftDioptraBlockEntity>> RIFT_DIOPTRA =
+            BLOCK_ENTITIES.register("rift_dioptra",
+                    () -> new BlockEntityType<>(RiftDioptraBlockEntity::new, Set.of(IRBlocks.RIFT_DIOPTRA.get())));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusAltarBaseBlockEntity>> IMPETUS_ALTAR_BASE =
             BLOCK_ENTITIES.register("impetus_altar_base",

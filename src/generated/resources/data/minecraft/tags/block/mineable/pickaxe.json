@@ -8,6 +8,6 @@
     "impetusrift:rift_feeder",
     "impetusrift:rift_mover_input",
     "impetusrift:rift_mover_output",
-    "impetusrift:rift_monitor"
+    "impetusrift:rift_dioptra"
   ]
 }
