@@ -7,6 +7,7 @@ import com.blackmoss.impetusrift.client.render.ImpetusDrainerRenderer;
 import com.blackmoss.impetusrift.client.render.ImpetusMatrixRenderer;
 import com.blackmoss.impetusrift.client.render.ImpetusNodeRenderer;
 import com.blackmoss.impetusrift.client.render.RiftJarRenderer;
+import com.blackmoss.impetusrift.client.render.blockentity.RiftDioptraRenderer;
 import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
 import com.blackmoss.impetusrift.energy.ImpetusRechargeAccess;
@@ -46,6 +47,7 @@ public final class ImpetusRiftClient {
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_DRAINER.get(), ImpetusDrainerRenderer::new);
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_GENERATOR.get(), ImpetusNodeRenderer::new);
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_RELAY.get(), ImpetusNodeRenderer::new);
+        event.registerBlockEntityRenderer(IRBlockEntities.RIFT_DIOPTRA.get(), RiftDioptraRenderer::new);
     }
 
     @SubscribeEvent

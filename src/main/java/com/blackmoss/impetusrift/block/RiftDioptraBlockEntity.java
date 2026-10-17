@@ -5,6 +5,7 @@ import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -32,11 +33,16 @@ public class RiftDioptraBlockEntity extends BlockEntity {
     private static final int SCAN_INTERVAL = 20;
     private static final double STABILITY_SPAN = 200.0D;
     private static final double SIZE_FULL_SCALE = 100.0D;
+
     private int mode = MODE_SIZE;
     private int ticks;
     private int lastResult = -1;
     private @Nullable UUID targetId;
     private @Nullable EntityFluxRift cachedTarget;
+
+    private boolean syncedHasTarget;
+    private int syncedRiftSize;
+    private float syncedRiftStability;
 
     public RiftDioptraBlockEntity(BlockPos pos, BlockState state) {
         super(IRBlockEntities.RIFT_DIOPTRA.get(), pos, state);
@@ -136,6 +142,18 @@ public class RiftDioptraBlockEntity extends BlockEntity {
         setTargetId(nearest.getUUID());
     }
 
+    public boolean hasSyncedTarget() {
+        return syncedHasTarget;
+    }
+
+    public int syncedRiftSize() {
+        return syncedRiftSize;
+    }
+
+    public float syncedRiftStability() {
+        return syncedRiftStability;
+    }
+
     private void notifyComparator() {
         if (level != null && !level.isClientSide()) {
             level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
@@ -154,14 +172,17 @@ public class RiftDioptraBlockEntity extends BlockEntity {
     protected void saveAdditional(@NonNull ValueOutput output) {
         super.saveAdditional(output);
         output.putInt("Mode", mode);
-        output.storeNullable("Target", net.minecraft.core.UUIDUtil.CODEC, targetId);
+        output.storeNullable("Target", UUIDUtil.CODEC, targetId);
     }
 
     @Override
     protected void loadAdditional(@NonNull ValueInput input) {
         super.loadAdditional(input);
         mode = input.getIntOr("Mode", MODE_SIZE);
-        targetId = input.read("Target", net.minecraft.core.UUIDUtil.CODEC).orElse(null);
+        targetId = input.read("Target", UUIDUtil.CODEC).orElse(null);
+        syncedHasTarget = input.getBooleanOr("HasTarget", false);
+        syncedRiftSize = input.getIntOr("RiftSize", 0);
+        syncedRiftStability = input.getFloatOr("RiftStability", 0.0F);
     }
 
     @Override
@@ -170,6 +191,9 @@ public class RiftDioptraBlockEntity extends BlockEntity {
         try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), ImpetusRift.LOGGER)) {
             TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
             saveAdditional(output);
+            output.putBoolean("HasTarget", syncedHasTarget);
+            output.putInt("RiftSize", syncedRiftSize);
+            output.putFloat("RiftStability", syncedRiftStability);
             nbt.merge(output.buildResult());
         }
         return nbt;
@@ -199,6 +223,17 @@ public class RiftDioptraBlockEntity extends BlockEntity {
             lastResult = result;
             setChanged();
             notifyComparator();
+            syncToClient();
+        }
+
+        boolean hasTarget = rift != null;
+        int size = rift == null ? 0 : rift.getRiftSize();
+        float stability = rift == null ? 0.0F : rift.getRiftStability();
+        if (hasTarget != syncedHasTarget || size != syncedRiftSize || stability != syncedRiftStability) {
+            syncedHasTarget = hasTarget;
+            syncedRiftSize = size;
+            syncedRiftStability = stability;
+            setChanged();
             syncToClient();
         }
     }
