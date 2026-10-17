@@ -91,6 +91,36 @@ public class ModModelProvider extends ModelProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
     }
 
+    private static void riftFeederBlockState(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(modelId));
+
+        Variant base = new Variant(modelId);
+        VariantMutator x90 = BlockModelGenerators.X_ROT_90;
+        VariantMutator x270 = BlockModelGenerators.X_ROT_270;
+        VariantMutator y90 = BlockModelGenerators.Y_ROT_90;
+        VariantMutator y180 = BlockModelGenerators.Y_ROT_180;
+        VariantMutator y270 = BlockModelGenerators.Y_ROT_270;
+
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(BlockStateProperties.FACING)
+                                .generate((facing) -> {
+                                    Variant v = base;
+                                    switch (facing) {
+                                        case NORTH -> {
+                                        }
+                                        case SOUTH -> v = y180.apply(v);
+                                        case WEST -> v = y270.apply(v);
+                                        case EAST -> v = y90.apply(v);
+                                        case UP -> v = x270.apply(v);
+                                        case DOWN -> v = x90.apply(v);
+                                    }
+                                    return new MultiVariant(WeightedList.of(v));
+                                })));
+    }
+
     private static void directionalBlockState(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels, @NonNull Block block) {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
         Identifier modelId = ImpetusRift.identifier("block/" + blockId.getPath());
@@ -240,7 +270,7 @@ public class ModModelProvider extends ModelProvider {
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
-        customBlock(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
+        riftFeederBlockState(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
         customBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
 
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());

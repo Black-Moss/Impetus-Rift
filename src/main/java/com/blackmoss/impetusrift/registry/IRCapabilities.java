@@ -1,6 +1,7 @@
 package com.blackmoss.impetusrift.registry;
 
 import com.blackmoss.impetusrift.ImpetusRift;
+import com.leclowndu93150.thaumaturge.api.essentia.EssentiaCapabilities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -19,5 +20,14 @@ public final class IRCapabilities {
                 (generator, side) -> side == generator.outputFace()
                         ? generator
                         : null);
+
+        event.registerBlockEntity(
+                EssentiaCapabilities.STORAGE,
+                IRBlockEntities.RIFT_FEEDER.get(),
+                (feeder, side) -> feeder);
+        event.registerBlockEntity(
+                EssentiaCapabilities.TRANSPORT,
+                IRBlockEntities.RIFT_FEEDER.get(),
+                (feeder, side) -> feeder);
     }
 }
