@@ -1,8 +1,8 @@
 package com.blackmoss.impetusrift.event;
 
 import com.blackmoss.impetusrift.ImpetusRift;
-import com.blackmoss.impetusrift.config.IRClientConfig;
-import com.blackmoss.impetusrift.config.IRCommonConfig;
+import com.blackmoss.impetusrift.config.ImpetusRiftClientConfig;
+import com.blackmoss.impetusrift.config.ImpetusRiftCommonConfig;
 import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,7 +62,7 @@ public final class ElytraThrusterEvents {
             return;
         }
 
-        int superMultiplier = IRCommonConfig.THRUSTER_SUPER_BOOST_MULTIPLIER.getAsInt();
+        int superMultiplier = ImpetusRiftCommonConfig.THRUSTER_SUPER_BOOST_MULTIPLIER.getAsInt();
 
         if (jump && !lastJump && ElytraThrusterAccess.consumeFuel(chest, FUEL_PER_BOOST)) {
             fireworkBoost(player, 1.0D, false);
@@ -82,7 +82,7 @@ public final class ElytraThrusterEvents {
         if (jump
                 && SUPER_FIRED.getOrDefault(id, false)
                 && player.tickCount >= SUPER_RECHARGE_AT.getOrDefault(id, 0)
-                && player.getDeltaMovement().length() < IRCommonConfig.THRUSTER_SUPER_BOOST_MIN_SPEED.getAsDouble()
+                && player.getDeltaMovement().length() < ImpetusRiftCommonConfig.THRUSTER_SUPER_BOOST_MIN_SPEED.getAsDouble()
                 && ElytraThrusterAccess.consumeFuel(chest, FUEL_PER_BOOST * superMultiplier)) {
             SUPER_RECHARGE_AT.put(id, player.tickCount + SUPER_RECHARGE_COOLDOWN);
             fireworkBoost(player, superMultiplier, true);
@@ -90,8 +90,8 @@ public final class ElytraThrusterEvents {
     }
 
     private static int superHoldTicks() {
-        return IRClientConfig.SPEC.isLoaded()
-                ? IRClientConfig.THRUSTER_SUPER_BOOST_HOLD_TIME.getAsInt()
+        return ImpetusRiftClientConfig.SPEC.isLoaded()
+                ? ImpetusRiftClientConfig.THRUSTER_SUPER_BOOST_HOLD_TIME.getAsInt()
                 : 20;
     }
 

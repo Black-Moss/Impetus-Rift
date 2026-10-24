@@ -1,7 +1,7 @@
 package com.blackmoss.impetusrift;
 
-import com.blackmoss.impetusrift.config.IRClientConfig;
-import com.blackmoss.impetusrift.config.IRCommonConfig;
+import com.blackmoss.impetusrift.config.ImpetusRiftClientConfig;
+import com.blackmoss.impetusrift.config.ImpetusRiftCommonConfig;
 import com.blackmoss.impetusrift.data.ModBlockLootSubProvider;
 import com.blackmoss.impetusrift.data.ModModelProvider;
 import com.blackmoss.impetusrift.data.ModRecipeProvider;
@@ -44,8 +44,8 @@ public class ImpetusRift {
         IRIngredientTypes.register(modEventBus);
         IRCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
-        modContainer.registerConfig(ModConfig.Type.CLIENT, IRClientConfig.SPEC);
-        modContainer.registerConfig(ModConfig.Type.COMMON, IRCommonConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ImpetusRiftClientConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, ImpetusRiftCommonConfig.SPEC);
     }
 
     public static Identifier identifier(String path) {
