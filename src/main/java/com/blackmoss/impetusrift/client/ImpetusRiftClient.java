@@ -34,10 +34,8 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID, value = Dist.CLIENT)
-@Mod(value = ImpetusRift.MODID, dist = {Dist.CLIENT})
 public final class ImpetusRiftClient {
-    public ImpetusRiftClient(ModContainer modContainer) {
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+    public ImpetusRiftClient() {
     }
 
     @SubscribeEvent
