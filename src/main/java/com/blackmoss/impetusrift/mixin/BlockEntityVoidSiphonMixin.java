@@ -41,7 +41,7 @@ public abstract class BlockEntityVoidSiphonMixin extends BlockEntity {
 
     /**
      * @author Black_Moss
-     * @reason Allow Void Siphon to convert Impetus Energy into Void Seed.
+     * &#064;reason  Allow Void Siphon to convert Impetus Energy into Void Seed.
      */
     @Overwrite
     public static void serverTick(Level level, BlockPos pos, BlockState state, BlockEntityVoidSiphon siphon) {
