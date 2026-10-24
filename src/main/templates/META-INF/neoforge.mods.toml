@@ -28,6 +28,12 @@ side = "BOTH"
 [[dependencies.${ mod_id }]]
 modId = "jade"
 type = "optional"
-versionRange = "[26,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "thaumaturgeadditions"
+type = "optional"
+versionRange = "[1.0.1,)"
 ordering = "NONE"
 side = "BOTH"

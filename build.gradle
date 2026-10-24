@@ -32,9 +32,6 @@ repositories {
     maven {
         name = 'Curse Maven'
         url = 'https://cursemaven.com'
-        content {
-            includeGroup 'curse.maven'
-        }
     }
 
     maven {
@@ -98,6 +95,9 @@ dependencies {
 
     // Thaumaturge
     implementation "curse.maven:thaumaturge-1628024:${thaumaturge_version}"
+
+    // Thaumaturge Additions
+    implementation "curse.maven:thaumaturge-additions-1748112:${thaumaturge_additions_version}"
 
     // JEI
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
