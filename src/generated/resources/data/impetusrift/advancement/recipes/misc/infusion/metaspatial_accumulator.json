@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:rift_mover_output"
+            "items": "impetusrift:metaspatial_accumulator"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:infusion/rift_mover_output"
+        "recipe": "impetusrift:infusion/metaspatial_accumulator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:infusion/rift_mover_output"
+      "impetusrift:infusion/metaspatial_accumulator"
     ]
   }
 }

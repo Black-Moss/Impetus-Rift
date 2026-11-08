@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:rift_dioptra"
+            "items": "impetusrift:extradimensional_monitor"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:arcane_workbench/rift_dioptra"
+        "recipe": "impetusrift:arcane_workbench/extradimensional_monitor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:arcane_workbench/rift_dioptra"
+      "impetusrift:arcane_workbench/extradimensional_monitor"
     ]
   }
 }

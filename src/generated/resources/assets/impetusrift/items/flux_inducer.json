@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "impetusrift:block/rift_mover_input"
+    "model": "impetusrift:block/flux_inducer"
   }
 }

@@ -5,9 +5,9 @@
     "impetusrift:impetus_generator",
     "impetusrift:impetus_matrix",
     "impetusrift:impetus_altar_base",
-    "impetusrift:rift_feeder",
-    "impetusrift:rift_mover_input",
-    "impetusrift:rift_mover_output",
-    "impetusrift:rift_dioptra"
+    "impetusrift:flux_inducer",
+    "impetusrift:metaspatial_accumulator",
+    "impetusrift:metaspatial_extruder",
+    "impetusrift:extradimensional_monitor"
   ]
 }

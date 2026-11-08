@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "impetusrift:block/flux_inducer",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "impetusrift:block/flux_inducer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "impetusrift:block/flux_inducer"
+    },
+    "facing=south": {
+      "model": "impetusrift:block/flux_inducer",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "impetusrift:block/flux_inducer",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "impetusrift:block/flux_inducer",
+      "y": 270
+    }
+  }
+}

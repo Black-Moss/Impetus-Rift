@@ -10,33 +10,35 @@
       "aspect": "thaumaturge:machina"
     },
     {
-      "amount": 50,
-      "aspect": "thaumaturge:perditio"
-    },
-    {
       "amount": 10,
       "aspect": "thaumaturge:permutatio"
     },
     {
-      "amount": 25,
-      "aspect": "thaumaturge:vitium"
-    },
-    {
       "amount": 10,
       "aspect": "thaumaturge:volatus"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:vinculum"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:vitium"
     }
   ],
-  "catalyst": "thaumaturge:alumentum",
+  "catalyst": "thaumaturge:amber_block",
   "components": [
-    "thaumaturge:mechanism_simple",
-    "#c:plates/void_metal",
+    "#c:plates/iron",
     "thaumaturge:stone_ancient",
+    "#c:plates/void_metal",
+    "thaumaturge:mechanism_complex",
     "#c:plates/brass",
+    "thaumaturge:stone_ancient",
     "#c:plates/void_metal",
     "thaumaturge:void_seed"
   ],
   "instability": 4,
   "result": {
-    "id": "impetusrift:rift_mover_output"
+    "id": "impetusrift:metaspatial_accumulator"
   }
 }

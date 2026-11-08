@@ -13,10 +13,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class RiftMoverOutputBlock extends BaseEntityBlock {
-    public static final MapCodec<RiftMoverOutputBlock> CODEC = simpleCodec(RiftMoverOutputBlock::new);
+public class MetaspatialExtruderBlock extends BaseEntityBlock {
+    public static final MapCodec<MetaspatialExtruderBlock> CODEC = simpleCodec(MetaspatialExtruderBlock::new);
 
-    public RiftMoverOutputBlock(Properties properties) {
+    public MetaspatialExtruderBlock(Properties properties) {
         super(properties);
     }
 

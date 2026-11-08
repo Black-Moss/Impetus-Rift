@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "impetusrift:rift_mover_input"
+          "name": "impetusrift:metaspatial_accumulator"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "impetusrift:blocks/rift_mover_input"
+  "random_sequence": "impetusrift:blocks/metaspatial_accumulator"
 }
