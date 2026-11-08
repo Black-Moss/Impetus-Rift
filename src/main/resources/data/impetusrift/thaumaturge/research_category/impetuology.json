@@ -14,7 +14,7 @@
       "aspect": "thaumaturge:tenebrae"
     }
   ],
-  "icon": "impetusrift:textures/item/impetus_cell.png",
+  "icon": "impetusrift:textures/research/cat_impetuology.png",
   "index": 7,
   "overlay_background": "thaumaturge:textures/gui/gui_research_back_over.png",
   "required_research": "impetusrift:unlock_impetuology"
