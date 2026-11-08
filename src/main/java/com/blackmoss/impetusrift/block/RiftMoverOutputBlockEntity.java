@@ -71,9 +71,9 @@ public class RiftMoverOutputBlockEntity extends BlockEntity implements IInteract
         RiftJarBlockEntity jar = getJarBelow();
         if (rift == null
                 || rift.isRemoved()
-                || rift.getRiftSize() < 1
-                || rift.getCollapse()
-                || rift.getRiftSize() < lastSize
+                || rift.currentSize() < 1
+                || rift.isCollapsing()
+                || rift.currentSize() < lastSize
                 || jar == null) {
             failOperation();
             return;
@@ -82,9 +82,9 @@ public class RiftMoverOutputBlockEntity extends BlockEntity implements IInteract
         snapRiftAbove();
 
         if (AuraHelper.drainVis(level, worldPosition, VIS_PER_STEP, false) >= VIS_PER_STEP - 0.0001F) {
-            rift.setRiftSize(rift.getRiftSize() + 1);
-            lastSize = rift.getRiftSize();
-            if (rift.getRiftSize() >= targetSize) {
+            rift.resize(rift.currentSize() + 1);
+            lastSize = rift.currentSize();
+            if (rift.currentSize() >= targetSize) {
                 completeOperation();
             }
         }
@@ -115,8 +115,8 @@ public class RiftMoverOutputBlockEntity extends BlockEntity implements IInteract
             return;
         }
 
-        created.setRiftSeed(data.seed());
-        created.setRiftSize(1);
+        created.reseed(data.seed());
+        created.resize(1);
         created.snapTo(
                 worldPosition.getX() + 0.5,
                 worldPosition.getY() + RIFT_OFFSET_Y,
@@ -199,10 +199,7 @@ public class RiftMoverOutputBlockEntity extends BlockEntity implements IInteract
             return;
         }
         if (rift != null) {
-            if (rift.getCollapse()) {
-                rift.setCollapse(false);
-            }
-            rift.setRiftSize(0);
+            rift.resize(0);
         }
         AuraHelper.polluteAura(level, worldPosition, targetSize, true);
         operating = false;

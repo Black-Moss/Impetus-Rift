@@ -14,8 +14,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
-public final class IRLinkEvents {
-    private IRLinkEvents() {
+public final class ImpetusLinkerLinkEvent {
+    private ImpetusLinkerLinkEvent() {
     }
 
     @SubscribeEvent

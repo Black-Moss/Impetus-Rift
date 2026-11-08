@@ -17,14 +17,15 @@ public final class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NonNull Provider lookupProvider) {
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.IMPETUS_DRAINER.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.IMPETUS_DIFFUSER.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.IMPETUS_GENERATOR.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.IMPETUS_MATRIX.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.IMPETUS_ALTAR_BASE.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_FEEDER.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_MOVER_INPUT.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_MOVER_OUTPUT.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(IRBlocks.RIFT_DIOPTRA.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(IRBlocks.IMPETUS_DRAINER.get())
+                .add(IRBlocks.IMPETUS_DIFFUSER.get())
+                .add(IRBlocks.IMPETUS_GENERATOR.get())
+                .add(IRBlocks.IMPETUS_MATRIX.get())
+                .add(IRBlocks.IMPETUS_ALTAR_BASE.get())
+                .add(IRBlocks.RIFT_FEEDER.get())
+                .add(IRBlocks.RIFT_MOVER_INPUT.get())
+                .add(IRBlocks.RIFT_MOVER_OUTPUT.get())
+                .add(IRBlocks.RIFT_DIOPTRA.get());
     }
 }

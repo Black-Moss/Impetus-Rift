@@ -19,7 +19,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class IRItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ImpetusRift.MODID);
 
-    // 方块物品
     public static final DeferredItem<BlockItem> IMPETUS_DRAINER = ITEMS.registerSimpleBlockItem(IRBlocks.IMPETUS_DRAINER);
     public static final DeferredItem<BlockItem> IMPETUS_DIFFUSER = ITEMS.registerSimpleBlockItem(IRBlocks.IMPETUS_DIFFUSER);
     public static final DeferredItem<BlockItem> IMPETUS_GENERATOR = ITEMS.registerSimpleBlockItem(IRBlocks.IMPETUS_GENERATOR);
@@ -36,12 +35,10 @@ public final class IRItems {
     public static final DeferredItem<BlockItem> RIFT_DIOPTRA = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_DIOPTRA);
 
     public static final DeferredItem<Item> IMPETUS_GEM = ITEMS.registerItem(
-            "impetus_gem", Item::new, props -> props
-                    .stacksTo(64));
+            "impetus_gem", Item::new);
 
     public static final DeferredItem<Item> RIFT_SEED_FLUX = ITEMS.registerItem(
-            "rift_seed_flux", Item::new, props -> props
-                    .stacksTo(64));
+            "rift_seed_flux", Item::new);
 
     public static final DeferredItem<Item> RIFT_COMPASS = ITEMS.registerItem(
             "rift_compass", Item::new, props -> props
@@ -52,8 +49,7 @@ public final class IRItems {
                     .stacksTo(1));
 
     public static final DeferredItem<ImpetusCellItem> IMPETUS_CELL = ITEMS.registerItem(
-            "impetus_cell", ImpetusCellItem::new, props -> props
-                    .stacksTo(64));
+            "impetus_cell", ImpetusCellItem::new);
 
     public static final DeferredItem<RiftTravellerBootsItem> RIFT_TRAVELLER_BOOTS = ITEMS.registerItem(
             "rift_traveller_boots", RiftTravellerBootsItem::new, props -> props
@@ -81,9 +77,6 @@ public final class IRItems {
     public static final DeferredItem<ElytraThrusterItem> ELYTRA_THRUSTER = ITEMS.registerItem(
             "elytra_thruster", ElytraThrusterItem::new, props -> props
                     .component(IRDataComponents.IMPETUS_RECHARGEABLE.get(),
-                            new ImpetusChargeProfile(1000, ImpetusChargeDisplay.ON_CHANGE)));
-
-
-    private IRItems() {
-    }
+                            new ImpetusChargeProfile(1000, ImpetusChargeDisplay.ON_CHANGE))
+                    .stacksTo(1));
 }

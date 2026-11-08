@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
-public final class ElytraThrusterEvents {
+public final class ElytraThrusterEvent {
     private static final int FUEL_PER_BOOST = 1;
     private static final int SUPER_RECHARGE_COOLDOWN = 10;
     private static final double BOOST_DIRECT = 0.1;
@@ -31,7 +31,7 @@ public final class ElytraThrusterEvents {
     private static final Map<UUID, Boolean> SUPER_FIRED = new ConcurrentHashMap<>();
     private static final Map<UUID, Integer> SUPER_RECHARGE_AT = new ConcurrentHashMap<>();
 
-    private ElytraThrusterEvents() {
+    private ElytraThrusterEvent() {
     }
 
     @SubscribeEvent

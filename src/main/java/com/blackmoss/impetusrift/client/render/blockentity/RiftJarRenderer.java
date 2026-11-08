@@ -1,4 +1,4 @@
-package com.blackmoss.impetusrift.client.render;
+package com.blackmoss.impetusrift.client.render.blockentity;
 
 import com.blackmoss.impetusrift.block.RiftJarBlockEntity;
 import com.leclowndu93150.thaumaturge.client.effect.pipeline.TTRenderPipelines;

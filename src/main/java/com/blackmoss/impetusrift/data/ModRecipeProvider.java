@@ -24,12 +24,14 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import org.jspecify.annotations.NonNull;
 
@@ -65,7 +67,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .component(tag(TTItemTags.PLATES_VOID_METAL))
                 .component(tag(TTItemTags.GEMS_AMBER))
                 .component(tag(TTItemTags.PLATES_VOID_METAL))
-                .component(Ingredient.of(Items.REDSTONE))
+                .component(tag(Tags.Items.DUSTS_REDSTONE))
                 .aspect(TTAspects.ALIENIS, 25)
                 .aspect(TTAspects.POTENTIA, 100)
                 .aspect(TTAspects.VACUOS, 50)
@@ -79,112 +81,108 @@ public final class ModRecipeProvider extends RecipeProvider {
 
         // 裂隙指南针
         arcaneShaped(IRItems.RIFT_COMPASS, 50)
-                .aspect(TTAspects.PERDITIO, 10)
-                .aspect(TTAspects.ORDO, 10)
                 .pattern(" P ")
                 .pattern("PSP")
                 .pattern(" P ")
-                .define('P', TTItems.PLATE_BRASS)
+                .define('P', TTItemTags.PLATES_BRASS)
                 .define('S', TTItems.SALIS_MUNDUS)
+                .aspect(TTAspects.PERDITIO)
+                .aspect(TTAspects.ORDO)
                 .save(output);
 
         // 元动谐振器
-        arcaneShapeless(IRItems.IMPETUS_LINKER.get(), 40)
+        arcaneShaped(IRItems.IMPETUS_LINKER.get(), 40)
+                .pattern("PP")
+                .pattern("GP")
+                .pattern("R ")
+                .define('P', TTItemTags.PLATES_VOID_METAL)
+                .define('G', IRItems.IMPETUS_GEM.get())
+                .define('R', Tags.Items.RODS_WOODEN)
                 .aspect(TTAspects.IGNIS)
                 .aspect(TTAspects.ORDO)
-                .requires(TTItems.SALIS_MUNDUS)
-                .requires(TTItems.CRYSTAL_VITIUM)
-                .requires(IRItems.IMPETUS_GEM)
                 .save(output);
 
         // 元动汲取仪
-        infusion(IRItems.IMPETUS_DRAINER.get(),
-                TTItems.VIS_BATTERY.get())
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .aspect(TTAspects.VITIUM, 35)
-                .aspect(TTAspects.AQUA, 35)
-                .instability(6)
+        arcaneShaped(IRItems.IMPETUS_DRAINER.get(),
+                50)
+                .pattern("PVP")
+                .pattern("PGP")
+                .pattern("SBS")
+                .define('P', TTItemTags.PLATES_VOID_METAL)
+                .define('V', TTItemTags.STORAGE_BLOCKS_VOID_METAL)
+                .define('G', IRItems.IMPETUS_GEM.get())
+                .define('S', TTItems.ELDRITCH_STONE)
+                .define('B', Tags.Items.BARS_IRON)
+                .aspect(TTAspects.IGNIS)
+                .aspect(TTAspects.ORDO)
+                .aspect(TTAspects.PERDITIO)
                 .save(output);
 
         // 元动弥散仪
-        infusion(IRItems.IMPETUS_DIFFUSER.get(),
-                TTItems.VIS_BATTERY.get())
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .aspect(TTAspects.VITIUM, 25)
-                .aspect(TTAspects.ALIENIS, 25)
-                .instability(4)
+        arcaneShaped(IRItems.IMPETUS_DIFFUSER.get(),
+                50)
+                .pattern("I I")
+                .pattern("PGP")
+                .pattern("SPS")
+                .define('I', TTItemTags.PLATES_IRON)
+                .define('P', TTItemTags.PLATES_VOID_METAL)
+                .define('G', IRItems.IMPETUS_GEM.get())
+                .define('S', TTItems.STONE_ANCIENT)
+                .aspect(TTAspects.IGNIS)
+                .aspect(TTAspects.ORDO)
+                .aspect(TTAspects.PERDITIO)
                 .save(output);
 
         // 元动发电机
-        infusion(IRItems.IMPETUS_GENERATOR.get(), TTItems.VIS_BATTERY.get())
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(TTItems.CRYSTAL_VITIUM.get()))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .aspect(TTAspects.VITIUM, 40)
-                .aspect(TTAspects.IGNIS, 30)
-                .instability(7)
+        arcaneShaped(IRItems.IMPETUS_GENERATOR.get(),
+                100)
+                .pattern("SRS")
+                .pattern("rPr")
+                .pattern("SGS")
+                .define('S', TTItems.ELDRITCH_STONE)
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .define('r', TTItems.RARE_EARTH)
+                .define('P', Items.PISTON)
+                .define('G', IRItems.IMPETUS_GEM.get())
+                .aspect(TTAspects.AER)
+                .aspect(TTAspects.IGNIS)
+                .aspect(TTAspects.ORDO)
+                .aspect(TTAspects.PERDITIO)
                 .save(output);
 
         // 裂隙旅行者之靴
         infusion(IRItems.RIFT_TRAVELLER_BOOTS.get(),
                 TTItems.VOID_BOOTS.get())
+                .component(Ingredient.of(TTItems.FABRIC.get()))
                 .component(Ingredient.of(TTItems.TRAVELLER_BOOTS.get()))
                 .component(tag(TTItemTags.PLATES_VOID_METAL))
-                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-                .component(tag(TTItemTags.PLATES_VOID_METAL))
-                .component(Ingredient.of(TTItems.SALIS_MUNDUS.get()))
-                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(TTItems.PRIMORDIAL_PEARL))
                 .component(Ingredient.of(TTItems.FABRIC.get()))
-                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-                .component(Ingredient.of(Items.LEATHER))
-                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                .component(tag(Tags.Items.FOODS_RAW_FISH))
                 .component(tag(TTItemTags.PLATES_VOID_METAL))
-                .aspect(TTAspects.METALLUM, 80)
-                .aspect(TTAspects.AQUA, 80)
-                .aspect(TTAspects.VACUOS, 80)
-                .aspect(TTAspects.FABRICO, 80)
-                .aspect(TTAspects.ALIENIS, 80)
-                .aspect(TTAspects.VOLATUS, 120)
-                .aspect(TTAspects.MOTUS, 120)
-                .instability(6)
+                .component(tag(Tags.Items.FEATHERS))
+                .aspect(TTAspects.VACUOS, 50)
+                .aspect(TTAspects.ALIENIS, 50)
+                .aspect(TTAspects.MOTUS, 50)
+                .aspect(TTAspects.VOLATUS, 50)
+                .instability(5)
                 .save(output);
 
         // 奥法鞘翅
         infusion(IRItems.THAUMOSTATIC_ELYTRA,
-                RecipeCategory.COMBAT,
-                Items.ELYTRA)
-                .component(Ingredient.of(TTItems.CRYSTAL_AER.get()))
-                .component(Ingredient.of(TTItems.CRYSTAL_AER.get()))
-                .component(tag(TTItemTags.PLANKS_GREATWOOD))
-                .component(tag(TTItemTags.PLANKS_GREATWOOD))
-                .component(Ingredient.of(Items.COMPARATOR))
-                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
-                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                TTItems.THAUMOSTATIC_HARNESS)
                 .component(tag(TTItemTags.PLATES_VOID_METAL))
-                .component(tag(TTItemTags.PLATES_VOID_METAL))
-                .aspect(TTAspects.VOLATUS, 64)
-                .aspect(TTAspects.POTENTIA, 64)
-                .aspect(TTAspects.MACHINA, 64)
-                .aspect(TTAspects.MOTUS, 32)
-                .aspect(TTAspects.VACUOS, 16)
-                .instability(7)
+                .component(Ingredient.of(TTItems.VIS_RESONATOR))
+                .component(tag(Tags.Items.FEATHERS))
+                .component(Ingredient.of(Items.ELYTRA))
+                .aspect(TTAspects.VOLATUS, 50)
+                .aspect(TTAspects.POTENTIA, 50)
+                .aspect(TTAspects.MOTUS, 75)
+                .instability(6)
                 .save(output);
 
         // 鞘翅助推器
         infusion(IRItems.ELYTRA_THRUSTER,
-                RecipeCategory.COMBAT,
                 TTItems.GIRDLE_MUNDANE)
                 .component(Ingredient.of(IRItems.IMPETUS_CELL.get()))
                 .component(crystal(TTAspects.ALIENIS))
@@ -198,14 +196,38 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .aspect(TTAspects.VOLATUS, 45)
                 .instability(7)
                 .save(output);
-    }
 
-    private CrucibleRecipeBuilder crucible(ItemStackTemplate result, ItemLike catalyst) {
-        return new CrucibleRecipeBuilder(this.registries.lookupOrThrow(IAspect.REGISTRY_KEY), RecipeCategory.MISC, result, Ingredient.of(catalyst));
+        // 元动中继器
+        arcaneShaped(IRItems.IMPETUS_RELAY, 25)
+                .pattern("G")
+                .pattern("P")
+                .define('G', IRItems.IMPETUS_GEM.get())
+                .define('P', TTItemTags.PLATES_VOID_METAL)
+                .aspect(TTAspects.IGNIS)
+                .aspect(TTAspects.ORDO)
+                .aspect(TTAspects.PERDITIO)
+                .save(output);
+
+        // 元动阀门
+        arcaneShaped(IRItems.IMPETUS_GATE, 50)
+                .pattern(" P ")
+                .pattern("PRP")
+                .pattern(" C ")
+                .define('P', TTItemTags.PLATES_VOID_METAL)
+                .define('R', IRItems.IMPETUS_RELAY)
+                .define('C', Items.COMPARATOR)
+                .aspect(TTAspects.TERRA)
+                .aspect(TTAspects.ORDO)
+                .aspect(TTAspects.PERDITIO)
+                .save(output);
     }
 
     private CrucibleRecipeBuilder crucible(ItemLike result, ItemLike catalyst) {
-        return (CrucibleRecipeBuilder) crucible(new ItemStackTemplate(result.asItem()), catalyst)
+        return (CrucibleRecipeBuilder) new CrucibleRecipeBuilder(
+                aspects,
+                RecipeCategory.MISC,
+                new ItemStackTemplate(result.asItem()),
+                Ingredient.of(catalyst))
                 .unlockedBy("has", this.has(result.asItem()));
     }
 
@@ -226,17 +248,13 @@ public final class ModRecipeProvider extends RecipeProvider {
         return Ingredient.of(tag("c", path));
     }
 
-    private InfusionRecipeBuilder infusion(ItemLike result, RecipeCategory category, ItemLike catalyst) {
+    private InfusionRecipeBuilder infusion(ItemLike result, ItemLike catalyst) {
         return (InfusionRecipeBuilder) new InfusionRecipeBuilder(
-                this.registries.lookupOrThrow(IAspect.REGISTRY_KEY),
-                category,
+                aspects,
+                RecipeCategory.MISC,
                 new ItemStackTemplate(result.asItem()),
                 Ingredient.of(catalyst))
                 .unlockedBy("has", this.has(result));
-    }
-
-    private InfusionRecipeBuilder infusion(ItemLike result, ItemLike catalyst) {
-        return infusion(result, RecipeCategory.MISC, catalyst);
     }
 
 
@@ -249,38 +267,26 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has", this.has(result));
     }
 
-    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(RecipeCategory recipeCategory, ItemStackTemplate result, int vis) {
-        return new ArcaneWorkbenchShapelessRecipeBuilder(recipeCategory,
-                result,
+    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(ItemLike result, int vis) {
+        return (ArcaneWorkbenchShapelessRecipeBuilder) new ArcaneWorkbenchShapelessRecipeBuilder(
+                RecipeCategory.MISC,
+                new ItemStackTemplate(result.asItem()),
                 aspects,
                 vis,
-                registries.lookupOrThrow(Registries.ITEM));
-    }
-
-    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(RecipeCategory recipeCategory, ItemLike result, int vis) {
-        return (ArcaneWorkbenchShapelessRecipeBuilder) arcaneShapeless(recipeCategory, new ItemStackTemplate(result.asItem()), vis)
+                registries.lookupOrThrow(Registries.ITEM))
                 .unlockedBy("has", this.has(result.asItem()));
-    }
 
-    private ArcaneWorkbenchShapelessRecipeBuilder arcaneShapeless(ItemLike result, int vis) {
-        return arcaneShapeless(RecipeCategory.MISC, result, vis);
-    }
-
-    private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(RecipeCategory recipeCategory, ItemStackTemplate result, int vis) {
-        return new ArcaneWorkbenchShapedRecipeBuilder(recipeCategory,
-                result,
-                this.items,
-                aspects,
-                vis);
-    }
-
-    private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(RecipeCategory recipeCategory, ItemLike result, int vis) {
-        return (ArcaneWorkbenchShapedRecipeBuilder) arcaneShaped(recipeCategory, new ItemStackTemplate(result.asItem()), vis)
-                .unlockedBy("has", this.has(result.asItem()));
     }
 
     private ArcaneWorkbenchShapedRecipeBuilder arcaneShaped(ItemLike result, int vis) {
-        return arcaneShaped(RecipeCategory.MISC, result, vis);
+        return (ArcaneWorkbenchShapedRecipeBuilder) new ArcaneWorkbenchShapedRecipeBuilder(
+                RecipeCategory.MISC,
+                new ItemStackTemplate(result.asItem()),
+                this.items,
+                aspects,
+                vis)
+                .unlockedBy("has", this.has(result.asItem()));
+
     }
 
     public static final class Runner extends RecipeProvider.Runner {

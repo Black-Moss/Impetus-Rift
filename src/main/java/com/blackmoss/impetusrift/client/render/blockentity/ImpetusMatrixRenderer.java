@@ -1,6 +1,7 @@
-package com.blackmoss.impetusrift.client.render;
+package com.blackmoss.impetusrift.client.render.blockentity;
 
 import com.blackmoss.impetusrift.block.ImpetusMatrixBlockEntity;
+import com.blackmoss.impetusrift.client.render.ImpetusEnergyBeamRenderer;
 import com.leclowndu93150.thaumaturge.TTIds;
 import com.leclowndu93150.thaumaturge.client.effect.pipeline.TTRenderPipelines;
 import com.leclowndu93150.thaumaturge.client.entity.TTModelLayers;

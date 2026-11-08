@@ -72,8 +72,8 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         RiftJarBlockEntity jar = getJarBelow();
         if (rift == null
                 || rift.isRemoved()
-                || rift.getRiftSize() < 1
-                || rift.getCollapse()
+                || rift.currentSize() < 1
+                || rift.isCollapsing()
                 || jar == null
                 || jar.hasRift()) {
             failOperation();
@@ -83,9 +83,9 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         snapRiftAbove();
 
         if (AuraHelper.drainVis(level, worldPosition, VIS_PER_STEP, false) >= VIS_PER_STEP - 0.0001F) {
-            rift.setRiftSize(rift.getRiftSize() - 1);
-            rift.setRiftStability(rift.getRiftStability() - STABILITY_PENALTY_PER_STEP);
-            if (rift.getRiftSize() <= 0) {
+            rift.resize(rift.currentSize() - 1);
+            rift.adjustStability(-STABILITY_PENALTY_PER_STEP);
+            if (rift.currentSize() <= 0) {
                 jar.sealRift(oldSeed, oldSize);
                 completeOperation();
             }
@@ -103,15 +103,15 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         }
 
         EntityFluxRift found = findRift();
-        if (found == null || found.isRemoved() || found.getRiftSize() < 1 || found.getCollapse()) {
+        if (found == null || found.isRemoved() || found.currentSize() < 1 || found.isCollapsing()) {
             return;
         }
 
         operating = true;
         rift = found;
-        oldSeed = found.getRiftSeed();
-        oldSize = found.getRiftSize();
-        oldStability = found.getRiftStability();
+        oldSeed = found.shapeSeed();
+        oldSize = found.currentSize();
+        oldStability = found.stabilityValue();
         ticks = 0;
         level.playSound(
                 null,
@@ -183,10 +183,7 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         if (rift == null || rift.isRemoved()) {
             AuraHelper.polluteAura(level, worldPosition, oldSize, true);
         } else {
-            if (rift.getCollapse()) {
-                rift.setCollapse(false);
-            }
-            rift.setRiftStability(-150.0F);
+            rift.adjustStability(-150.0F - rift.stabilityValue());
             rift.playSound(SoundEvents.GENERIC_EXPLODE.value(), 1.0F, 0.75F);
             rift = null;
         }

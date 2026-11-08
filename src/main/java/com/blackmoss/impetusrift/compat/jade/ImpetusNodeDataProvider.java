@@ -60,8 +60,8 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
             EntityFluxRift target = monitor.resolveTarget();
             tag.putBoolean(KEY_HAS_RIFT, target != null);
             if (target != null) {
-                tag.putInt(KEY_RIFT_SIZE, target.getRiftSize());
-                tag.putFloat(KEY_RIFT_STABILITY, target.getRiftStability());
+                tag.putInt(KEY_RIFT_SIZE, target.currentSize());
+                tag.putFloat(KEY_RIFT_STABILITY, target.stabilityValue());
             }
             return;
         }
@@ -72,8 +72,8 @@ public enum ImpetusNodeDataProvider implements IServerDataProvider<BlockAccessor
 
             EntityFluxRift rift = drainer.getBoundRift();
             if (hasRift && rift != null) {
-                tag.putInt(KEY_RIFT_SIZE, rift.getRiftSize());
-                tag.putFloat(KEY_RIFT_STABILITY, rift.getRiftStability());
+                tag.putInt(KEY_RIFT_SIZE, rift.currentSize());
+                tag.putFloat(KEY_RIFT_STABILITY, rift.stabilityValue());
             }
         }
     }

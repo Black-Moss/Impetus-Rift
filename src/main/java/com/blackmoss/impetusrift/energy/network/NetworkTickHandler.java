@@ -19,7 +19,6 @@ import java.util.List;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
 public class NetworkTickHandler {
-
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event) {
         for (ServerLevel level : event.getServer().getAllLevels()) {
@@ -41,6 +40,7 @@ public class NetworkTickHandler {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public static void damageEntitiesInBeam(ServerLevel level, BlockPos from, BlockPos to, long transferAmount) {
         if (transferAmount <= 0) return;
 
@@ -60,9 +60,7 @@ public class NetworkTickHandler {
 
         for (Entity entity : entities) {
             float halfDamage = damage / 2.0F;
-            //noinspection deprecation
             entity.hurt(level.damageSources().generic(), halfDamage);
-            //noinspection deprecation
             entity.hurt(level.damageSources().magic(), halfDamage);
         }
     }

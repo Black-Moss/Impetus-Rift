@@ -59,7 +59,11 @@ public class RiftFeederBlockEntity extends BlockEntity implements IEssentiaTrans
         return (int) Math.sqrt(Math.max(0, riftSize));
     }
 
-    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftFeederBlockEntity feeder) {
+    public static void staticTick(
+            Level level,
+            BlockPos pos,
+            BlockState state,
+            RiftFeederBlockEntity feeder) {
         feeder.tick();
     }
 
@@ -339,18 +343,18 @@ public class RiftFeederBlockEntity extends BlockEntity implements IEssentiaTrans
 
         Direction face = getBlockState().getValue(BlockStateProperties.FACING);
         EntityFluxRift rift = findClosestRift(face);
-        if (rift == null || rift.getCollapse() || rift.getRiftSize() >= MAX_RIFT_SIZE) {
+        if (rift == null || rift.isCollapsing() || rift.currentSize() >= MAX_RIFT_SIZE) {
             return;
         }
 
-        int required = essentiaRequiredFor(rift.getRiftSize());
+        int required = essentiaRequiredFor(rift.currentSize());
         if (storedEssentia < required) {
             return;
         }
 
         storedEssentia -= required;
-        rift.setRiftSize(rift.getRiftSize() + 1);
-        rift.addStability();
+        rift.resize(rift.currentSize() + 1);
+        rift.nudgeStability();
         spawnFeedParticles(rift);
         setChanged();
         syncToClient();

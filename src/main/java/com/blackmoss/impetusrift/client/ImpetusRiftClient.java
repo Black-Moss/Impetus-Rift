@@ -1,12 +1,13 @@
 package com.blackmoss.impetusrift.client;
 
+import com.blackmooss.thaumaturgeadditions.ThaumaturgeAdditions;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.client.hud.ImpetusHudOverlay;
 import com.blackmoss.impetusrift.client.model.RiftCompassAngleProperty;
-import com.blackmoss.impetusrift.client.render.ImpetusDrainerRenderer;
-import com.blackmoss.impetusrift.client.render.ImpetusMatrixRenderer;
-import com.blackmoss.impetusrift.client.render.ImpetusNodeRenderer;
-import com.blackmoss.impetusrift.client.render.RiftJarRenderer;
+import com.blackmoss.impetusrift.client.render.blockentity.ImpetusDrainerRenderer;
+import com.blackmoss.impetusrift.client.render.blockentity.ImpetusMatrixRenderer;
+import com.blackmoss.impetusrift.client.render.blockentity.ImpetusNodeRenderer;
+import com.blackmoss.impetusrift.client.render.blockentity.RiftJarRenderer;
 import com.blackmoss.impetusrift.client.render.blockentity.RiftDioptraRenderer;
 import com.blackmoss.impetusrift.energy.ElytraThrusterAccess;
 import com.blackmoss.impetusrift.energy.ImpetusChargeProfile;
@@ -21,9 +22,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -103,5 +104,13 @@ public final class ImpetusRiftClient {
         if (boots.getItem() instanceof RiftTravellerBootsItem) {
             RiftTravellerBootsItem.clientMovementTick(player, boots);
         }
+    }
+
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        ModList.get()
+                .getModContainerById(ThaumaturgeAdditions.MODID)
+                .ifPresent(container ->
+                        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new));
     }
 }

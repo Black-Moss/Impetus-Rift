@@ -43,7 +43,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNode, IGogglesReadout, IInteractWithCaster, ReadOnlyAspectContainer {
+public class ImpetusMatrixBlockEntity extends BlockEntity
+        implements IImpetusNode, IGogglesReadout, IInteractWithCaster, ReadOnlyAspectContainer {
     private static final long BASE_CAPACITY = 0L;
     private static final long MAX_TRANSFER = 200L;
     private static final float MIN_STABILITY = -100.0F;
@@ -103,7 +104,6 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
             return;
         }
 
-        // 服务端逻辑
         ticks++;
         if (ticks % STABILITY_DECAY_INTERVAL == 0) {
             updateInstalledUnits();
@@ -157,7 +157,7 @@ public class ImpetusMatrixBlockEntity extends BlockEntity implements IImpetusNod
                 long discharge = (long) (energyStorage.getMaxEnergyStored() * level.getRandom().nextFloat() * 0.02F);
                 energyStorage.extractEnergy(discharge, false);
             }
-            InstabilityEvents.trigger((ServerLevel) level, worldPosition, List.of());
+            InstabilityEvents.trigger((ServerLevel) level, worldPosition, List.of(), stability);
             setChanged();
             syncToClient();
         }

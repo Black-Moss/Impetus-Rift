@@ -48,7 +48,11 @@ public class RiftDioptraBlockEntity extends BlockEntity {
         super(IRBlockEntities.RIFT_DIOPTRA.get(), pos, state);
     }
 
-    public static void staticTick(Level level, BlockPos pos, BlockState state, RiftDioptraBlockEntity monitor) {
+    public static void staticTick(
+            Level level,
+            BlockPos pos,
+            BlockState state,
+            RiftDioptraBlockEntity monitor) {
         monitor.tick();
     }
 
@@ -218,7 +222,7 @@ public class RiftDioptraBlockEntity extends BlockEntity {
             rift = resolveTarget();
         }
 
-        int result = rift == null ? 0 : comparatorOutputFor(rift.getRiftSize(), rift.getRiftStability());
+        int result = rift == null ? 0 : comparatorOutputFor(rift.currentSize(), rift.stabilityValue());
         if (result != lastResult) {
             lastResult = result;
             setChanged();
@@ -227,8 +231,8 @@ public class RiftDioptraBlockEntity extends BlockEntity {
         }
 
         boolean hasTarget = rift != null;
-        int size = rift == null ? 0 : rift.getRiftSize();
-        float stability = rift == null ? 0.0F : rift.getRiftStability();
+        int size = rift == null ? 0 : rift.currentSize();
+        float stability = rift == null ? 0.0F : rift.stabilityValue();
         if (hasTarget != syncedHasTarget || size != syncedRiftSize || stability != syncedRiftStability) {
             syncedHasTarget = hasTarget;
             syncedRiftSize = size;

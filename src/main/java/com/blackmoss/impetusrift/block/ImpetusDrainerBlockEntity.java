@@ -220,7 +220,7 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
         List<EntityFluxRift> rifts = level.getEntitiesOfClass(
                 EntityFluxRift.class,
                 new AABB(worldPosition).inflate(SCAN_RADIUS),
-                rift -> rift.isAlive() && !rift.isRemoved() && !rift.getCollapse()
+                rift -> rift.isAlive() && !rift.isRemoved() && !rift.isCollapsing()
         );
 
         if (rifts.isEmpty()) {
@@ -264,7 +264,7 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
                 worldPosition.getY() + 0.5 + dY,
                 worldPosition.getZ() + 0.5 + dZ);
 
-        List<Vec3> riftPoints = rift.points;
+        List<Vec3> riftPoints = rift.outline;
         if (riftPoints == null || riftPoints.isEmpty()) return false;
 
         Vec3 riftOrigin = rift.position();
@@ -293,13 +293,13 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
         if (level == null
                 || boundRift == null
                 || boundRift.isRemoved()
-                || boundRift.getCollapse()) {
+                || boundRift.isCollapsing()) {
             unbindRift();
             setChanged();
             return;
         }
 
-        int riftSize = boundRift.getRiftSize();
+        int riftSize = boundRift.currentSize();
         if (riftSize <= 0) {
             unbindRift();
             setChanged();
@@ -314,10 +314,10 @@ public class ImpetusDrainerBlockEntity extends BlockEntity implements IImpetusNo
         long energyGain = calcEnergyForSize(riftSize);
         long accepted = energyStorage.receiveEnergy(energyGain, false);
         if (accepted > 0) {
-            boundRift.setRiftSize(riftSize - 1);
-            boundRift.setRiftStability(boundRift.getRiftStability() - 1.0F);
+            boundRift.resize(riftSize - 1);
+            boundRift.adjustStability(-1.0F);
 
-            if (boundRift.getRiftSize() <= 0) {
+            if (boundRift.currentSize() <= 0) {
                 unbindRift();
             }
             setChanged();

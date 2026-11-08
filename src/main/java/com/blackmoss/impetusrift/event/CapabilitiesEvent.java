@@ -1,6 +1,7 @@
-package com.blackmoss.impetusrift.registry;
+package com.blackmoss.impetusrift.event;
 
 import com.blackmoss.impetusrift.ImpetusRift;
+import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.leclowndu93150.thaumaturge.api.essentia.EssentiaCapabilities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -8,8 +9,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID)
-public final class IRCapabilities {
-    private IRCapabilities() {
+public final class CapabilitiesEvent {
+    private CapabilitiesEvent() {
     }
 
     @SubscribeEvent

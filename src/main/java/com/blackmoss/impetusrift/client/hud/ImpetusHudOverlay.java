@@ -27,13 +27,6 @@ import org.jspecify.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
-/**
- * 元动能源 HUD：复刻 Thaumaturge {@code RechargeHudOverlay} 的布局与逻辑，另加两点定制：
- * <ul>
- *   <li>元动条接在 Thaumaturge 灵气条<b>上方</b>继续堆叠（{@link #countThaumaturgeEntries}），避免相互覆盖；</li>
- *   <li>装有助推器的物品额外显示一条「助推器燃料」，与本体能量同时存在时用「物品 + 助推器」双图标。</li>
- * </ul>
- */
 public final class ImpetusHudOverlay implements GuiLayer {
     private static final Identifier HUD = TTIds.rl("textures/gui/hud.png");
     private static final int TEX_SIZE = 256;

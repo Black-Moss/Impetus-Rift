@@ -98,7 +98,11 @@ public class ImpetusAltarBaseBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void affectNeighborsAfterRemoval(@NonNull BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, boolean movedByPiston) {
+    protected void affectNeighborsAfterRemoval(
+            @NonNull BlockState state,
+            @NonNull ServerLevel level,
+            @NonNull BlockPos pos,
+            boolean movedByPiston) {
         super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
         if (!movedByPiston) {
             revertSibling(level, pos);

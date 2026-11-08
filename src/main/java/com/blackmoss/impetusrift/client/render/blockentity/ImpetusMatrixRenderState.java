@@ -1,4 +1,4 @@
-package com.blackmoss.impetusrift.client.render;
+package com.blackmoss.impetusrift.client.render.blockentity;
 
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.core.BlockPos;
