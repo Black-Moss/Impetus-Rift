@@ -1,0 +1,26 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ignis"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    },
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "key": {
+    "G": "impetusrift:impetus_gem",
+    "P": "#c:plates/void_metal"
+  },
+  "pattern": [
+    "G",
+    "P"
+  ],
+  "result": {
+    "id": "impetusrift:impetus_relay"
+  },
+  "vis": 25
+}

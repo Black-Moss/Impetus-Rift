@@ -1,0 +1,30 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ignis"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    },
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "key": {
+    "B": "#c:bars/iron",
+    "G": "impetusrift:impetus_gem",
+    "P": "#c:plates/void_metal",
+    "S": "thaumaturge:eldritch_stone",
+    "V": "#c:storage_blocks/void_metal"
+  },
+  "pattern": [
+    "PVP",
+    "PGP",
+    "SBS"
+  ],
+  "result": {
+    "id": "impetusrift:impetus_drainer"
+  },
+  "vis": 50
+}

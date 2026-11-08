@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:impetus_generator"
+            "items": "impetusrift:impetus_drainer"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:infusion/impetus_generator"
+        "recipe": "impetusrift:arcane_workbench/impetus_drainer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:infusion/impetus_generator"
+      "impetusrift:arcane_workbench/impetus_drainer"
     ]
   }
 }

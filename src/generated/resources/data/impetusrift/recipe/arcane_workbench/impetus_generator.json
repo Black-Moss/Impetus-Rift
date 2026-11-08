@@ -1,0 +1,33 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer"
+    },
+    {
+      "aspect": "thaumaturge:ignis"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    },
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "key": {
+    "G": "impetusrift:impetus_gem",
+    "P": "minecraft:piston",
+    "R": "#c:dusts/redstone",
+    "S": "thaumaturge:eldritch_stone",
+    "r": "thaumaturge:rare_earth"
+  },
+  "pattern": [
+    "SRS",
+    "rPr",
+    "SGS"
+  ],
+  "result": {
+    "id": "impetusrift:impetus_generator"
+  },
+  "vis": 100
+}

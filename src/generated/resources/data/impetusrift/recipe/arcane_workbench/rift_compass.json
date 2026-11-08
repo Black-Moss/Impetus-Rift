@@ -2,16 +2,14 @@
   "type": "thaumaturge:arcane_workbench_shaped",
   "crystals": [
     {
-      "amount": 10,
       "aspect": "thaumaturge:perditio"
     },
     {
-      "amount": 10,
       "aspect": "thaumaturge:ordo"
     }
   ],
   "key": {
-    "P": "thaumaturge:plate_brass",
+    "P": "#c:plates/brass",
     "S": "thaumaturge:salis_mundus"
   },
   "pattern": [

@@ -2,50 +2,34 @@
   "type": "thaumaturge:infusion",
   "aspects": [
     {
-      "amount": 80,
-      "aspect": "thaumaturge:metallum"
-    },
-    {
-      "amount": 80,
-      "aspect": "thaumaturge:aqua"
-    },
-    {
-      "amount": 80,
+      "amount": 50,
       "aspect": "thaumaturge:vacuos"
     },
     {
-      "amount": 80,
-      "aspect": "thaumaturge:fabrico"
-    },
-    {
-      "amount": 80,
+      "amount": 50,
       "aspect": "thaumaturge:alienis"
     },
     {
-      "amount": 120,
-      "aspect": "thaumaturge:volatus"
+      "amount": 50,
+      "aspect": "thaumaturge:motus"
     },
     {
-      "amount": 120,
-      "aspect": "thaumaturge:motus"
+      "amount": 50,
+      "aspect": "thaumaturge:volatus"
     }
   ],
   "catalyst": "thaumaturge:void_boots",
   "components": [
+    "thaumaturge:fabric",
     "thaumaturge:traveller_boots",
     "#c:plates/void_metal",
-    "impetusrift:impetus_gem",
-    "#c:plates/void_metal",
-    "thaumaturge:salis_mundus",
-    "impetusrift:impetus_gem",
-    "#c:plates/void_metal",
+    "thaumaturge:primordial_pearl",
     "thaumaturge:fabric",
-    "impetusrift:impetus_gem",
-    "minecraft:leather",
-    "impetusrift:impetus_gem",
-    "#c:plates/void_metal"
+    "#c:foods/raw_fish",
+    "#c:plates/void_metal",
+    "#c:feathers"
   ],
-  "instability": 6,
+  "instability": 5,
   "result": {
     "id": "impetusrift:rift_traveller_boots"
   }

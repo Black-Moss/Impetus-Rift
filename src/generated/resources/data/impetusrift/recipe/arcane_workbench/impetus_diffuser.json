@@ -1,0 +1,29 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ignis"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    },
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "key": {
+    "G": "impetusrift:impetus_gem",
+    "I": "#c:plates/iron",
+    "P": "#c:plates/void_metal",
+    "S": "thaumaturge:stone_ancient"
+  },
+  "pattern": [
+    "I I",
+    "PGP",
+    "SPS"
+  ],
+  "result": {
+    "id": "impetusrift:impetus_diffuser"
+  },
+  "vis": 50
+}

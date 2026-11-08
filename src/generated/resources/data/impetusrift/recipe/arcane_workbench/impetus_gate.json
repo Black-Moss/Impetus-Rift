@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:terra"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    },
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "key": {
+    "C": "minecraft:comparator",
+    "P": "#c:plates/void_metal",
+    "R": "impetusrift:impetus_relay"
+  },
+  "pattern": [
+    " P ",
+    "PRP",
+    " C "
+  ],
+  "result": {
+    "id": "impetusrift:impetus_gate"
+  },
+  "vis": 50
+}

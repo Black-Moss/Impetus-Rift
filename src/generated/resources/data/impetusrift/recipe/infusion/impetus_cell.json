@@ -31,7 +31,7 @@
     "#c:plates/void_metal",
     "#c:gems/amber",
     "#c:plates/void_metal",
-    "minecraft:redstone"
+    "#c:dusts/redstone"
   ],
   "result": {
     "id": "impetusrift:impetus_cell"

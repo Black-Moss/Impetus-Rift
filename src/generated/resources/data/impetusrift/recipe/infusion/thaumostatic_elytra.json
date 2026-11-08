@@ -2,39 +2,26 @@
   "type": "thaumaturge:infusion",
   "aspects": [
     {
-      "amount": 64,
+      "amount": 50,
       "aspect": "thaumaturge:volatus"
     },
     {
-      "amount": 64,
+      "amount": 50,
       "aspect": "thaumaturge:potentia"
     },
     {
-      "amount": 64,
-      "aspect": "thaumaturge:machina"
-    },
-    {
-      "amount": 32,
+      "amount": 75,
       "aspect": "thaumaturge:motus"
-    },
-    {
-      "amount": 16,
-      "aspect": "thaumaturge:vacuos"
     }
   ],
-  "catalyst": "minecraft:elytra",
+  "catalyst": "thaumaturge:thaumostatic_harness",
   "components": [
-    "thaumaturge:crystal_aer",
-    "thaumaturge:crystal_aer",
-    "#c:planks/greatwood",
-    "#c:planks/greatwood",
-    "minecraft:comparator",
-    "impetusrift:impetus_gem",
-    "impetusrift:impetus_gem",
     "#c:plates/void_metal",
-    "#c:plates/void_metal"
+    "thaumaturge:vis_resonator",
+    "#c:feathers",
+    "minecraft:elytra"
   ],
-  "instability": 7,
+  "instability": 6,
   "result": {
     "id": "impetusrift:thaumostatic_elytra"
   }

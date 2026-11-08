@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:impetus_diffuser"
+            "items": "impetusrift:impetus_relay"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "impetusrift:infusion/impetus_diffuser"
+        "recipe": "impetusrift:arcane_workbench/impetus_relay"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "impetusrift:infusion/impetus_diffuser"
+      "impetusrift:arcane_workbench/impetus_relay"
     ]
   }
 }

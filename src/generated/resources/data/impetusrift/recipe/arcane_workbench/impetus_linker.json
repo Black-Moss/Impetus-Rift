@@ -1,5 +1,5 @@
 {
-  "type": "thaumaturge:arcane_workbench_shapeless",
+  "type": "thaumaturge:arcane_workbench_shaped",
   "crystals": [
     {
       "aspect": "thaumaturge:ignis"
@@ -8,10 +8,15 @@
       "aspect": "thaumaturge:ordo"
     }
   ],
-  "ingredients": [
-    "thaumaturge:salis_mundus",
-    "thaumaturge:crystal_vitium",
-    "impetusrift:impetus_gem"
+  "key": {
+    "G": "impetusrift:impetus_gem",
+    "P": "#c:plates/void_metal",
+    "R": "#c:rods/wooden"
+  },
+  "pattern": [
+    "PP",
+    "GP",
+    "R "
   ],
   "result": {
     "id": "impetusrift:impetus_linker"
