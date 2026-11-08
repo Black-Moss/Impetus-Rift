@@ -24,11 +24,11 @@ public class IRCreativeModeTabs {
                         output.accept(IRItems.IMPETUS_RELAY.get());
                         output.accept(IRItems.IMPETUS_GATE.get());
 
-                        output.accept(IRItems.RIFT_FEEDER.get());
-                        output.accept(IRItems.RIFT_MOVER_INPUT.get());
-                        output.accept(IRItems.RIFT_MOVER_OUTPUT.get());
+                        output.accept(IRItems.FLUX_INDUCER.get());
+                        output.accept(IRItems.METASPATIAL_ACCUMULATOR.get());
+                        output.accept(IRItems.METASPATIAL_EXTRUDER.get());
                         output.accept(IRItems.RIFT_JAR.get());
-                        output.accept(IRItems.RIFT_DIOPTRA.get());
+                        output.accept(IRItems.EXTRADIMENSIONAL_MONITOR.get());
 
                         output.accept(IRItems.IMPETUS_CELL.get());
                         output.accept(IRItems.IMPETUS_GEM.get());

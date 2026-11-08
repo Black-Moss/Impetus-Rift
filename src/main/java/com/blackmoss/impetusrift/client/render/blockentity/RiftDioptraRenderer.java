@@ -1,6 +1,6 @@
 package com.blackmoss.impetusrift.client.render.blockentity;
 
-import com.blackmoss.impetusrift.block.RiftDioptraBlockEntity;
+import com.blackmoss.impetusrift.block.ExtradimensionalMonitorBlockEntity;
 import com.leclowndu93150.thaumaturge.api.items.GogglesAccess;
 import com.leclowndu93150.thaumaturge.client.entity.FluxRiftRenderState;
 import com.leclowndu93150.thaumaturge.registry.TTEntities;
@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public final class RiftDioptraRenderer implements BlockEntityRenderer<RiftDioptraBlockEntity, RiftDioptraRenderState> {
+public final class RiftDioptraRenderer implements BlockEntityRenderer<ExtradimensionalMonitorBlockEntity, RiftDioptraRenderState> {
     private static final int POINTS = 12;
     private static final float CENTER_Y = 1.35F;
     private static final float RIFT_LENGTH = 0.75F;
@@ -38,7 +38,7 @@ public final class RiftDioptraRenderer implements BlockEntityRenderer<RiftDioptr
 
     @Override
     public void extractRenderState(
-            @NonNull RiftDioptraBlockEntity dioptra,
+            @NonNull ExtradimensionalMonitorBlockEntity dioptra,
             @NonNull RiftDioptraRenderState state,
             float partialTicks,
             @NonNull Vec3 cameraPosition,
@@ -99,7 +99,7 @@ public final class RiftDioptraRenderer implements BlockEntityRenderer<RiftDioptr
     }
 
     @Override
-    public @NonNull AABB getRenderBoundingBox(RiftDioptraBlockEntity blockEntity) {
+    public @NonNull AABB getRenderBoundingBox(ExtradimensionalMonitorBlockEntity blockEntity) {
         BlockPos pos = blockEntity.getBlockPos();
         return new AABB(pos.getX() - 0.5, pos.getY(), pos.getZ() - 0.5,
                 pos.getX() + 1.5, pos.getY() + 2.6, pos.getZ() + 1.5);

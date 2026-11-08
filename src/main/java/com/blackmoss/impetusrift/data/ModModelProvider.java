@@ -270,15 +270,15 @@ public class ModModelProvider extends ModelProvider {
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DRAINER.get());
         customBlock(blockModels, itemModels, IRBlocks.IMPETUS_DIFFUSER.get());
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GATE.get());
-        riftFeederBlockState(blockModels, itemModels, IRBlocks.RIFT_FEEDER.get());
+        riftFeederBlockState(blockModels, itemModels, IRBlocks.FLUX_INDUCER.get());
         customBlock(blockModels, itemModels, IRBlocks.RIFT_JAR.get());
 
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_GENERATOR.get());
         directionalBlockState(blockModels, itemModels, IRBlocks.IMPETUS_RELAY.get());
 
-        objBlock(blockModels, itemModels, IRBlocks.RIFT_DIOPTRA.get());
-        objBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_INPUT.get());
-        objBlock(blockModels, itemModels, IRBlocks.RIFT_MOVER_OUTPUT.get());
+        objBlock(blockModels, itemModels, IRBlocks.EXTRADIMENSIONAL_MONITOR.get());
+        objBlock(blockModels, itemModels, IRBlocks.METASPATIAL_ACCUMULATOR.get());
+        objBlock(blockModels, itemModels, IRBlocks.METASPATIAL_EXTRUDER.get());
 
         impetusAltarBase(blockModels, itemModels, IRBlocks.IMPETUS_ALTAR_BASE.get());
 

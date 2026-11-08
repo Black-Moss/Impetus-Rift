@@ -23,10 +23,10 @@ public final class IRBlocks {
     public static final DeferredBlock<ImpetusMirrorBlock> IMPETUS_MIRROR = impetusMachine("impetus_mirror", ImpetusMirrorBlock::new);
     public static final DeferredBlock<ImpetusRelayBlock> IMPETUS_RELAY = impetusMachine("impetus_relay", ImpetusRelayBlock::new);
     public static final DeferredBlock<ImpetusGateBlock> IMPETUS_GATE = impetusMachine("impetus_gate", ImpetusGateBlock::new);
-    public static final DeferredBlock<RiftFeederBlock> RIFT_FEEDER = impetusMachine("rift_feeder", RiftFeederBlock::new);
-    public static final DeferredBlock<Block> RIFT_MOVER_INPUT = impetusMachine("rift_mover_input", RiftMoverInputBlock::new);
-    public static final DeferredBlock<Block> RIFT_MOVER_OUTPUT = impetusMachine("rift_mover_output", RiftMoverOutputBlock::new);
-    public static final DeferredBlock<RiftDioptraBlock> RIFT_DIOPTRA = impetusMachine("rift_dioptra", RiftDioptraBlock::new);
+    public static final DeferredBlock<FluxInducerBlock> FLUX_INDUCER = impetusMachine("rift_feeder", FluxInducerBlock::new);
+    public static final DeferredBlock<Block> METASPATIAL_ACCUMULATOR = impetusMachine("rift_mover_input", MetaspatialAccumulatorBlock::new);
+    public static final DeferredBlock<Block> METASPATIAL_EXTRUDER = impetusMachine("rift_mover_output", RiftMoverOutputBlock::new);
+    public static final DeferredBlock<ExtradimensionalMonitorBlock> EXTRADIMENSIONAL_MONITOR = impetusMachine("rift_dioptra", ExtradimensionalMonitorBlock::new);
 
     // 裂隙罐子
     public static final DeferredBlock<Block> RIFT_JAR = BLOCKS.registerBlock(

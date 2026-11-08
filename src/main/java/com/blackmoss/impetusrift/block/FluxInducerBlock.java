@@ -18,10 +18,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class RiftFeederBlock extends BaseEntityBlock {
-    public static final MapCodec<RiftFeederBlock> CODEC = simpleCodec(RiftFeederBlock::new);
+public class FluxInducerBlock extends BaseEntityBlock {
+    public static final MapCodec<FluxInducerBlock> CODEC = simpleCodec(FluxInducerBlock::new);
 
-    public RiftFeederBlock(Properties properties) {
+    public FluxInducerBlock(Properties properties) {
         super(properties);
         registerDefaultState(getStateDefinition().any().setValue(BlockStateProperties.FACING, Direction.UP));
     }
@@ -54,7 +54,7 @@ public class RiftFeederBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
-        return new RiftFeederBlockEntity(pos, state);
+        return new FluxInducerBlockEntity(pos, state);
     }
 
     @Nullable
@@ -66,6 +66,6 @@ public class RiftFeederBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, IRBlockEntities.RIFT_FEEDER.get(), RiftFeederBlockEntity::staticTick);
+        return createTickerHelper(blockEntityType, IRBlockEntities.FLUX_INDUCER.get(), FluxInducerBlockEntity::staticTick);
     }
 }

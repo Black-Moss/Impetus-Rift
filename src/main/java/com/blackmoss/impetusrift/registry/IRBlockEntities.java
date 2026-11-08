@@ -41,13 +41,13 @@ public final class IRBlockEntities {
             BLOCK_ENTITIES.register("impetus_gate",
                     () -> new BlockEntityType<>(ImpetusGateBlockEntity::new, Set.of(IRBlocks.IMPETUS_GATE.get())));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftFeederBlockEntity>> RIFT_FEEDER =
-            BLOCK_ENTITIES.register("rift_feeder",
-                    () -> new BlockEntityType<>(RiftFeederBlockEntity::new, Set.of(IRBlocks.RIFT_FEEDER.get())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluxInducerBlockEntity>> FLUX_INDUCER =
+            BLOCK_ENTITIES.register("flux_inducer",
+                    () -> new BlockEntityType<>(FluxInducerBlockEntity::new, Set.of(IRBlocks.FLUX_INDUCER.get())));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftDioptraBlockEntity>> RIFT_DIOPTRA =
-            BLOCK_ENTITIES.register("rift_dioptra",
-                    () -> new BlockEntityType<>(RiftDioptraBlockEntity::new, Set.of(IRBlocks.RIFT_DIOPTRA.get())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExtradimensionalMonitorBlockEntity>> EXTRADIMENSIONAL_MONITOR =
+            BLOCK_ENTITIES.register("extradimensional_monitor",
+                    () -> new BlockEntityType<>(ExtradimensionalMonitorBlockEntity::new, Set.of(IRBlocks.EXTRADIMENSIONAL_MONITOR.get())));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImpetusAltarBaseBlockEntity>> IMPETUS_ALTAR_BASE =
             BLOCK_ENTITIES.register("impetus_altar_base",
@@ -57,13 +57,13 @@ public final class IRBlockEntities {
             BLOCK_ENTITIES.register("rift_jar",
                     () -> new BlockEntityType<>(RiftJarBlockEntity::new, Set.of(IRBlocks.RIFT_JAR.get())));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftMoverInputBlockEntity>> RIFT_MOVER_INPUT =
-            BLOCK_ENTITIES.register("rift_mover_input",
-                    () -> new BlockEntityType<>(RiftMoverInputBlockEntity::new, Set.of(IRBlocks.RIFT_MOVER_INPUT.get())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MetaspatialAccumulatorBlockEntity>> METASPATIAL_ACCUMULATOR =
+            BLOCK_ENTITIES.register("metaspatial_accumulator",
+                    () -> new BlockEntityType<>(MetaspatialAccumulatorBlockEntity::new, Set.of(IRBlocks.METASPATIAL_ACCUMULATOR.get())));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RiftMoverOutputBlockEntity>> RIFT_MOVER_OUTPUT =
-            BLOCK_ENTITIES.register("rift_mover_output",
-                    () -> new BlockEntityType<>(RiftMoverOutputBlockEntity::new, Set.of(IRBlocks.RIFT_MOVER_OUTPUT.get())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MetaspatialExtruderBlockEntity>> METASPATIAL_EXTRUDER =
+            BLOCK_ENTITIES.register("metaspatial_extruder",
+                    () -> new BlockEntityType<>(MetaspatialExtruderBlockEntity::new, Set.of(IRBlocks.METASPATIAL_EXTRUDER.get())));
 
     private IRBlockEntities() {
     }

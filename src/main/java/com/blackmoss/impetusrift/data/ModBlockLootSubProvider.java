@@ -31,10 +31,10 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         dropSelf(IRBlocks.IMPETUS_MIRROR.get());
         dropSelf(IRBlocks.IMPETUS_RELAY.get());
         dropSelf(IRBlocks.IMPETUS_GATE.get());
-        dropSelf(IRBlocks.RIFT_FEEDER.get());
-        dropSelf(IRBlocks.RIFT_MOVER_INPUT.get());
-        dropSelf(IRBlocks.RIFT_MOVER_OUTPUT.get());
+        dropSelf(IRBlocks.FLUX_INDUCER.get());
+        dropSelf(IRBlocks.METASPATIAL_ACCUMULATOR.get());
+        dropSelf(IRBlocks.METASPATIAL_EXTRUDER.get());
         dropSelf(IRBlocks.RIFT_JAR.get());
-        dropSelf(IRBlocks.RIFT_DIOPTRA.get());
+        dropSelf(IRBlocks.EXTRADIMENSIONAL_MONITOR.get());
     }
 }

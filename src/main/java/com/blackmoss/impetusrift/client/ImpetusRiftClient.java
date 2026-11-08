@@ -46,7 +46,7 @@ public final class ImpetusRiftClient {
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_DRAINER.get(), ImpetusDrainerRenderer::new);
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_GENERATOR.get(), ImpetusNodeRenderer::new);
         event.registerBlockEntityRenderer(IRBlockEntities.IMPETUS_RELAY.get(), ImpetusNodeRenderer::new);
-        event.registerBlockEntityRenderer(IRBlockEntities.RIFT_DIOPTRA.get(), RiftDioptraRenderer::new);
+        event.registerBlockEntityRenderer(IRBlockEntities.EXTRADIMENSIONAL_MONITOR.get(), RiftDioptraRenderer::new);
     }
 
     @SubscribeEvent

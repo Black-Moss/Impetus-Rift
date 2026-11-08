@@ -3,6 +3,7 @@ package com.blackmoss.impetusrift.block;
 import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -13,10 +14,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class RiftMoverInputBlock extends BaseEntityBlock {
-    public static final MapCodec<RiftMoverInputBlock> CODEC = simpleCodec(RiftMoverInputBlock::new);
+public class ExtradimensionalMonitorBlock extends BaseEntityBlock {
+    public static final MapCodec<ExtradimensionalMonitorBlock> CODEC = simpleCodec(ExtradimensionalMonitorBlock::new);
 
-    public RiftMoverInputBlock(Properties properties) {
+    public ExtradimensionalMonitorBlock(Properties properties) {
         super(properties);
     }
 
@@ -30,21 +31,37 @@ public class RiftMoverInputBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
+    @Override
+    public boolean hasAnalogOutputSignal(@NonNull BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(
+            @NonNull BlockState state,
+            @NonNull Level level,
+            @NonNull BlockPos pos,
+            @NonNull Direction direction) {
+        return level.getBlockEntity(pos) instanceof ExtradimensionalMonitorBlockEntity monitor
+                ? monitor.getLastResult()
+                : 0;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
-        return new RiftMoverInputBlockEntity(pos, state);
+        return new ExtradimensionalMonitorBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-            Level level,
+            @NonNull Level level,
             @NonNull BlockState state,
             @NonNull BlockEntityType<T> blockEntityType) {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, IRBlockEntities.RIFT_MOVER_INPUT.get(), RiftMoverInputBlockEntity::staticTick);
+        return createTickerHelper(blockEntityType, IRBlockEntities.EXTRADIMENSIONAL_MONITOR.get(), ExtradimensionalMonitorBlockEntity::staticTick);
     }
 }

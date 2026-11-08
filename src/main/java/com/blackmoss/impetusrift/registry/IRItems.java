@@ -28,11 +28,11 @@ public final class IRItems {
     public static final DeferredItem<BlockItem> IMPETUS_RELAY = ITEMS.registerSimpleBlockItem(IRBlocks.IMPETUS_RELAY);
     public static final DeferredItem<BlockItem> IMPETUS_GATE = ITEMS.registerSimpleBlockItem(IRBlocks.IMPETUS_GATE);
 
-    public static final DeferredItem<BlockItem> RIFT_FEEDER = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_FEEDER);
-    public static final DeferredItem<BlockItem> RIFT_MOVER_INPUT = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_MOVER_INPUT);
-    public static final DeferredItem<BlockItem> RIFT_MOVER_OUTPUT = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_MOVER_OUTPUT);
+    public static final DeferredItem<BlockItem> FLUX_INDUCER = ITEMS.registerSimpleBlockItem(IRBlocks.FLUX_INDUCER);
+    public static final DeferredItem<BlockItem> METASPATIAL_ACCUMULATOR = ITEMS.registerSimpleBlockItem(IRBlocks.METASPATIAL_ACCUMULATOR);
+    public static final DeferredItem<BlockItem> METASPATIAL_EXTRUDER = ITEMS.registerSimpleBlockItem(IRBlocks.METASPATIAL_EXTRUDER);
     public static final DeferredItem<BlockItem> RIFT_JAR = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_JAR);
-    public static final DeferredItem<BlockItem> RIFT_DIOPTRA = ITEMS.registerSimpleBlockItem(IRBlocks.RIFT_DIOPTRA);
+    public static final DeferredItem<BlockItem> EXTRADIMENSIONAL_MONITOR = ITEMS.registerSimpleBlockItem(IRBlocks.EXTRADIMENSIONAL_MONITOR);
 
     public static final DeferredItem<Item> IMPETUS_GEM = ITEMS.registerItem(
             "impetus_gem", Item::new);

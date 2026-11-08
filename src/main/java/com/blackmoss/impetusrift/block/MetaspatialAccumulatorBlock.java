@@ -3,7 +3,6 @@ package com.blackmoss.impetusrift.block;
 import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -14,10 +13,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class RiftDioptraBlock extends BaseEntityBlock {
-    public static final MapCodec<RiftDioptraBlock> CODEC = simpleCodec(RiftDioptraBlock::new);
+public class MetaspatialAccumulatorBlock extends BaseEntityBlock {
+    public static final MapCodec<MetaspatialAccumulatorBlock> CODEC = simpleCodec(MetaspatialAccumulatorBlock::new);
 
-    public RiftDioptraBlock(Properties properties) {
+    public MetaspatialAccumulatorBlock(Properties properties) {
         super(properties);
     }
 
@@ -31,37 +30,21 @@ public class RiftDioptraBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-    @Override
-    public boolean hasAnalogOutputSignal(@NonNull BlockState state) {
-        return true;
-    }
-
-    @Override
-    public int getAnalogOutputSignal(
-            @NonNull BlockState state,
-            @NonNull Level level,
-            @NonNull BlockPos pos,
-            @NonNull Direction direction) {
-        return level.getBlockEntity(pos) instanceof RiftDioptraBlockEntity monitor
-                ? monitor.getLastResult()
-                : 0;
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
-        return new RiftDioptraBlockEntity(pos, state);
+        return new MetaspatialAccumulatorBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-            @NonNull Level level,
+            Level level,
             @NonNull BlockState state,
             @NonNull BlockEntityType<T> blockEntityType) {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, IRBlockEntities.RIFT_DIOPTRA.get(), RiftDioptraBlockEntity::staticTick);
+        return createTickerHelper(blockEntityType, IRBlockEntities.METASPATIAL_ACCUMULATOR.get(), MetaspatialAccumulatorBlockEntity::staticTick);
     }
 }

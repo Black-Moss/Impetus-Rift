@@ -41,7 +41,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
-public class RiftFeederBlockEntity extends BlockEntity implements IEssentiaTransport, IEssentiaStorage {
+public class FluxInducerBlockEntity extends BlockEntity implements IEssentiaTransport, IEssentiaStorage {
     public static final int MAX_ESSENTIA = 250;
     public static final int MAX_RIFT_SIZE = EntityFluxRift.MAX_RIFT_SIZE;
     public static final int MAX_RANGE = 12;
@@ -51,8 +51,8 @@ public class RiftFeederBlockEntity extends BlockEntity implements IEssentiaTrans
     private int storedEssentia;
     private int ticks;
 
-    public RiftFeederBlockEntity(BlockPos pos, BlockState state) {
-        super(IRBlockEntities.RIFT_FEEDER.get(), pos, state);
+    public FluxInducerBlockEntity(BlockPos pos, BlockState state) {
+        super(IRBlockEntities.FLUX_INDUCER.get(), pos, state);
     }
 
     public static int essentiaRequiredFor(int riftSize) {
@@ -63,13 +63,13 @@ public class RiftFeederBlockEntity extends BlockEntity implements IEssentiaTrans
             Level level,
             BlockPos pos,
             BlockState state,
-            RiftFeederBlockEntity feeder) {
+            FluxInducerBlockEntity feeder) {
         feeder.tick();
     }
 
     @Nullable
-    public static RiftFeederBlockEntity at(Level level, BlockPos pos) {
-        return level.getBlockEntity(pos) instanceof RiftFeederBlockEntity feeder ? feeder : null;
+    public static FluxInducerBlockEntity at(Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof FluxInducerBlockEntity feeder ? feeder : null;
     }
 
     public int getStoredEssentia() {

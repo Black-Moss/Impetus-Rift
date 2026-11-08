@@ -33,7 +33,7 @@ public class RiftMoverOutputBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
-        return new RiftMoverOutputBlockEntity(pos, state);
+        return new MetaspatialExtruderBlockEntity(pos, state);
     }
 
     @Nullable
@@ -45,6 +45,6 @@ public class RiftMoverOutputBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, IRBlockEntities.RIFT_MOVER_OUTPUT.get(), RiftMoverOutputBlockEntity::staticTick);
+        return createTickerHelper(blockEntityType, IRBlockEntities.METASPATIAL_EXTRUDER.get(), MetaspatialExtruderBlockEntity::staticTick);
     }
 }

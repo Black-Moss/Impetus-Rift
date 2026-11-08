@@ -24,11 +24,11 @@ public final class CapabilitiesEvent {
 
         event.registerBlockEntity(
                 EssentiaCapabilities.STORAGE,
-                IRBlockEntities.RIFT_FEEDER.get(),
+                IRBlockEntities.FLUX_INDUCER.get(),
                 (feeder, side) -> feeder);
         event.registerBlockEntity(
                 EssentiaCapabilities.TRANSPORT,
-                IRBlockEntities.RIFT_FEEDER.get(),
+                IRBlockEntities.FLUX_INDUCER.get(),
                 (feeder, side) -> feeder);
     }
 }

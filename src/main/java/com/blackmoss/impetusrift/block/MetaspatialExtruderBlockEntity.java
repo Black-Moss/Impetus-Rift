@@ -5,6 +5,7 @@ import com.blackmoss.impetusrift.registry.IRBlockEntities;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
 import com.leclowndu93150.thaumaturge.api.casters.IInteractWithCaster;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
+import com.leclowndu93150.thaumaturge.registry.TTEntities;
 import com.leclowndu93150.thaumaturge.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,10 +15,10 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -33,29 +34,27 @@ import org.jspecify.annotations.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
-public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractWithCaster {
+public class MetaspatialExtruderBlockEntity extends BlockEntity implements IInteractWithCaster {
+    private static final double EXCLUSION_RANGE = 32.0;
     private static final float VIS_PER_STEP = 0.25F;
     private static final int OPERATION_INTERVAL = 10;
-    private static final float STABILITY_PENALTY_PER_STEP = 0.5F;
-    private static final double RIFT_OFFSET_Y = 3.5;
-    private static final double ALIGN_TOLERANCE = 0.5;
+    private static final double RIFT_OFFSET_Y = 6.5;
 
     private boolean operating = false;
     private EntityFluxRift rift;
-    private int oldSeed;
-    private int oldSize;
-    private float oldStability;
+    private int targetSize;
+    private int lastSize;
     private int ticks = 0;
 
-    public RiftMoverInputBlockEntity(BlockPos pos, BlockState state) {
-        super(IRBlockEntities.RIFT_MOVER_INPUT.get(), pos, state);
+    public MetaspatialExtruderBlockEntity(BlockPos pos, BlockState state) {
+        super(IRBlockEntities.METASPATIAL_EXTRUDER.get(), pos, state);
     }
 
     public static void staticTick(
             Level level,
             BlockPos pos,
             BlockState state,
-            RiftMoverInputBlockEntity mover) {
+            MetaspatialExtruderBlockEntity mover) {
         mover.tick();
     }
 
@@ -74,8 +73,8 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
                 || rift.isRemoved()
                 || rift.currentSize() < 1
                 || rift.isCollapsing()
-                || jar == null
-                || jar.hasRift()) {
+                || rift.currentSize() < lastSize
+                || jar == null) {
             failOperation();
             return;
         }
@@ -83,10 +82,9 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         snapRiftAbove();
 
         if (AuraHelper.drainVis(level, worldPosition, VIS_PER_STEP, false) >= VIS_PER_STEP - 0.0001F) {
-            rift.resize(rift.currentSize() - 1);
-            rift.adjustStability(-STABILITY_PENALTY_PER_STEP);
-            if (rift.currentSize() <= 0) {
-                jar.sealRift(oldSeed, oldSize);
+            rift.resize(rift.currentSize() + 1);
+            lastSize = rift.currentSize();
+            if (rift.currentSize() >= targetSize) {
                 completeOperation();
             }
         }
@@ -98,20 +96,43 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
         }
 
         RiftJarBlockEntity jar = getJarBelow();
-        if (jar == null || jar.hasRift()) {
+        if (jar == null || !jar.hasRift()) {
             return;
         }
 
-        EntityFluxRift found = findRift();
-        if (found == null || found.isRemoved() || found.currentSize() < 1 || found.isCollapsing()) {
+        if (hasNearbyRift()) {
+            return;
+        }
+
+        RiftJarBlockEntity.RiftData data = jar.releaseRift();
+        if (data == null) {
+            return;
+        }
+
+        EntityFluxRift created = TTEntities.FLUX_RIFT.get().create(level, EntitySpawnReason.EVENT);
+        if (created == null) {
+            AuraHelper.polluteAura(level, worldPosition, data.size(), true);
+            return;
+        }
+
+        created.reseed(data.seed());
+        created.resize(1);
+        created.snapTo(
+                worldPosition.getX() + 0.5,
+                worldPosition.getY() + RIFT_OFFSET_Y,
+                worldPosition.getZ() + 0.5,
+                0.0F,
+                0.0F);
+        created.refreshDimensions();
+        if (!level.addFreshEntity(created)) {
+            AuraHelper.polluteAura(level, worldPosition, data.size(), true);
             return;
         }
 
         operating = true;
-        rift = found;
-        oldSeed = found.shapeSeed();
-        oldSize = found.currentSize();
-        oldStability = found.stabilityValue();
+        rift = created;
+        targetSize = data.size();
+        lastSize = 1;
         ticks = 0;
         level.playSound(
                 null,
@@ -148,31 +169,28 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
                 : null;
     }
 
+    private boolean hasNearbyRift() {
+        if (level == null) {
+            return true;
+        }
+        List<EntityFluxRift> rifts = level.getEntitiesOfClass(EntityFluxRift.class,
+                new AABB(worldPosition).inflate(EXCLUSION_RANGE));
+        return !rifts.isEmpty();
+    }
+
     @Nullable
     private EntityFluxRift findRift() {
         if (level == null) {
             return null;
         }
-        double cx = worldPosition.getX() + 0.5;
-        double cz = worldPosition.getZ() + 0.5;
-        AABB area = new AABB(
-                worldPosition.getX() - 1,
-                worldPosition.getY() + 1,
-                worldPosition.getZ() - 1,
-                worldPosition.getX() + 2,
-                worldPosition.getY() + 7,
-                worldPosition.getZ() + 2);
-        List<EntityFluxRift> rifts = level.getEntitiesOfClass(EntityFluxRift.class, area);
+        List<EntityFluxRift> rifts = level.getEntitiesOfClass(EntityFluxRift.class,
+                new AABB(worldPosition).inflate(EXCLUSION_RANGE));
         if (rifts.isEmpty()) {
             return null;
         }
-        rifts.sort(Comparator.comparingDouble(r -> r.distanceToSqr(cx, r.getY(), cz)));
-        for (EntityFluxRift r : rifts) {
-            if (Math.abs(r.getX() - cx) <= ALIGN_TOLERANCE && Math.abs(r.getZ() - cz) <= ALIGN_TOLERANCE) {
-                return r;
-            }
-        }
-        return null;
+        rifts.sort(Comparator.comparingDouble(r ->
+                r.distanceToSqr(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5)));
+        return rifts.getFirst();
     }
 
     private void failOperation() {
@@ -180,13 +198,10 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
             operating = false;
             return;
         }
-        if (rift == null || rift.isRemoved()) {
-            AuraHelper.polluteAura(level, worldPosition, oldSize, true);
-        } else {
-            rift.adjustStability(-150.0F - rift.stabilityValue());
-            rift.playSound(SoundEvents.GENERIC_EXPLODE.value(), 1.0F, 0.75F);
-            rift = null;
+        if (rift != null) {
+            rift.resize(0);
         }
+        AuraHelper.polluteAura(level, worldPosition, targetSize, true);
         operating = false;
         level.playSound(
                 null,
@@ -253,18 +268,16 @@ public class RiftMoverInputBlockEntity extends BlockEntity implements IInteractW
     protected void saveAdditional(@NonNull ValueOutput output) {
         super.saveAdditional(output);
         output.putBoolean("Operating", operating);
-        output.putInt("OldSeed", oldSeed);
-        output.putInt("OldSize", oldSize);
-        output.putFloat("OldStability", oldStability);
+        output.putInt("TargetSize", targetSize);
+        output.putInt("LastSize", lastSize);
     }
 
     @Override
     protected void loadAdditional(@NonNull ValueInput input) {
         super.loadAdditional(input);
         operating = input.getBooleanOr("Operating", false);
-        oldSeed = input.getIntOr("OldSeed", 0);
-        oldSize = input.getIntOr("OldSize", 0);
-        oldStability = input.getFloatOr("OldStability", 0.0F);
+        targetSize = input.getIntOr("TargetSize", 0);
+        lastSize = input.getIntOr("LastSize", 0);
     }
 
     @Override

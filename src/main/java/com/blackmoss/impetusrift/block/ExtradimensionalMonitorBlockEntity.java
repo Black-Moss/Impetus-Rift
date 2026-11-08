@@ -26,7 +26,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
-public class RiftDioptraBlockEntity extends BlockEntity {
+public class ExtradimensionalMonitorBlockEntity extends BlockEntity {
     public static final int MODE_SIZE = 0;
     public static final int MODE_STABILITY = 1;
     public static final int SCAN_RADIUS = 12;
@@ -44,15 +44,15 @@ public class RiftDioptraBlockEntity extends BlockEntity {
     private int syncedRiftSize;
     private float syncedRiftStability;
 
-    public RiftDioptraBlockEntity(BlockPos pos, BlockState state) {
-        super(IRBlockEntities.RIFT_DIOPTRA.get(), pos, state);
+    public ExtradimensionalMonitorBlockEntity(BlockPos pos, BlockState state) {
+        super(IRBlockEntities.EXTRADIMENSIONAL_MONITOR.get(), pos, state);
     }
 
     public static void staticTick(
             Level level,
             BlockPos pos,
             BlockState state,
-            RiftDioptraBlockEntity monitor) {
+            ExtradimensionalMonitorBlockEntity monitor) {
         monitor.tick();
     }
 

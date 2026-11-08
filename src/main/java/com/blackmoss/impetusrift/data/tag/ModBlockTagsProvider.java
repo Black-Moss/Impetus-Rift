@@ -23,9 +23,9 @@ public final class ModBlockTagsProvider extends BlockTagsProvider {
                 .add(IRBlocks.IMPETUS_GENERATOR.get())
                 .add(IRBlocks.IMPETUS_MATRIX.get())
                 .add(IRBlocks.IMPETUS_ALTAR_BASE.get())
-                .add(IRBlocks.RIFT_FEEDER.get())
-                .add(IRBlocks.RIFT_MOVER_INPUT.get())
-                .add(IRBlocks.RIFT_MOVER_OUTPUT.get())
-                .add(IRBlocks.RIFT_DIOPTRA.get());
+                .add(IRBlocks.FLUX_INDUCER.get())
+                .add(IRBlocks.METASPATIAL_ACCUMULATOR.get())
+                .add(IRBlocks.METASPATIAL_EXTRUDER.get())
+                .add(IRBlocks.EXTRADIMENSIONAL_MONITOR.get());
     }
 }
