@@ -1,4 +1,5 @@
 license = "${mod_license}"
+issueTrackerURL = "https://github.com/Black-Moss/Impetus-Rift/issues"
 
 [[mods]]
 modId = "${mod_id}"
@@ -7,9 +8,17 @@ displayName = "${mod_name}"
 logoFile = "logo.png"
 authors = "${mod_authors}"
 description = "${mod_description}"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/impetus-rift"
 
 [[mixins]]
 config = "${mod_id}.mixins.json"
+
+[[dependencies.${ mod_id }]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neo_version},)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "minecraft"
@@ -21,19 +30,13 @@ side = "BOTH"
 [[dependencies.${ mod_id }]]
 modId = "thaumaturge"
 type = "required"
-versionRange = "[1.0.2,)"
+versionRange = "[${thaumaturge_version},)"
 ordering = "AFTER"
-side = "BOTH"
-
-[[dependencies.${ mod_id }]]
-modId = "jade"
-type = "optional"
-ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "thaumaturgeadditions"
 type = "optional"
-versionRange = "[1.0.1,)"
+versionRange = "[${thaumaturge_additions_version},)"
 ordering = "NONE"
 side = "BOTH"
