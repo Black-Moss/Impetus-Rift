@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 5,
+      "aspect": "thaumaturge:volatus"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:vitium"
+    }
+  ],
+  "catalyst": "thaumaturge:jar_void",
+  "components": [
+    "#c:plates/void_metal",
+    "impetusrift:impetus_gem",
+    "#c:plates/void_metal",
+    "impetusrift:impetus_gem"
+  ],
+  "instability": 4,
+  "result": {
+    "id": "impetusrift:rift_jar"
+  }
+}

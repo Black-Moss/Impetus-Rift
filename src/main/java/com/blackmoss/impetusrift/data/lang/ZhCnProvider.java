@@ -23,7 +23,7 @@ public class ZhCnProvider extends LanguageProvider {
         addBlock(IRBlocks.IMPETUS_MIRROR, "元动之镜");
         addBlock(IRBlocks.IMPETUS_RELAY, "元动中继器");
         addBlock(IRBlocks.IMPETUS_GATE, "元动阀门");
-        addBlock(IRBlocks.FLUX_INDUCER, "裂隙引流仪");
+        addBlock(IRBlocks.FLUX_INDUCER, "咒波引流仪");
         addBlock(IRBlocks.METASPATIAL_ACCUMULATOR, "裂隙封装仪");
         addBlock(IRBlocks.METASPATIAL_EXTRUDER, "裂隙释放仪");
         addBlock(IRBlocks.RIFT_JAR, "裂隙罐子");

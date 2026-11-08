@@ -1,0 +1,42 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 20,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 30,
+      "aspect": "thaumaturge:machina"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:perditio"
+    },
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:permutatio"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:vitium"
+    },
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:volatus"
+    }
+  ],
+  "catalyst": "thaumaturge:alumentum",
+  "components": [
+    "thaumaturge:mechanism_simple",
+    "#c:plates/void_metal",
+    "thaumaturge:stone_ancient",
+    "#c:plates/brass",
+    "#c:plates/void_metal",
+    "thaumaturge:void_seed"
+  ],
+  "instability": 4,
+  "result": {
+    "id": "impetusrift:rift_mover_output"
+  }
+}

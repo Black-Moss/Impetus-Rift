@@ -24,7 +24,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -217,6 +216,90 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .define('R', IRItems.IMPETUS_RELAY)
                 .define('C', Items.COMPARATOR)
                 .aspect(TTAspects.TERRA)
+                .aspect(TTAspects.ORDO)
+                .aspect(TTAspects.PERDITIO)
+                .save(output);
+
+        // 裂隙封装仪
+        infusion(IRItems.METASPATIAL_ACCUMULATOR,
+                TTItems.AMBER_BLOCK)
+                .component(tag(TTItemTags.PLATES_IRON))
+                .component(Ingredient.of(TTItems.STONE_ANCIENT.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(TTItems.MECHANISM_COMPLEX.get()))
+                .component(tag(TTItemTags.PLATES_BRASS))
+                .component(Ingredient.of(TTItems.STONE_ANCIENT.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(TTItems.VOID_SEED.get()))
+                .aspect(TTAspects.ALIENIS, 20)
+                .aspect(TTAspects.MACHINA, 30)
+                .aspect(TTAspects.PERMUTATIO, 10)
+                .aspect(TTAspects.VOLATUS, 10)
+                .aspect(TTAspects.VINCULUM, 50)
+                .aspect(TTAspects.VITIUM, 25)
+                .instability(4)
+                .save(output);
+
+        // 裂隙释放仪
+        infusion(IRItems.METASPATIAL_EXTRUDER,
+                TTItems.ALUMENTUM)
+                .component(Ingredient.of(TTItems.MECHANISM_SIMPLE.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(TTItems.STONE_ANCIENT.get()))
+                .component(tag(TTItemTags.PLATES_BRASS))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(TTItems.VOID_SEED.get()))
+                .aspect(TTAspects.ALIENIS, 20)
+                .aspect(TTAspects.MACHINA, 30)
+                .aspect(TTAspects.PERDITIO, 50)
+                .aspect(TTAspects.PERMUTATIO, 10)
+                .aspect(TTAspects.VITIUM, 25)
+                .aspect(TTAspects.VOLATUS, 10)
+                .instability(4)
+                .save(output);
+
+        // 裂隙罐子
+        infusion(IRItems.RIFT_JAR,
+                TTItems.JAR_VOID)
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                .component(tag(TTItemTags.PLATES_VOID_METAL))
+                .component(Ingredient.of(IRItems.IMPETUS_GEM.get()))
+                .aspect(TTAspects.ALIENIS, 10)
+                .aspect(TTAspects.VOLATUS, 5)
+                .aspect(TTAspects.VITIUM, 25)
+                .instability(4)
+                .save(output);
+
+        // 咒波引流仪
+        infusion(IRItems.FLUX_INDUCER,
+                TTItems.ESSENTIA_INPUT)
+                .component(Ingredient.of(TTItems.MECHANISM_SIMPLE.get()))
+                .component(tag(TTItemTags.PLATES_BRASS))
+                .component(Ingredient.of(TTItems.TUBE.get()))
+                .component(Ingredient.of(TTItems.MORPHIC_RESONATOR.get()))
+                .component(tag(TTItemTags.PLANKS_GREATWOOD))
+                .component(Ingredient.of(TTItems.TUBE.get()))
+                .aspect(TTAspects.ALIENIS, 10)
+                .aspect(TTAspects.MACHINA, 50)
+                .aspect(TTAspects.PERMUTATIO, 50)
+                .aspect(TTAspects.VOLATUS, 5)
+                .aspect(TTAspects.VITIUM, 25)
+                .instability(4)
+                .save(output);
+
+        // 裂隙检测仪
+        arcaneShaped(IRItems.EXTRADIMENSIONAL_MONITOR, 50)
+                .pattern(" S ")
+                .pattern("STS")
+                .pattern("sss")
+                .define('S', TTItems.SLAB_ELDRITCH)
+                .define('T', TTItems.THAUMOMETER)
+                .define('s', TTItems.ELDRITCH_STONE)
+                .aspect(TTAspects.AER)
+                .aspect(TTAspects.TERRA)
+                .aspect(TTAspects.IGNIS)
+                .aspect(TTAspects.AQUA)
                 .aspect(TTAspects.ORDO)
                 .aspect(TTAspects.PERDITIO)
                 .save(output);

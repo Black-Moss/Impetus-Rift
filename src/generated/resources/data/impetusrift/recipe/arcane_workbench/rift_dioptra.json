@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer"
+    },
+    {
+      "aspect": "thaumaturge:terra"
+    },
+    {
+      "aspect": "thaumaturge:ignis"
+    },
+    {
+      "aspect": "thaumaturge:aqua"
+    },
+    {
+      "aspect": "thaumaturge:ordo"
+    },
+    {
+      "aspect": "thaumaturge:perditio"
+    }
+  ],
+  "key": {
+    "S": "thaumaturge:slab_eldritch",
+    "T": "thaumaturge:thaumometer",
+    "s": "thaumaturge:eldritch_stone"
+  },
+  "pattern": [
+    " S ",
+    "STS",
+    "sss"
+  ],
+  "result": {
+    "id": "impetusrift:rift_dioptra"
+  },
+  "vis": 50
+}

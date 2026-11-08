@@ -1,0 +1,38 @@
+{
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:machina"
+    },
+    {
+      "amount": 50,
+      "aspect": "thaumaturge:permutatio"
+    },
+    {
+      "amount": 5,
+      "aspect": "thaumaturge:volatus"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:vitium"
+    }
+  ],
+  "catalyst": "thaumaturge:essentia_input",
+  "components": [
+    "thaumaturge:mechanism_simple",
+    "#c:plates/brass",
+    "thaumaturge:tube",
+    "thaumaturge:morphic_resonator",
+    "#c:planks/greatwood",
+    "thaumaturge:tube"
+  ],
+  "instability": 4,
+  "result": {
+    "id": "impetusrift:rift_feeder"
+  }
+}
