@@ -10,36 +10,40 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class IRCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ImpetusRift.MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> IMPETUS_RIFT = CREATIVE_MODE_TABS.register(ImpetusRift.MODID,
-            () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.impetusrift"))
-                    .icon(() -> IRItems.RIFT_JAR.get().getDefaultInstance())
-                    .displayItems((_, output) -> {
-                        output.accept(IRItems.IMPETUS_DRAINER.get());
-                        output.accept(IRItems.IMPETUS_DIFFUSER.get());
-                        output.accept(IRItems.IMPETUS_GENERATOR.get());
-                        output.accept(IRItems.IMPETUS_MATRIX.get());
-                        output.accept(IRItems.IMPETUS_ALTAR_BASE.get());
-                        output.accept(IRItems.IMPETUS_MIRROR.get());
-                        output.accept(IRItems.IMPETUS_RELAY.get());
-                        output.accept(IRItems.IMPETUS_GATE.get());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> IMPETUS_RIFT;
 
-                        output.accept(IRItems.FLUX_INDUCER.get());
-                        output.accept(IRItems.METASPATIAL_ACCUMULATOR.get());
-                        output.accept(IRItems.METASPATIAL_EXTRUDER.get());
-                        output.accept(IRItems.RIFT_JAR.get());
-                        output.accept(IRItems.EXTRADIMENSIONAL_MONITOR.get());
+    static {
+        IMPETUS_RIFT = CREATIVE_MODE_TABS.register(ImpetusRift.MODID,
+                () -> CreativeModeTab.builder()
+                        .title(Component.translatable("itemGroup.impetusrift.impetusrift"))
+                        .icon(() -> IRItems.RIFT_JAR.get().getDefaultInstance())
+                        .displayItems((_, output) -> {
+                            output.accept(IRItems.IMPETUS_DRAINER.get());
+                            output.accept(IRItems.IMPETUS_DIFFUSER.get());
+                            output.accept(IRItems.IMPETUS_GENERATOR.get());
+                            output.accept(IRItems.IMPETUS_MATRIX.get());
+                            output.accept(IRItems.IMPETUS_ALTAR_BASE.get());
+                            output.accept(IRItems.IMPETUS_MIRROR.get());
+                            output.accept(IRItems.IMPETUS_RELAY.get());
+                            output.accept(IRItems.IMPETUS_GATE.get());
 
-                        output.accept(IRItems.IMPETUS_CELL.get());
-                        output.accept(IRItems.IMPETUS_GEM.get());
-                        output.accept(IRItems.RIFT_SEED_FLUX.get());
+                            output.accept(IRItems.FLUX_INDUCER.get());
+                            output.accept(IRItems.METASPATIAL_ACCUMULATOR.get());
+                            output.accept(IRItems.METASPATIAL_EXTRUDER.get());
+                            output.accept(IRItems.RIFT_JAR.get());
+                            output.accept(IRItems.EXTRADIMENSIONAL_MONITOR.get());
 
-                        output.accept(IRItems.RIFT_COMPASS.get());
-                        output.accept(IRItems.IMPETUS_LINKER.get());
+                            output.accept(IRItems.IMPETUS_CELL.get());
+                            output.accept(IRItems.IMPETUS_GEM.get());
+                            output.accept(IRItems.RIFT_SEED_FLUX.get());
 
-                        output.accept(IRItems.RIFT_TRAVELLER_BOOTS.get());
+                            output.accept(IRItems.RIFT_COMPASS.get());
+                            output.accept(IRItems.IMPETUS_LINKER.get());
 
-                        output.accept(IRItems.THAUMOSTATIC_ELYTRA.get());
-                        output.accept(IRItems.ELYTRA_THRUSTER.get());
-                    }).build());
+                            output.accept(IRItems.RIFT_TRAVELLER_BOOTS.get());
+
+                            output.accept(IRItems.THAUMOSTATIC_ELYTRA.get());
+                            output.accept(IRItems.ELYTRA_THRUSTER.get());
+                        }).build());
+    }
 }

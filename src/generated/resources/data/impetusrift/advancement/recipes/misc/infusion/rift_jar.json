@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "impetusrift:rift_jar"
+            "items": "thaumaturge:jar_void"
           }
         ]
       },

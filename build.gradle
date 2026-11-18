@@ -90,6 +90,10 @@ configurations {
 }
 
 dependencies {
+    // Lazy Cat
+//    implementation "curse.maven:lazy-cat-1806291:${lazycat_id}"
+    implementation files("E:\\MossProject\\MinecraftJava\\Lazy-Cat\\build\\libs\\lazycat-1.3.0-NeoForge-26.1.2.jar")
+
     // Lithostitched
     implementation "maven.modrinth:lithostitched:${lithostitched_version}-neoforge-26.1"
 
@@ -106,8 +110,8 @@ dependencies {
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Curios
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+26.1.2:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+26.1.2"
 
     // Jade
     implementation "maven.modrinth:jade:${jade_version}"
@@ -115,15 +119,16 @@ dependencies {
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description,
+            minecraft_version            : minecraft_version,
+            minecraft_version_range      : minecraft_version_range,
+            neo_version                  : neo_version,
+            mod_id                       : mod_id,
+            mod_name                     : mod_name,
+            mod_license                  : mod_license,
+            mod_version                  : mod_version,
+            mod_authors                  : mod_authors,
+            mod_description              : mod_description,
+            lazycat_version              : lazycat_version,
             thaumaturge_version          : thaumaturge_version,
             thaumaturge_additions_version: thaumaturge_additions_version
     ]
@@ -149,7 +154,7 @@ publishing {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' 
+    options.encoding = 'UTF-8'
 }
 
 idea {

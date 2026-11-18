@@ -36,10 +36,6 @@ public final class IRBlocks {
                     .sound(TTSoundTypes.JAR.get())
                     .noOcclusion());
 
-
-    private IRBlocks() {
-    }
-
     private static <B extends Block> DeferredBlock<B> impetusMachine(String name, Function<BlockBehaviour.Properties, ? extends B> func) {
         return BLOCKS.registerBlock(name, func, props -> props
                 .mapColor(MapColor.METAL)

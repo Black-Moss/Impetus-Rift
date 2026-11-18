@@ -12,10 +12,8 @@
   "block.impetusrift.metaspatial_accumulator": "Metaspatial Accumulator",
   "block.impetusrift.metaspatial_extruder": "Metaspatial Extruder",
   "block.impetusrift.rift_jar": "Rift Jar",
-  "config.jade.plugin_impetusrift.impetus_energy": "Impetus Node",
+  "config.jade.plugin_impetusrift.impetus_energy": "Impetus Energy",
   "config.jade.plugin_impetusrift.impetus_node": "Impetus Node",
-  "impetusrift.configuration.section.impetusrift.client.toml": "Impetus Rife Client Settings",
-  "impetusrift.configuration.section.impetusrift.client.toml.title": "Impetus Rife Client Settings",
   "impetusrift.configuration.thruster_super_boost_hold_time": "Thruster Super Boost Hold Time",
   "impetusrift.configuration.thruster_super_boost_min_speed": "Thruster Super Boost Min Speed",
   "impetusrift.configuration.thruster_super_boost_multiplier": "Thruster Super Boost Multiplier",
@@ -46,7 +44,7 @@
   "item.impetusrift.rift_seed_flux": "Rift Seed Flux",
   "item.impetusrift.rift_traveller_boots": "Rift Traveller Boots",
   "item.impetusrift.thaumostatic_elytra": "Thaumostatic Elytra",
-  "itemGroup.impetusrift": "Impetus Rift",
+  "itemGroup.impetusrift.impetusrift": "Impetus Rift",
   "jade.impetusrift.impetus_energy.energy": "Impetus Energy: %1$s/%2$s",
   "jade.impetusrift.impetus_node.gate_disabled": "State: Blocked",
   "jade.impetusrift.impetus_node.gate_enabled": "State: Passing",
@@ -57,9 +55,10 @@
   "jade.impetusrift.impetus_node.output_nodes": "Output Nodes: %1$s/%2$s",
   "jade.impetusrift.impetus_node.rift_size": "Rift Size: %1$s",
   "jade.impetusrift.impetus_node.stability": "Stability: %1$s",
+  "research.impetusrift.unlock_impetuology.title": "Discovery: Impetuology",
   "research_category.impetusrift.impetuology": "Impetuology",
   "tooltip.impetusrift.impetus_energy": "Impetus Energy: %s / %s",
-  "tooltip.impetusrift.node.unknown": "Unknown Node",
   "tooltip.impetusrift.thaumostatic_elytra.charge": "Impetus Energy: %s / %s",
-  "tooltip.impetusrift.thaumostatic_elytra.thruster": "Thruster Fuel: %s / %s"
+  "tooltip.impetusrift.thaumostatic_elytra.thruster": "Thruster Fuel: %s / %s",
+  "tooltip.impetusrift.unknown": "Unknown Node"
 }
