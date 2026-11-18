@@ -45,6 +45,23 @@ public class ModModelProvider extends LazyCatModelProvider {
         super(output, ImpetusRift.MODID);
     }
 
+    private static void addCellPart(@NonNull MultiPartGenerator multipart, @NonNull Identifier cellModel, @NonNull BooleanProperty cell, @NonNull VariantMutator upYRot, @NonNull VariantMutator downYRot) {
+        multipart.with(
+                new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.UP).build(),
+                buildVariant(cellModel, upYRot));
+        multipart.with(
+                new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.DOWN).build(),
+                buildVariant(cellModel, downYRot, BlockModelGenerators.X_ROT_180));
+    }
+
+    private static MultiVariant buildVariant(@NonNull Identifier model, @NonNull VariantMutator... mutators) {
+        Variant variant = new Variant(model);
+        for (VariantMutator mutator : mutators) {
+            variant = mutator.apply(variant);
+        }
+        return new MultiVariant(WeightedList.of(variant));
+    }
+
     private void riftFeeder(@NonNull Block block) {
         blockItemModel(block);
         Variant base = new Variant(getBlockModelId(block));
@@ -181,23 +198,6 @@ public class ModModelProvider extends LazyCatModelProvider {
         addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_EAST, BlockModelGenerators.Y_ROT_90, BlockModelGenerators.Y_ROT_270);
 
         context().blockModels().blockStateOutput.accept(multipart);
-    }
-
-    private static void addCellPart(@NonNull MultiPartGenerator multipart, @NonNull Identifier cellModel, @NonNull BooleanProperty cell, @NonNull VariantMutator upYRot, @NonNull VariantMutator downYRot) {
-        multipart.with(
-                new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.UP).build(),
-                buildVariant(cellModel, upYRot));
-        multipart.with(
-                new ConditionBuilder().term(cell, true).term(ImpetusAltarBaseBlock.FACING, Direction.DOWN).build(),
-                buildVariant(cellModel, downYRot, BlockModelGenerators.X_ROT_180));
-    }
-
-    private static MultiVariant buildVariant(@NonNull Identifier model, @NonNull VariantMutator... mutators) {
-        Variant variant = new Variant(model);
-        for (VariantMutator mutator : mutators) {
-            variant = mutator.apply(variant);
-        }
-        return new MultiVariant(WeightedList.of(variant));
     }
 
     @Override

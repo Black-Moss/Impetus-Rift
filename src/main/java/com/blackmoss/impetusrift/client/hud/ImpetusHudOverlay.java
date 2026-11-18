@@ -66,57 +66,6 @@ public final class ImpetusHudOverlay implements GuiLayer {
     private final Map<EquipmentSlot, Integer> tcLastCharge = new EnumMap<>(EquipmentSlot.class);
     private final Map<EquipmentSlot, Integer> tcChangeTick = new EnumMap<>(EquipmentSlot.class);
 
-    @Override
-    public void render(@NonNull GuiGraphicsExtractor graphics, @NonNull DeltaTracker deltaTracker) {
-        Minecraft mc = Minecraft.getInstance();
-        LocalPlayer player = mc.player;
-        if (player == null || mc.options.hideGui) {
-            return;
-        }
-
-        int offset = countThaumaturgeEntries(player);
-        int shown = 0;
-
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = player.getItemBySlot(slot);
-            ImpetusChargeProfile profile = ImpetusRechargeAccess.profile(stack);
-            boolean hasThruster = ElytraThrusterAccess.hasThruster(stack);
-            if (profile == null && !hasThruster) {
-                lastCharge.remove(slot);
-                changeTick.remove(slot);
-                thrusterLastCharge.remove(slot);
-                thrusterChangeTick.remove(slot);
-                continue;
-            }
-
-            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-
-            if (profile != null) {
-                ImpetusChargeDisplay display = profile.display();
-                if (display != ImpetusChargeDisplay.NEVER) {
-                    int charge = ImpetusRechargeAccess.getCharge(stack);
-                    markChanged(lastCharge, changeTick, slot, charge, player);
-                    if (held || display != ImpetusChargeDisplay.ON_CHANGE
-                            || player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) <= PERIODIC_SHOW_TICKS) {
-                        drawMeter(graphics, mc, stack, profile.capacity(), charge,
-                                offset + shown++, player.isShiftKeyDown(), null);
-                    }
-                }
-            }
-
-            if (hasThruster) {
-                int fuel = ElytraThrusterAccess.getFuel(stack);
-                markChanged(thrusterLastCharge, thrusterChangeTick, slot, fuel, player);
-                if (held
-                        || player.tickCount - thrusterChangeTick.getOrDefault(slot, Integer.MIN_VALUE) <= PERIODIC_SHOW_TICKS) {
-                    drawMeter(graphics, mc, stack, ElytraThrusterAccess.getCapacity(stack), fuel,
-                            offset + shown++, player.isShiftKeyDown(),
-                            profile != null ? thrusterIcon() : null);
-                }
-            }
-        }
-    }
-
     private static ItemStack thrusterIcon() {
         if (thrusterIcon == null) {
             thrusterIcon = new ItemStack(IRItems.ELYTRA_THRUSTER.get());
@@ -130,34 +79,6 @@ public final class ImpetusHudOverlay implements GuiLayer {
         if (previous == null || previous != value) {
             ticks.put(slot, player.tickCount);
         }
-    }
-
-    private int countThaumaturgeEntries(LocalPlayer player) {
-        int count = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = player.getItemBySlot(slot);
-            ChargeProfile profile = RechargeAccess.profile(stack);
-            if (profile == null) {
-                tcLastCharge.remove(slot);
-                tcChangeTick.remove(slot);
-                continue;
-            }
-
-            ChargeDisplay display = profile.display();
-            if (display == ChargeDisplay.NEVER) {
-                continue;
-            }
-
-            int charge = RechargeAccess.getCharge(stack);
-            markChanged(tcLastCharge, tcChangeTick, slot, charge, player);
-
-            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-            if (held || display != ChargeDisplay.ON_CHANGE
-                    || player.tickCount - tcChangeTick.getOrDefault(slot, Integer.MIN_VALUE) <= PERIODIC_SHOW_TICKS) {
-                count++;
-            }
-        }
-        return count;
     }
 
     private static void drawMeter(
@@ -245,5 +166,84 @@ public final class ImpetusHudOverlay implements GuiLayer {
             u = 0.0F;
         }
         graphics.pose().popMatrix();
+    }
+
+    @Override
+    public void render(@NonNull GuiGraphicsExtractor graphics, @NonNull DeltaTracker deltaTracker) {
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        if (player == null || mc.options.hideGui) {
+            return;
+        }
+
+        int offset = countThaumaturgeEntries(player);
+        int shown = 0;
+
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            ImpetusChargeProfile profile = ImpetusRechargeAccess.profile(stack);
+            boolean hasThruster = ElytraThrusterAccess.hasThruster(stack);
+            if (profile == null && !hasThruster) {
+                lastCharge.remove(slot);
+                changeTick.remove(slot);
+                thrusterLastCharge.remove(slot);
+                thrusterChangeTick.remove(slot);
+                continue;
+            }
+
+            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+
+            if (profile != null) {
+                ImpetusChargeDisplay display = profile.display();
+                if (display != ImpetusChargeDisplay.NEVER) {
+                    int charge = ImpetusRechargeAccess.getCharge(stack);
+                    markChanged(lastCharge, changeTick, slot, charge, player);
+                    if (held || display != ImpetusChargeDisplay.ON_CHANGE
+                            || player.tickCount - changeTick.getOrDefault(slot, Integer.MIN_VALUE) <= PERIODIC_SHOW_TICKS) {
+                        drawMeter(graphics, mc, stack, profile.capacity(), charge,
+                                offset + shown++, player.isShiftKeyDown(), null);
+                    }
+                }
+            }
+
+            if (hasThruster) {
+                int fuel = ElytraThrusterAccess.getFuel(stack);
+                markChanged(thrusterLastCharge, thrusterChangeTick, slot, fuel, player);
+                if (held
+                        || player.tickCount - thrusterChangeTick.getOrDefault(slot, Integer.MIN_VALUE) <= PERIODIC_SHOW_TICKS) {
+                    drawMeter(graphics, mc, stack, ElytraThrusterAccess.getCapacity(stack), fuel,
+                            offset + shown++, player.isShiftKeyDown(),
+                            profile != null ? thrusterIcon() : null);
+                }
+            }
+        }
+    }
+
+    private int countThaumaturgeEntries(LocalPlayer player) {
+        int count = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            ChargeProfile profile = RechargeAccess.profile(stack);
+            if (profile == null) {
+                tcLastCharge.remove(slot);
+                tcChangeTick.remove(slot);
+                continue;
+            }
+
+            ChargeDisplay display = profile.display();
+            if (display == ChargeDisplay.NEVER) {
+                continue;
+            }
+
+            int charge = RechargeAccess.getCharge(stack);
+            markChanged(tcLastCharge, tcChangeTick, slot, charge, player);
+
+            boolean held = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+            if (held || display != ChargeDisplay.ON_CHANGE
+                    || player.tickCount - tcChangeTick.getOrDefault(slot, Integer.MIN_VALUE) <= PERIODIC_SHOW_TICKS) {
+                count++;
+            }
+        }
+        return count;
     }
 }
