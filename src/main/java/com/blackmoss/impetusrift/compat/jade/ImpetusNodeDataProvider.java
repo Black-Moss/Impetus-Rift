@@ -1,9 +1,9 @@
 package com.blackmoss.impetusrift.compat.jade;
 
 import com.blackmoss.impetusrift.ImpetusRift;
+import com.blackmoss.impetusrift.block.ExtradimensionalMonitorBlockEntity;
 import com.blackmoss.impetusrift.block.ImpetusDrainerBlockEntity;
 import com.blackmoss.impetusrift.block.ImpetusGateBlockEntity;
-import com.blackmoss.impetusrift.block.ExtradimensionalMonitorBlockEntity;
 import com.blackmoss.impetusrift.energy.network.IImpetusNode;
 import com.blackmoss.impetusrift.energy.network.ImpetusNetworkManager;
 import com.leclowndu93150.thaumaturge.content.entity.EntityFluxRift;
