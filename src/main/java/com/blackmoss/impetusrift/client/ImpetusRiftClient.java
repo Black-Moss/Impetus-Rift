@@ -36,9 +36,6 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 @EventBusSubscriber(modid = ImpetusRift.MODID, value = Dist.CLIENT)
 public final class ImpetusRiftClient {
-    public ImpetusRiftClient() {
-    }
-
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(IRBlockEntities.RIFT_JAR.get(), RiftJarRenderer::new);
