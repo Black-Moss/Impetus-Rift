@@ -1,5 +1,8 @@
 package com.blackmoss.impetusrift.data;
 
+import com.blackmoss.impetusrift.registry.IRBlocks;
+import com.blackmoss.lazycat.recipe.thaumaturge.DustTriggerMultiblockBuilder;
+import com.blackmoss.thaumaturgeadditions.registry.TAItems;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.registry.IRItems;
 import com.blackmoss.lazycat.api.recipe.thaumaturge.ThaumaturgeUtils;
@@ -35,7 +38,7 @@ public final class ModRecipeProvider extends LazyCatRecipeProvider {
         return new ResearchGate(ImpetusRift.identifier(path), Optional.empty(), false);
     }
 
-    private static ResearchGate tcGate(String path) {
+    private static ResearchGate ttGate(String path) {
         return new ResearchGate(TTIds.rl(path), Optional.empty(), false);
     }
 
@@ -158,6 +161,22 @@ public final class ModRecipeProvider extends LazyCatRecipeProvider {
                 .aspect(TTAspects.VOLATUS, 50)
                 .instability(5)
                 .save();
+
+        // 裂隙旅行者之靴升级
+        new InfusionBuilder(context,
+                IRItems.RIFT_TRAVELLER_BOOTS,
+                TAItems.VOID_TRAVELLER_BOOTS)
+                .ifModLoaded("thaumaturgeadditions")
+                .component(TTItems.SALIS_MUNDUS)
+                .component(TTItems.FABRIC)
+                .component(Tags.Items.LEATHERS)
+                .component(TTItems.FABRIC)
+                .aspect(TTAspects.VACUOS, 25)
+                .aspect(TTAspects.ALIENIS, 25)
+                .aspect(TTAspects.MOTUS, 25)
+                .aspect(TTAspects.VOLATUS, 25)
+                .instability(4)
+                .save("rift_form_void_traveller_boots");
 
         // 奥法鞘翅
         new InfusionBuilder(context,
@@ -305,6 +324,12 @@ public final class ModRecipeProvider extends LazyCatRecipeProvider {
                 .aspect(TTAspects.AQUA)
                 .aspect(TTAspects.ORDO)
                 .aspect(TTAspects.PERDITIO)
+                .save();
+
+        new DustTriggerMultiblockBuilder(context,
+                IRBlocks.IMPETUS_MATRIX.get(),
+                "impetus_altar")
+                .gate(irGate("impetus_altar"))
                 .save();
     }
 

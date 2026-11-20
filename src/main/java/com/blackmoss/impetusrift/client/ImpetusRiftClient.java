@@ -1,6 +1,5 @@
 package com.blackmoss.impetusrift.client;
 
-import com.blackmooss.thaumaturgeadditions.ThaumaturgeAdditions;
 import com.blackmoss.impetusrift.ImpetusRift;
 import com.blackmoss.impetusrift.client.hud.ImpetusHudOverlay;
 import com.blackmoss.impetusrift.client.model.RiftCompassAngleProperty;
@@ -102,7 +101,7 @@ public final class ImpetusRiftClient {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         ModList.get()
-                .getModContainerById(ThaumaturgeAdditions.MODID)
+                .getModContainerById(ImpetusRift.MODID)
                 .ifPresent(container ->
                         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new));
     }

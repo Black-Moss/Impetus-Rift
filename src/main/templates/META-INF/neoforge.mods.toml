@@ -28,6 +28,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
+modId = "lazycat"
+type = "required"
+versionRange = "[${lazycat_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.${ mod_id }]]
 modId = "thaumaturge"
 type = "required"
 versionRange = "[${thaumaturge_version},)"
