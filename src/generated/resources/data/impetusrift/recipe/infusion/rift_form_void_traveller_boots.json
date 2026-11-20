@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "thaumaturgeadditions"
+    }
+  ],
+  "type": "thaumaturge:infusion",
+  "aspects": [
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:vacuos"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:alienis"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:motus"
+    },
+    {
+      "amount": 25,
+      "aspect": "thaumaturge:volatus"
+    }
+  ],
+  "catalyst": "thaumaturgeadditions:void_traveller_boots",
+  "components": [
+    "thaumaturge:salis_mundus",
+    "thaumaturge:fabric",
+    "#c:leathers",
+    "thaumaturge:fabric"
+  ],
+  "instability": 4,
+  "result": {
+    "id": "impetusrift:rift_traveller_boots"
+  }
+}
