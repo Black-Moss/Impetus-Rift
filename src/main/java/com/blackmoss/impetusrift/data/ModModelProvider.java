@@ -6,7 +6,6 @@ import com.blackmoss.impetusrift.client.model.RiftCompassAngleProperty;
 import com.blackmoss.impetusrift.registry.IRBlocks;
 import com.blackmoss.impetusrift.registry.IRItems;
 import com.blackmoss.lazycat.api.LazyIdentifier;
-import com.blackmoss.lazycat.api.model.ModelContext;
 import com.blackmoss.lazycat.model.LazyCatModelProvider;
 import com.leclowndu93150.thaumaturge.TTIds;
 import net.minecraft.client.color.item.Dye;
@@ -71,7 +70,7 @@ public class ModModelProvider extends LazyCatModelProvider {
         VariantMutator y180 = BlockModelGenerators.Y_ROT_180;
         VariantMutator y270 = BlockModelGenerators.Y_ROT_270;
 
-        context().blockModels().blockStateOutput.accept(
+        blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.FACING)
                                 .generate((facing) -> {
@@ -99,7 +98,7 @@ public class ModModelProvider extends LazyCatModelProvider {
         VariantMutator y180 = BlockModelGenerators.Y_ROT_180;
         VariantMutator y270 = BlockModelGenerators.Y_ROT_270;
 
-        context().blockModels().blockStateOutput.accept(
+        blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.FACING)
                                 .generate((facing) -> {
@@ -132,7 +131,7 @@ public class ModModelProvider extends LazyCatModelProvider {
 
         Identifier baseModelId = ImpetusRift.identifier("item/" + LazyIdentifier.getItemPath(item) + "_16");
         Material baseMaterial = new Material(ImpetusRift.identifier("item/" + itemName + "_16"));
-        ModelTemplates.FLAT_ITEM.create(baseModelId, TextureMapping.layer0(baseMaterial), context().itemModels().modelOutput);
+        ModelTemplates.FLAT_ITEM.create(baseModelId, TextureMapping.layer0(baseMaterial), itemModels.modelOutput);
         ItemModel.Unbaked base = ItemModelUtils.plainModel(baseModelId);
         overrides.add(ItemModelUtils.override(base, 0.0F));
 
@@ -141,7 +140,7 @@ public class ModModelProvider extends LazyCatModelProvider {
             String suffix = String.format(Locale.ROOT, "_%02d", textureIndex);
             Identifier modelId = ImpetusRift.identifier("item/" + itemName + suffix);
             Material material = new Material(ImpetusRift.identifier("item/" + itemName + suffix));
-            ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(material), context().itemModels().modelOutput);
+            ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(material), itemModels.modelOutput);
             ItemModel.Unbaked overrideModel = ItemModelUtils.plainModel(modelId);
             overrides.add(ItemModelUtils.override(overrideModel, (float) i - 0.5F));
         }
@@ -151,15 +150,15 @@ public class ModModelProvider extends LazyCatModelProvider {
         ItemModel.Unbaked rangeSelect = ItemModelUtils.rangeSelect(
                 new RiftCompassAngleProperty(), 32.0F, overrides);
 
-        context().itemModels().itemModelOutput.accept(item, rangeSelect);
+        itemModels.itemModelOutput.accept(item, rangeSelect);
     }
 
     private void riftTravellerBoots(@NonNull Item item) {
         Identifier identifier = getItemModelId(item);
         Material clothTex = new Material(ImpetusRift.identifier("item/rift_traveller_boots_overlay"));
         Material metalTex = new Material(identifier);
-        ModelTemplates.TWO_LAYERED_ITEM.create(identifier, TextureMapping.layered(clothTex, metalTex), context().itemModels().modelOutput);
-        context().itemModels().itemModelOutput.accept(item, ItemModelUtils.tintedModel(identifier, new Dye(-9815936)));
+        ModelTemplates.TWO_LAYERED_ITEM.create(identifier, TextureMapping.layered(clothTex, metalTex), itemModels.modelOutput);
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(identifier, new Dye(-9815936)));
     }
 
     private void thaumostaticElytra(@NonNull Item item) {
@@ -167,13 +166,13 @@ public class ModModelProvider extends LazyCatModelProvider {
 
         Material wingTex = new Material(Identifier.withDefaultNamespace("item/elytra"));
         Material baseTex = new Material(TTIds.rl("item/thaumostatic_harness"));
-        ModelTemplates.TWO_LAYERED_ITEM.create(normalModel, TextureMapping.layered(wingTex, baseTex), context().itemModels().modelOutput);
+        ModelTemplates.TWO_LAYERED_ITEM.create(normalModel, TextureMapping.layered(wingTex, baseTex), itemModels.modelOutput);
 
         Identifier brokenModel = ImpetusRift.identifier("item/" + LazyIdentifier.getItemPath(item) + "_broken");
         Material brokenTex = new Material(Identifier.withDefaultNamespace("item/elytra_broken"));
-        ModelTemplates.FLAT_ITEM.create(brokenModel, TextureMapping.layer0(brokenTex), context().itemModels().modelOutput);
+        ModelTemplates.FLAT_ITEM.create(brokenModel, TextureMapping.layer0(brokenTex), itemModels.modelOutput);
 
-        context().itemModels().itemModelOutput.accept(item, ItemModelUtils.conditional(new Broken(),
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.conditional(new Broken(),
                 ItemModelUtils.plainModel(brokenModel),
                 ItemModelUtils.plainModel(normalModel)));
     }
@@ -197,11 +196,11 @@ public class ModModelProvider extends LazyCatModelProvider {
         addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_WEST, BlockModelGenerators.Y_ROT_270, BlockModelGenerators.Y_ROT_90);
         addCellPart(multipart, cellModel, ImpetusAltarBaseBlock.CELL_EAST, BlockModelGenerators.Y_ROT_90, BlockModelGenerators.Y_ROT_270);
 
-        context().blockModels().blockStateOutput.accept(multipart);
+        blockModels.blockStateOutput.accept(multipart);
     }
 
     @Override
-    protected void addModels(ModelContext context) {
+    protected void addModels() {
         blockCustom(IRBlocks.IMPETUS_MATRIX.get());
         blockCustom(IRBlocks.IMPETUS_MIRROR.get());
         blockCustom(IRBlocks.IMPETUS_DRAINER.get());
